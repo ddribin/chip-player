@@ -7,6 +7,7 @@
 //
 
 #import "MyDocument.h"
+#import "MusicPlayer.h"
 
 @implementation MyDocument
 
@@ -21,6 +22,15 @@
     }
     return self;
 }
+
+- (void)dealloc
+{
+    NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
+    [_player stop];
+    [_player release];
+    [super dealloc];
+}
+
 
 - (NSString *)windowNibName
 {
@@ -49,6 +59,7 @@
 	return nil;
 }
 
+#if 0
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
     // Insert code here to read your document from the given data of the specified type.  If the given outError != NULL, ensure that you set *outError when returning NO.
@@ -61,6 +72,45 @@
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
 	}
     return YES;
+}
+#endif
+
+- (BOOL)readFromURL:(NSURL *)absoluteURL
+             ofType:(NSString *)typeName
+              error:(NSError **)outError
+{
+    MusicPlayer * player = [[[MusicPlayer alloc] init] autorelease];;
+    NSError * error = nil;
+    if (![player setupSound:&error]) {
+        if (outError != NULL) {
+            *outError = error;
+        }
+        return NO;
+    }
+    
+    if (![player loadFileAtPath:[absoluteURL path] error:&error]) {
+        if (outError != NULL) {
+            *outError = error;
+        }
+        return NO;
+    }
+    
+    _player = [player retain];
+    _currentTrack = 0;
+    
+    return YES;
+}
+
+- (IBAction)play:(id)sender;
+{
+    NSError * error = nil;
+    if (![_player playTrack:_currentTrack error:&error]) {
+        NSLog(@"Could not play: %@ %@", error, [error userInfo]);
+    }
+}
+
+- (IBAction)pauseOrResume:(id)sender;
+{
 }
 
 @end

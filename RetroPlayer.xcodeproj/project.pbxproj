@@ -54,6 +54,10 @@
 		5582E6DF1162F62A00520F69 /* Vgm_Emu_Impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5582E61B1162F62A00520F69 /* Vgm_Emu_Impl.cpp */; };
 		5582E6E01162F62A00520F69 /* Ym2413_Emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5582E61D1162F62A00520F69 /* Ym2413_Emu.cpp */; };
 		5582E6E11162F62A00520F69 /* Ym2612_Emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5582E61F1162F62A00520F69 /* Ym2612_Emu.cpp */; };
+		5582E6FD1162F87E00520F69 /* MusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5582E6FC1162F87E00520F69 /* MusicPlayer.m */; };
+		5582E7081162F99C00520F69 /* MusicEmu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5582E7071162F99C00520F69 /* MusicEmu.mm */; };
+		5582E7681163023300520F69 /* GmeErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5582E7671163023300520F69 /* GmeErrors.m */; };
+		5582E7BC1163066400520F69 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5582E7BB1163066400520F69 /* AudioToolbox.framework */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */; settings = {ATTRIBUTES = (); }; };
@@ -188,6 +192,13 @@
 		5582E6271162F62A00520F69 /* Music_Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Music_Player.h; sourceTree = "<group>"; };
 		5582E6281162F62A00520F69 /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
 		5582E6291162F62A00520F69 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		5582E6FB1162F87E00520F69 /* MusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayer.h; sourceTree = "<group>"; };
+		5582E6FC1162F87E00520F69 /* MusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayer.m; sourceTree = "<group>"; };
+		5582E7061162F99C00520F69 /* MusicEmu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicEmu.h; sourceTree = "<group>"; };
+		5582E7071162F99C00520F69 /* MusicEmu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MusicEmu.mm; sourceTree = "<group>"; };
+		5582E7661163023300520F69 /* GmeErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GmeErrors.h; sourceTree = "<group>"; };
+		5582E7671163023300520F69 /* GmeErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GmeErrors.m; sourceTree = "<group>"; };
+		5582E7BB1163066400520F69 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8D15AC360486D014006FF6A4 /* Retro_Player-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Retro_Player-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Retro Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Retro Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -198,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
+				5582E7BC1163066400520F69 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +251,7 @@
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
+				5582E7BB1163066400520F69 /* AudioToolbox.framework */,
 			);
 			name = "Retro Player";
 			sourceTree = "<group>";
@@ -248,6 +261,12 @@
 			children = (
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
+				5582E6FB1162F87E00520F69 /* MusicPlayer.h */,
+				5582E6FC1162F87E00520F69 /* MusicPlayer.m */,
+				5582E7061162F99C00520F69 /* MusicEmu.h */,
+				5582E7071162F99C00520F69 /* MusicEmu.mm */,
+				5582E7661163023300520F69 /* GmeErrors.h */,
+				5582E7671163023300520F69 /* GmeErrors.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -531,6 +550,9 @@
 				5582E6DF1162F62A00520F69 /* Vgm_Emu_Impl.cpp in Sources */,
 				5582E6E01162F62A00520F69 /* Ym2413_Emu.cpp in Sources */,
 				5582E6E11162F62A00520F69 /* Ym2612_Emu.cpp in Sources */,
+				5582E6FD1162F87E00520F69 /* MusicPlayer.m in Sources */,
+				5582E7081162F99C00520F69 /* MusicEmu.mm in Sources */,
+				5582E7681163023300520F69 /* GmeErrors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,8 +631,10 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = GameMusicEmu;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
@@ -622,8 +646,10 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = GameMusicEmu;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
 			};
