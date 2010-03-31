@@ -8,8 +8,11 @@
 
 #import "MyDocument.h"
 #import "MusicPlayer.h"
+#import "TrackTable.h"
 
 @implementation MyDocument
+
+@synthesize trackTable = _trackTable;
 
 - (id)init
 {
@@ -43,6 +46,8 @@
 {
     [super windowControllerDidLoadNib:aController];
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
+    
+    _trackTable.player = _player;
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -79,15 +84,20 @@
              ofType:(NSString *)typeName
               error:(NSError **)outError
 {
-    MusicPlayer * player = [[[MusicPlayer alloc] init] autorelease];;
+    NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
+    MusicPlayer * player = [[[MusicPlayer alloc] init] autorelease];
     NSError * error = nil;
+#if 0
+    NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
     if (![player setupSound:&error]) {
         if (outError != NULL) {
             *outError = error;
         }
         return NO;
     }
+#endif
     
+    NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
     if (![player loadFileAtPath:[absoluteURL path] error:&error]) {
         if (outError != NULL) {
             *outError = error;
@@ -95,6 +105,7 @@
         return NO;
     }
     
+    NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
     _player = [player retain];
     _currentTrack = 0;
     

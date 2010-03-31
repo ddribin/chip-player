@@ -58,6 +58,8 @@
 		5582E7081162F99C00520F69 /* MusicEmu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5582E7071162F99C00520F69 /* MusicEmu.mm */; };
 		5582E7681163023300520F69 /* GmeErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5582E7671163023300520F69 /* GmeErrors.m */; };
 		5582E7BC1163066400520F69 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5582E7BB1163066400520F69 /* AudioToolbox.framework */; };
+		5582E9011163753000520F69 /* TrackTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 5582E9001163753000520F69 /* TrackTable.m */; };
+		5582E97E11637A3600520F69 /* TrackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5582E97D11637A3600520F69 /* TrackInfo.m */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */; settings = {ATTRIBUTES = (); }; };
@@ -199,6 +201,10 @@
 		5582E7661163023300520F69 /* GmeErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GmeErrors.h; sourceTree = "<group>"; };
 		5582E7671163023300520F69 /* GmeErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GmeErrors.m; sourceTree = "<group>"; };
 		5582E7BB1163066400520F69 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		5582E8FF1163753000520F69 /* TrackTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackTable.h; sourceTree = "<group>"; };
+		5582E9001163753000520F69 /* TrackTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackTable.m; sourceTree = "<group>"; };
+		5582E97C11637A3600520F69 /* TrackInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackInfo.h; sourceTree = "<group>"; };
+		5582E97D11637A3600520F69 /* TrackInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackInfo.m; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Retro_Player-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Retro_Player-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Retro Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Retro Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -261,8 +267,12 @@
 			children = (
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
+				5582E8FF1163753000520F69 /* TrackTable.h */,
+				5582E9001163753000520F69 /* TrackTable.m */,
 				5582E6FB1162F87E00520F69 /* MusicPlayer.h */,
 				5582E6FC1162F87E00520F69 /* MusicPlayer.m */,
+				5582E97C11637A3600520F69 /* TrackInfo.h */,
+				5582E97D11637A3600520F69 /* TrackInfo.m */,
 				5582E7061162F99C00520F69 /* MusicEmu.h */,
 				5582E7071162F99C00520F69 /* MusicEmu.mm */,
 				5582E7661163023300520F69 /* GmeErrors.h */,
@@ -553,6 +563,8 @@
 				5582E6FD1162F87E00520F69 /* MusicPlayer.m in Sources */,
 				5582E7081162F99C00520F69 /* MusicEmu.mm in Sources */,
 				5582E7681163023300520F69 /* GmeErrors.m in Sources */,
+				5582E9011163753000520F69 /* TrackTable.m in Sources */,
+				5582E97E11637A3600520F69 /* TrackInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

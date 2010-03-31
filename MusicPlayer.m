@@ -8,6 +8,7 @@
 
 #import "MusicPlayer.h"
 #import "MusicEmu.h"
+#import "TrackInfo.h"
 #import "GmeErrors.h"
 
 #define kNumberBuffers (sizeof(_buffers)/sizeof(_buffers[0]))
@@ -168,6 +169,18 @@ static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, U
     return [_emu track_count];
 }
 
+- (TrackInfo *)trackInfoForTrack:(int)track;
+{
+    track_info_t gmeTrackInfo;
+    gme_err_t gmeError = [_emu track_info:&gmeTrackInfo track:track];
+    if (gmeError != 0) {
+        NSLog(@"error: %s", gmeError);
+    }
+    
+    TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackInfo:&gmeTrackInfo];
+    return [trackInfo autorelease];
+}
+
 - (BOOL)playTrack:(int)track error:(NSError **)error;
 {
     [self stop];
@@ -181,7 +194,8 @@ static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, U
     }
     
     track_info_t track_info_;
-    if ([_emu track_info:&track_info_]) {
+    gme_error = [_emu track_info:&track_info_];
+    if (gme_error == 0) {
         if ( track_info_.length <= 0 ) {
             track_info_.length = track_info_.intro_length +
             track_info_.loop_length * 2;

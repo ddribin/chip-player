@@ -10,6 +10,7 @@
 #include <AudioToolbox/AudioQueue.h>
 
 @class MusicEmu;
+@class TrackInfo;
 
 @interface MusicPlayer : NSObject
 {
@@ -35,6 +36,8 @@
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error;
 
 - (int)numberOfTracks;
+
+- (TrackInfo *)trackInfoForTrack:(int)track;
 
 - (BOOL)playTrack:(int)track error:(NSError **)error;
 

@@ -15,11 +15,14 @@
 
 + (id)musicEmuWithFile:(NSString *)path sampleRate:(long)sampleRate error:(NSError **)error;
 
+- (Music_Emu *)emu;
+
 - (gme_err_t)set_sample_rate:(long)sample_rate;
 
 - (int)track_count;
 
 - (gme_err_t)track_info:(track_info_t*)track_info;
+- (gme_err_t)track_info:(track_info_t*)track_info track:(int)track;
 
 - (gme_err_t)start_track:(int)track;
 

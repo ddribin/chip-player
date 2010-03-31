@@ -54,6 +54,10 @@ gme_err_t GmeMusicEmuPlay(MusicEmu * emu, long count, short * samples)
     [super dealloc];
 }
 
+- (Music_Emu *)emu;
+{
+    return _emu;
+}
 
 - (gme_err_t)set_sample_rate:(long)sample_rate;
 {
@@ -69,6 +73,11 @@ gme_err_t GmeMusicEmuPlay(MusicEmu * emu, long count, short * samples)
 - (gme_err_t)track_info:(track_info_t*)track_info;
 {
     return _emu->track_info(track_info);
+}
+
+- (gme_err_t)track_info:(track_info_t*)track_info track:(int)track;
+{
+    return _emu->track_info(track_info, track);
 }
 
 - (gme_err_t)start_track:(int)track;
