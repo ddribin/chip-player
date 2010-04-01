@@ -9,24 +9,10 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>nsfe</string>
-			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string></string>
-			<key>CFBundleTypeName</key>
-			<string>Nintendo NSFe</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>NSDocumentClass</key>
-			<string>MyDocument</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>nsf</string>
+				<string>ay</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Nintendo NSF</string>
+			<string>ZX Spectrum audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
@@ -34,7 +20,7 @@
 			<key>NSDocumentClass</key>
 			<string>MyDocument</string>
 			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
+			<string>XML</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -42,7 +28,7 @@
 				<string>gbs</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>GameBoy GBS</string>
+			<string>Nintendo GameBoy audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
@@ -50,15 +36,15 @@
 			<key>NSDocumentClass</key>
 			<string>MyDocument</string>
 			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
+			<string>XML</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>vgz</string>
+				<string>gym</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Gensis VGZ</string>
+			<string>Sega Genesis audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
@@ -66,15 +52,15 @@
 			<key>NSDocumentClass</key>
 			<string>MyDocument</string>
 			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
+			<string>XML</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>vgm</string>
+				<string>hes</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Gensis VGM</string>
+			<string>NEC TurboGrafx-16 audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
@@ -82,7 +68,56 @@
 			<key>NSDocumentClass</key>
 			<string>MyDocument</string>
 			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
+			<string>XML</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>kss</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>MSX Home Computer audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSDocumentClass</key>
+			<string>MyDocument</string>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>XML</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>nsfe</string>
+				<string>nsf</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string></string>
+			<key>CFBundleTypeName</key>
+			<string>Nintendo NES audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>NSDocumentClass</key>
+			<string>MyDocument</string>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>XML</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>sap</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Atari POKEY audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSDocumentClass</key>
+			<string>MyDocument</string>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>XML</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -90,7 +125,7 @@
 				<string>spc</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Super Nintendo SPC</string>
+			<string>Super Nintendo audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
@@ -98,7 +133,24 @@
 			<key>NSDocumentClass</key>
 			<string>MyDocument</string>
 			<key>NSPersistentStoreTypeKey</key>
-			<string>Binary</string>
+			<string>XML</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>vgm</string>
+				<string>vgz</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Sega Gensis audio</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSDocumentClass</key>
+			<string>MyDocument</string>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>XML</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
