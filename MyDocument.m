@@ -30,7 +30,7 @@
 - (void)dealloc
 {
     NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
-    [_player stop];
+    [_player teardown];
     [_player release];
     [super dealloc];
 }
@@ -100,7 +100,16 @@
 #endif
     
     NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
+    if (![player setup:&error]) {
+        if (outError != NULL) {
+            *outError = error;
+        }
+        return NO;
+    }
+
+    NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
     if (![player loadFileAtPath:[absoluteURL path] error:&error]) {
+        [player teardown];
         if (outError != NULL) {
             *outError = error;
         }
@@ -117,8 +126,12 @@
 - (IBAction)play:(id)sender;
 {
     NSError * error = nil;
-    if (![_player playTrack:_currentTrack error:&error]) {
-        NSLog(@"Could not play: %@ %@", error, [error userInfo]);
+    if ([_player isPlaying]) {
+        if (![_player togglePause:&error]) {
+            NSLog(@"Could not toggle pause: %@ %@", error, [error userInfo]);
+        }
+    } else {
+        [self playSelectedTrack:nil];
     }
 }
 

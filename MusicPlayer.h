@@ -24,23 +24,29 @@
     SInt64 _currentPacket;
     UInt32 _numPacketsToRead;
     AudioStreamPacketDescription * _packetDescs;
-    BOOL _isRunning;
+    int _state;
 }
 
 - (id)initWithSampleRate:(long)sampleRate;
 
 - (id)init;
 
-- (BOOL)setupSound:(NSError **)error;
+- (BOOL)setup:(NSError **)error;
+- (void)teardown;
 
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error;
 
 - (int)numberOfTracks;
-
 - (TrackInfo *)trackInfoForTrack:(int)track;
 
 - (BOOL)playTrack:(int)track error:(NSError **)error;
 
+- (BOOL)isPlaying;
+- (BOOL)play:(NSError **)error;
 - (void)stop;
+- (BOOL)pause:(NSError **)error;
+- (BOOL)unpause:(NSError **)error;
+- (BOOL)togglePause:(NSError **)error;
+- (BOOL)playPause:(NSError **)error;
 
 @end
