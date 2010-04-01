@@ -8,11 +8,11 @@
 
 #import "MyDocument.h"
 #import "MusicPlayer.h"
-#import "TrackTable.h"
+#import "TrackTableDataSource.h"
 
 @implementation MyDocument
 
-@synthesize trackTable = _trackTable;
+@synthesize trackTableDataSource = _trackTableDataSource;
 
 - (id)init
 {
@@ -47,7 +47,7 @@
     [super windowControllerDidLoadNib:aController];
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
     
-    _trackTable.player = _player;
+    _trackTableDataSource.player = _player;
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError

@@ -12,6 +12,7 @@
 
 @interface TrackInfo : NSObject
 {
+    NSUInteger _trackNumber;
     NSUInteger _trackCount;
     NSInteger _length;
     NSInteger _introLength;
@@ -23,6 +24,7 @@
     NSString * _copyright;
 }
 
+@property (readonly) NSUInteger trackNumber;
 @property (readonly) NSUInteger trackCount;
 @property (readonly) NSInteger length;
 @property (readonly) NSInteger introLength;
@@ -33,6 +35,6 @@
 @property (readonly, copy) NSString * author;
 @property (readonly, copy) NSString * copyright;
 
-- (id)initWithTrackInfo:(track_info_t *)trackInfo;
+- (id)initWithTrackInfo:(track_info_t *)trackInfo trackNumber:(NSUInteger)trackNumber;
 
 @end

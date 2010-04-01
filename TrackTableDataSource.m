@@ -6,12 +6,12 @@
 //  Copyright 2010 Bit Maki, Inc.. All rights reserved.
 //
 
-#import "TrackTable.h"
+#import "TrackTableDataSource.h"
 #import "MusicPlayer.h"
 #import "TrackInfo.h"
 
 
-@implementation TrackTable
+@implementation TrackTableDataSource
 
 @synthesize player = _player;
 @synthesize table = _table;
@@ -51,6 +51,9 @@
     
     NSString * trackInfoKey = [tableColumn identifier];
     id value = [info valueForKey:trackInfoKey];
+    if ([trackInfoKey isEqualToString:@"song"] && [@"" isEqualToString:value]) {
+        value = [NSString stringWithFormat:@"Track %d", row+1];
+    }
     return value;
 }
 

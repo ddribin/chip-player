@@ -11,6 +11,7 @@
 
 @implementation TrackInfo
 
+@synthesize trackNumber = _trackNumber;
 @synthesize trackCount = _trackCount;
 @synthesize length = _length;
 @synthesize introLength = _introLength;
@@ -21,13 +22,14 @@
 @synthesize author = _author;
 @synthesize copyright = _copyright;
 
-- (id)initWithTrackInfo:(track_info_t *)trackInfo;
+- (id)initWithTrackInfo:(track_info_t *)trackInfo trackNumber:(NSUInteger)trackNumber;
 {
     self = [super init];
     if (self == nil) {
         return nil;
     }
     
+    _trackNumber = trackNumber;
     _trackCount = trackInfo->track_count;
     _length = trackInfo->length;
     _introLength = trackInfo->intro_length;
@@ -37,6 +39,11 @@
     _song = [[NSString alloc] initWithUTF8String:trackInfo->song];
     _author = [[NSString alloc] initWithUTF8String:trackInfo->author];
     _copyright = [[NSString alloc] initWithUTF8String:trackInfo->copyright];
+    
+    if ([@"" isEqualToString:_song]) {
+        [_song release];
+        _song = [[NSString alloc] initWithFormat:@"Track %u", _trackNumber+1];
+    }
     
     return self;
 }

@@ -10,16 +10,16 @@
 #import <Cocoa/Cocoa.h>
 
 @class MusicPlayer;
-@class TrackTable;
+@class TrackTableDataSource;
 
 @interface MyDocument : NSDocument
 {
     MusicPlayer * _player;
     int _currentTrack;
-    TrackTable * _trackTable;
+    TrackTableDataSource * _trackTableDataSource;
 }
 
-@property (assign) IBOutlet TrackTable * trackTable;
+@property (assign) IBOutlet TrackTableDataSource * trackTableDataSource;
 
 - (IBAction)play:(id)sender;
 - (IBAction)pauseOrResume:(id)sender;

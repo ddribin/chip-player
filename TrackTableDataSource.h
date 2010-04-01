@@ -10,7 +10,7 @@
 
 @class MusicPlayer;
 
-@interface TrackTable : NSObject <NSTableViewDataSource>
+@interface TrackTableDataSource : NSObject <NSTableViewDataSource>
 {
     MusicPlayer * _player;
     NSTableView * _table;

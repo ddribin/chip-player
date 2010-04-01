@@ -177,7 +177,7 @@ static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, U
         NSLog(@"error: %s", gmeError);
     }
     
-    TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackInfo:&gmeTrackInfo];
+    TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackInfo:&gmeTrackInfo trackNumber:track];
     return [trackInfo autorelease];
 }
 
