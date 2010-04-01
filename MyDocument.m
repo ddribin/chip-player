@@ -13,6 +13,7 @@
 @implementation MyDocument
 
 @synthesize trackTableDataSource = _trackTableDataSource;
+@synthesize trackTable = _trackTable;
 
 - (id)init
 {
@@ -48,6 +49,7 @@
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
     
     _trackTableDataSource.player = _player;
+    [_trackTable setDoubleAction:@selector(playSelectedTrack:)];
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -114,6 +116,15 @@
 
 - (IBAction)play:(id)sender;
 {
+    NSError * error = nil;
+    if (![_player playTrack:_currentTrack error:&error]) {
+        NSLog(@"Could not play: %@ %@", error, [error userInfo]);
+    }
+}
+
+- (IBAction)playSelectedTrack:(id)sender;
+{
+    _currentTrack = [_trackTable selectedRow];
     NSError * error = nil;
     if (![_player playTrack:_currentTrack error:&error]) {
         NSLog(@"Could not play: %@ %@", error, [error userInfo]);

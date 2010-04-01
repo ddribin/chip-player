@@ -15,13 +15,16 @@
 @interface MyDocument : NSDocument
 {
     MusicPlayer * _player;
-    int _currentTrack;
+    NSInteger _currentTrack;
     TrackTableDataSource * _trackTableDataSource;
+    NSTableView * _trackTable;
 }
 
 @property (assign) IBOutlet TrackTableDataSource * trackTableDataSource;
+@property (assign) IBOutlet NSTableView * trackTable;
 
 - (IBAction)play:(id)sender;
 - (IBAction)pauseOrResume:(id)sender;
+- (IBAction)playSelectedTrack:(id)sender;
 
 @end
