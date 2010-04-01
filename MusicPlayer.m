@@ -135,7 +135,7 @@ static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, U
     
     CalculateBytesForTime(&_dataFormat, 1, 2.0, &_bufferByteSize, &_numPacketsToRead);
 
-    Float32 gain = 0.25;
+    Float32 gain = 1.00;
     result = AudioQueueSetParameter(_queue, kAudioQueueParam_Volume, gain);
     if (result != noErr) {
         goto failed;
@@ -171,60 +171,6 @@ failed:
     AudioQueueDispose(_queue, YES);
     _state = RRStateUninitialized;
 }
-
-#if 0
-- (BOOL)setupSound:(NSError **)error;
-{
-    UInt32 formatFlags = (0
-                          | kLinearPCMFormatFlagIsPacked 
-                          | kLinearPCMFormatFlagIsSignedInteger 
-#if __BIG_ENDIAN__
-                          | kLinearPCMFormatFlagIsBigEndian
-#endif
-                          );
-    
-    _dataFormat.mFormatID = kAudioFormatLinearPCM;
-    _dataFormat.mSampleRate = _sampleRate;
-    _dataFormat.mChannelsPerFrame = 2;
-    _dataFormat.mFormatFlags = formatFlags;
-    _dataFormat.mBitsPerChannel = 16;
-    _dataFormat.mFramesPerPacket = 1;
-    _dataFormat.mBytesPerFrame = _dataFormat.mBitsPerChannel * _dataFormat.mChannelsPerFrame / 8;
-    _dataFormat.mBytesPerPacket = _dataFormat.mBytesPerFrame * _dataFormat.mFramesPerPacket;
-    
-    OSStatus result;
-    result = AudioQueueNewOutput(&_dataFormat, HandleOutputBuffer, self, CFRunLoopGetCurrent(),
-                                 kCFRunLoopCommonModes, 0, &_queue);
-    
-    if (result != noErr)
-    {
-        if (error != NULL) {
-            *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:result userInfo:nil];
-        }
-        return NO;
-    }
-    
-    _isRunning = YES;
-    
-    CalculateBytesForTime(&_dataFormat, 1, 2.0, &_bufferByteSize, &_numPacketsToRead);
-    
-    _currentPacket = 0;
-    
-    for (int i = 0; i < kNumberBuffers; ++i)
-    {
-        AudioQueueAllocateBuffer(_queue, _bufferByteSize, &_buffers[i]);
-        HandleOutputBuffer(self, _queue, _buffers[i]);
-    }
-    
-    Float32 gain = 0.50;
-    AudioQueueSetParameter(_queue, kAudioQueueParam_Volume, gain);
-    
-    result = AudioQueueStart(_queue, NULL);
-    NSLog(@"result: %d", result);
-    
-    return YES;
-}
-#endif
 
 - (BOOL)isPlaying;
 {
