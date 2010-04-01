@@ -216,7 +216,7 @@ failed:
         HandleOutputBuffer(self, _queue, _buffers[i]);
     }
     
-    Float32 gain = 0.25;
+    Float32 gain = 0.50;
     AudioQueueSetParameter(_queue, kAudioQueueParam_Volume, gain);
     
     result = AudioQueueStart(_queue, NULL);
