@@ -12,8 +12,10 @@
 
 @interface TrackTableDataSource : NSObject <NSTableViewDataSource>
 {
-    MusicPlayer * _player;
+    // Non-retained
     NSTableView * _table;
+    
+    MusicPlayer * _player;
 }
 
 @property (nonatomic, retain) MusicPlayer * player;

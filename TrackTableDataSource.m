@@ -16,9 +16,13 @@
 @synthesize player = _player;
 @synthesize table = _table;
 
-//=========================================================== 
-//  player 
-//=========================================================== 
+
+- (void)dealloc {
+    [_player release];
+    
+    [super dealloc];
+}
+
 - (MusicPlayer *)player {
     return [[_player retain] autorelease]; 
 }

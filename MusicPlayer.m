@@ -95,6 +95,12 @@ static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, U
     return [self initWithSampleRate:44100];
 }
 
+- (void)dealloc {
+    [_emu release];
+    
+    [super dealloc];
+}
+
 - (BOOL)setup:(NSError **)error;
 {
     if (_state != RRStateUninitialized) {
@@ -163,11 +169,6 @@ failed:
     [self stop];
     
     AudioQueueDispose(_queue, YES);
-    
-    for (int i = 0; i < kNumberBuffers; ++i) {
-        AudioQueueFreeBuffer(_queue, _buffers[i]);
-    }
-    
     _state = RRStateUninitialized;
 }
 
@@ -359,6 +360,7 @@ failed:
         return NO;
     }
     
+    [_emu release];
     _emu = [emu retain];
     return YES;
 }
