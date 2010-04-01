@@ -12,6 +12,9 @@
 @implementation TrackInfo
 
 @synthesize trackCount = _trackCount;
+@synthesize length = _length;
+@synthesize introLength = _introLength;
+@synthesize loopLength = _loopLength;
 @synthesize system = _system;
 @synthesize game = _game;
 @synthesize song = _song;
@@ -26,6 +29,9 @@
     }
     
     _trackCount = trackInfo->track_count;
+    _length = trackInfo->length;
+    _introLength = trackInfo->intro_length;
+    _loopLength = trackInfo->loop_length;
     _system = [[NSString alloc] initWithUTF8String:trackInfo->system];
     _game = [[NSString alloc] initWithUTF8String:trackInfo->game];
     _song = [[NSString alloc] initWithUTF8String:trackInfo->song];

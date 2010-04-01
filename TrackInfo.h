@@ -13,6 +13,9 @@
 @interface TrackInfo : NSObject
 {
     NSUInteger _trackCount;
+    NSInteger _length;
+    NSInteger _introLength;
+    NSInteger _loopLength;
     NSString * _system;
     NSString * _game;
     NSString * _song;
@@ -21,6 +24,9 @@
 }
 
 @property (readonly) NSUInteger trackCount;
+@property (readonly) NSInteger length;
+@property (readonly) NSInteger introLength;
+@property (readonly) NSInteger loopLength;
 @property (readonly, copy) NSString * system;
 @property (readonly, copy) NSString * game;
 @property (readonly, copy) NSString * song;
