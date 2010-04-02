@@ -60,7 +60,7 @@
 				<string>hes</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>NEC TurboGrafx-16 audio</string>
+			<string>PC Engine audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
@@ -76,7 +76,7 @@
 				<string>kss</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>MSX Home Computer audio</string>
+			<string>MSX audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
@@ -109,7 +109,7 @@
 				<string>sap</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Atari POKEY audio</string>
+			<string>Atari XL audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
@@ -142,7 +142,7 @@
 				<string>vgz</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Sega Gensis audio</string>
+			<string>Sega SMS/Genesis audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
