@@ -100,12 +100,7 @@
 #endif
     
     NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
-    if (![player setup:&error]) {
-        if (outError != NULL) {
-            *outError = error;
-        }
-        return NO;
-    }
+    [player setup];
 
     NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
     if (![player loadFileAtPath:[absoluteURL path] error:&error]) {
@@ -125,11 +120,8 @@
 
 - (IBAction)play:(id)sender;
 {
-    NSError * error = nil;
     if ([_player isPlaying]) {
-        if (![_player togglePause:&error]) {
-            NSLog(@"Could not toggle pause: %@ %@", error, [error userInfo]);
-        }
+        [_player togglePause];
     } else {
         [self playSelectedTrack:nil];
     }

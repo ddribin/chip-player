@@ -7,32 +7,25 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#include <AudioToolbox/AudioQueue.h>
+#import "MusicPlayerActions.h"
 
 @class MusicEmu;
 @class TrackInfo;
+@class MusicPlayerStateMachine;
+@class MusicPlayerAudioQueueOutput;
 
-@interface MusicPlayer : NSObject
+@interface MusicPlayer : NSObject <MusicPlayerActions>
 {
+    MusicPlayerStateMachine * _stateMachine;
+    MusicPlayerAudioQueueOutput * _playerOutput;
     MusicEmu * _emu;
     long _sampleRate;
-
-    AudioStreamBasicDescription _dataFormat;
-    AudioQueueRef _queue;
-    AudioQueueBufferRef _buffers[3];
-    UInt32 _bufferByteSize;
-    SInt64 _currentPacket;
-    UInt32 _numPacketsToRead;
-    AudioStreamPacketDescription * _packetDescs;
-    int _state;
+    BOOL _shouldBufferDataInCallback;
 }
 
 - (id)initWithSampleRate:(long)sampleRate;
 
 - (id)init;
-
-- (BOOL)setup:(NSError **)error;
-- (void)teardown;
 
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error;
 
@@ -42,11 +35,10 @@
 - (BOOL)playTrack:(int)track error:(NSError **)error;
 
 - (BOOL)isPlaying;
-- (BOOL)play:(NSError **)error;
+
+- (void)setup;
+- (void)teardown;
 - (void)stop;
-- (BOOL)pause:(NSError **)error;
-- (BOOL)unpause:(NSError **)error;
-- (BOOL)togglePause:(NSError **)error;
-- (BOOL)playPause:(NSError **)error;
+- (void)togglePause;
 
 @end
