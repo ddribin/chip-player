@@ -30,7 +30,6 @@
 
 - (void)dealloc
 {
-    NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
     [_player teardown];
     [_player release];
     [super dealloc];
@@ -87,23 +86,10 @@
              ofType:(NSString *)typeName
               error:(NSError **)outError
 {
-    NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
     MusicPlayer * player = [[[MusicPlayer alloc] initWithDelegate:self] autorelease];
-    NSError * error = nil;
-#if 0
-    NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
-    if (![player setupSound:&error]) {
-        if (outError != NULL) {
-            *outError = error;
-        }
-        return NO;
-    }
-#endif
-    
-    NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
     [player setup];
 
-    NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSError * error = nil;
     if (![player loadFileAtPath:[absoluteURL path] error:&error]) {
         [player teardown];
         if (outError != NULL) {
@@ -112,16 +98,16 @@
         return NO;
     }
     
-    NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
     _player = [player retain];
     
     return YES;
 }
 
-- (void)playTrack:(NSInteger)track
+- (void)playCurrentTrack;
 {
+    NSInteger currentTrack = [_trackTableDataSource currentTrack];
     NSError * error = nil;
-    if (![_player playTrack:track error:&error]) {
+    if (![_player playTrack:currentTrack error:&error]) {
         NSLog(@"Could not play: %@ %@", error, [error userInfo]);
     }
 }
@@ -131,7 +117,7 @@
     if ([_player isPlaying]) {
         [_player togglePause];
     } else {
-        [self playTrack:[_trackTableDataSource currentTrack]];
+        [self playCurrentTrack];
     }
 }
 
@@ -139,7 +125,7 @@
 {
     NSInteger track = [_trackTable selectedRow];
     [_trackTableDataSource setCurrentTrack:track];
-    [self playTrack:track];
+    [self playCurrentTrack];
 }
 
 - (void)musicPlayerDidStop:(MusicPlayer *)player;
@@ -163,7 +149,7 @@
     if ((currentTrack+1) < [_player numberOfTracks]) {
         currentTrack++;
         [_trackTableDataSource setCurrentTrack:currentTrack];
-        [self playTrack:currentTrack];
+        [self playCurrentTrack];
     } else {
         [_player stop];
     }
