@@ -114,7 +114,6 @@
     
     NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
     _player = [player retain];
-    _currentTrack = 0;
     
     return YES;
 }
@@ -128,18 +127,19 @@
     }
 }
 
-- (void)playCurrentTrack
+- (void)playTrack:(NSInteger)track
 {
     NSError * error = nil;
-    if (![_player playTrack:_currentTrack error:&error]) {
+    if (![_player playTrack:track error:&error]) {
         NSLog(@"Could not play: %@ %@", error, [error userInfo]);
     }
 }
 
 - (IBAction)playSelectedTrack:(id)sender;
 {
-    _currentTrack = [_trackTable selectedRow];
-    [self playCurrentTrack];
+    NSInteger track = [_trackTable selectedRow];
+    [_trackTableDataSource setCurrentTrack:track];
+    [self playTrack:track];
 }
 
 - (void)musicPlayerDidStop:(MusicPlayer *)player;
@@ -159,10 +159,11 @@
 
 - (void)musicPlayerDidFinishTrack:(MusicPlayer *)player;
 {
-    if (_currentTrack < [_player numberOfTracks]) {
-        _currentTrack++;
-        [_trackTable selectRowIndexes:[NSIndexSet indexSetWithIndex:_currentTrack] byExtendingSelection:NO];
-        [self playCurrentTrack];
+    NSInteger currentTrack = [_trackTableDataSource currentTrack];
+    if (currentTrack < [_player numberOfTracks]) {
+        currentTrack++;
+        [_trackTableDataSource setCurrentTrack:currentTrack];
+        [self playTrack:currentTrack];
     } else {
         [_player stop];
     }

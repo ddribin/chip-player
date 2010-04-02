@@ -16,7 +16,6 @@
 @interface MyDocument : NSDocument <MusicPlayerDelegate>
 {
     MusicPlayer * _player;
-    NSInteger _currentTrack;
 
     TrackTableDataSource * _trackTableDataSource;
     NSTableView * _trackTable;

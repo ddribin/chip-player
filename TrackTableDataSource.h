@@ -16,9 +16,11 @@
     NSTableView * _table;
     
     MusicPlayer * _player;
+    NSInteger _currentTrack;
 }
 
-@property (nonatomic, retain) MusicPlayer * player;
 @property (assign) IBOutlet NSTableView * table;
+@property (nonatomic, retain) MusicPlayer * player;
+@property (nonatomic) NSInteger currentTrack;
 
 @end

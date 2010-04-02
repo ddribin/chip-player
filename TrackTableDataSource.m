@@ -15,6 +15,7 @@
 
 @synthesize player = _player;
 @synthesize table = _table;
+@synthesize currentTrack = _currentTrack;
 
 
 - (void)dealloc {
@@ -35,6 +36,16 @@
     }
 }
 
+- (void)setCurrentTrack:(NSInteger)track
+{
+    NSMutableIndexSet * dirtyRows = [NSMutableIndexSet indexSet];
+    [dirtyRows addIndex:_currentTrack];
+    [dirtyRows addIndex:track];
+    
+    _currentTrack = track;
+    [_table reloadDataForRowIndexes:dirtyRows columnIndexes:[NSIndexSet indexSetWithIndex:0]];
+}
+
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 {
     NSInteger tracks = [_player numberOfTracks];
@@ -53,11 +64,19 @@
         return nil;
     }
     
-    NSString * trackInfoKey = [tableColumn identifier];
-    id value = [info valueForKey:trackInfoKey];
-    if ([trackInfoKey isEqualToString:@"song"] && [@"" isEqualToString:value]) {
-        value = [NSString stringWithFormat:@"Track %d", row+1];
+    NSString * identifier = [tableColumn identifier];
+    id value;
+    if ([@"currentTrack" isEqualToString:identifier]) {
+        value = (row == _currentTrack)? @"P" : @"";
     }
+    else {
+        NSString * trackInfoKey = identifier;
+        value = [info valueForKey:trackInfoKey];
+        if ([trackInfoKey isEqualToString:@"song"] && [@"" isEqualToString:value]) {
+            value = [NSString stringWithFormat:@"Track %d", row+1];
+        }
+    }
+
     return value;
 }
 
