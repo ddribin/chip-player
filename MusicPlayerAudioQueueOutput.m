@@ -10,6 +10,10 @@
 #import "MusicEmu.h"
 
 
+@interface MusicPlayerAudioQueueOutput ()
+- (void)trackDidEnd;
+@end
+
 @implementation MusicPlayerAudioQueueOutput
 
 @synthesize emu = _emu;
@@ -39,6 +43,10 @@ static void HandleOutputBuffer(void * inUserData,
             NSLog(@"AudioQueueEnqueueBuffer error: %d %s %s", result, GetMacOSStatusErrorString(result), GetMacOSStatusCommentString(result));
         }
         player->_currentPacket += player->_numPacketsToRead;
+        if ([emu track_ended]) {
+            [player trackDidEnd];
+        }
+        
     } else {
         NSLog(@"GmeMusicEmuPlay error: %s", error);
     }
@@ -72,12 +80,13 @@ static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, U
 	*outNumPackets = *outBufferSize / inMaxPacketSize;
 }
 
-- (id)initWithSampleRate:(long)sampleRate;
+- (id)initWithDelegate:(id<MusicPlayerOutputDelegate>)delegate sampleRate:(long)sampleRate;
 {
     self = [super init];
     if (self == nil)
         return nil;
     
+    _delegate = delegate;
     _sampleRate = sampleRate;
     _shouldBufferDataInCallback = NO;
     
@@ -212,6 +221,14 @@ failed:
         *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
     }
     return NO;
+}
+
+- (void)trackDidEnd;
+{
+    if (_delegate != nil) {
+        // We're called in the callback. Things don't work quite right (like stopping and starting), so this causes it to be called the next time;
+        [_delegate performSelector:@selector(musicPlayerOutputDidFinishTrack:) withObject:self afterDelay:0];
+    }
 }
 
 @end

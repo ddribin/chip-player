@@ -29,6 +29,8 @@
 - (void)set_fade:(long)start_msec length:(long)length_msec;
 - (void)set_fade:(long)start_msec;
 
+- (bool)track_ended;
+
 @end
 
 #ifdef __cplusplus

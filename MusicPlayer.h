@@ -8,22 +8,38 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MusicPlayerActions.h"
+#import "MusicPlayerAudioQueueOutput.h"
 
 @class MusicEmu;
 @class TrackInfo;
+@class MusicPlayer;
 @class MusicPlayerStateMachine;
 @class MusicPlayerAudioQueueOutput;
 
-@interface MusicPlayer : NSObject <MusicPlayerActions>
+@protocol MusicPlayerDelegate <NSObject>
+
+- (void)musicPlayerDidStop:(MusicPlayer *)player;
+- (void)musicPlayerDidStart:(MusicPlayer *)player;
+- (void)musicPlayerDidPause:(MusicPlayer *)player;
+- (void)musicPlayerDidFinishTrack:(MusicPlayer *)player;
+- (void)musicPlayer:(MusicPlayer *)player didFailWithError:(NSError *)error;
+
+@end
+
+
+@interface MusicPlayer : NSObject <MusicPlayerActions, MusicPlayerOutputDelegate>
 {
+    id<MusicPlayerDelegate> _delegate;
+    
     MusicPlayerStateMachine * _stateMachine;
     MusicPlayerAudioQueueOutput * _playerOutput;
     MusicEmu * _emu;
     long _sampleRate;
-    BOOL _shouldBufferDataInCallback;
 }
 
-- (id)initWithSampleRate:(long)sampleRate;
+- (id)initWithDelegate:(id<MusicPlayerDelegate>)delegate sampleRate:(long)sampleRate;
+
+- (id)initWithDelegate:(id<MusicPlayerDelegate>)delegate;
 
 - (id)init;
 

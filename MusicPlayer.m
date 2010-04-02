@@ -24,23 +24,28 @@ enum State {
 
 @implementation MusicPlayer
 
-- (id)initWithSampleRate:(long)sampleRate;
+- (id)initWithDelegate:(id<MusicPlayerDelegate>)delegate sampleRate:(long)sampleRate;
 {
     self = [super init];
     if (self == nil)
         return nil;
     
     _sampleRate = sampleRate;
-    _playerOutput = [[MusicPlayerAudioQueueOutput alloc] initWithSampleRate:sampleRate];
-    _shouldBufferDataInCallback = NO;
+    _playerOutput = [[MusicPlayerAudioQueueOutput alloc] initWithDelegate:self sampleRate:sampleRate];
     _stateMachine = [[MusicPlayerStateMachine alloc] initWithActions:self];
+    _delegate = delegate;
     
     return self;
 }
 
+- (id)initWithDelegate:(id<MusicPlayerDelegate>)delegate;
+{
+    return [self initWithDelegate:delegate sampleRate:44100];
+}
+
 - (id)init;
 {
-    return [self initWithSampleRate:44100];
+    return [self initWithDelegate:nil sampleRate:44100];
 }
 
 - (void)dealloc {
@@ -142,7 +147,7 @@ enum State {
 
 - (void)handleError:(NSError *)error;
 {
-    NSLog(@"Error: %@ %@", error, [error userInfo]);
+    [_delegate musicPlayer:self didFailWithError:error];
 }
 
 - (void)clearError;
@@ -181,14 +186,30 @@ enum State {
 
 - (void)didStop;
 {
+    if (_delegate != nil) {
+        [_delegate musicPlayerDidStop:self];
+    }
 }
 
 - (void)didPlay;
 {
+    if (_delegate != nil) {
+        [_delegate musicPlayerDidStart:self];
+    }
 }
 
 - (void)didPause;
 {
+    if (_delegate != nil) {
+        [_delegate musicPlayerDidPause:self];
+    }
+}
+
+#pragma mark -
+
+- (void)musicPlayerOutputDidFinishTrack:(MusicPlayerAudioQueueOutput *)output;
+{
+    [_delegate musicPlayerDidFinishTrack:self];
 }
 
 @end

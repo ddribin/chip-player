@@ -95,4 +95,9 @@ gme_err_t GmeMusicEmuPlay(MusicEmu * emu, long count, short * samples)
     [self set_fade:start_msec length:8000];
 }
 
+- (bool)track_ended;
+{
+    return _emu->track_ended();
+}
+
 @end

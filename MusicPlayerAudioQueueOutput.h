@@ -10,10 +10,20 @@
 #import <AudioToolbox/AudioQueue.h>
 
 @class MusicEmu;
+@class MusicPlayerAudioQueueOutput;
+
+
+@protocol MusicPlayerOutputDelegate <NSObject>
+
+- (void)musicPlayerOutputDidFinishTrack:(MusicPlayerAudioQueueOutput *)output;
+
+@end
 
 
 @interface MusicPlayerAudioQueueOutput : NSObject
 {
+    NSObject<MusicPlayerOutputDelegate> * _delegate;
+    
     MusicEmu * _emu;
     long _sampleRate;
     
@@ -29,7 +39,7 @@
 
 @property (retain) MusicEmu * emu;
 
-- (id)initWithSampleRate:(long)sampleRate;
+- (id)initWithDelegate:(id<MusicPlayerOutputDelegate>)delegate sampleRate:(long)sampleRate;
 
 - (BOOL)setupAudio:(NSError **)error;
 - (void)teardownAudio;

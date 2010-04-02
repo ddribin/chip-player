@@ -14,6 +14,7 @@
 
 @synthesize trackTableDataSource = _trackTableDataSource;
 @synthesize trackTable = _trackTable;
+@synthesize playPauseButton = _playPauseButton;
 
 - (id)init
 {
@@ -87,7 +88,7 @@
               error:(NSError **)outError
 {
     NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
-    MusicPlayer * player = [[[MusicPlayer alloc] init] autorelease];
+    MusicPlayer * player = [[[MusicPlayer alloc] initWithDelegate:self] autorelease];
     NSError * error = nil;
 #if 0
     NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
@@ -127,17 +128,49 @@
     }
 }
 
-- (IBAction)playSelectedTrack:(id)sender;
+- (void)playCurrentTrack
 {
-    _currentTrack = [_trackTable selectedRow];
     NSError * error = nil;
     if (![_player playTrack:_currentTrack error:&error]) {
         NSLog(@"Could not play: %@ %@", error, [error userInfo]);
     }
 }
 
-- (IBAction)pauseOrResume:(id)sender;
+- (IBAction)playSelectedTrack:(id)sender;
 {
+    _currentTrack = [_trackTable selectedRow];
+    [self playCurrentTrack];
+}
+
+- (void)musicPlayerDidStop:(MusicPlayer *)player;
+{
+    [_playPauseButton setTitle:@"Play"];
+}
+
+- (void)musicPlayerDidStart:(MusicPlayer *)player;
+{
+    [_playPauseButton setTitle:@"Pause"];
+}
+
+- (void)musicPlayerDidPause:(MusicPlayer *)player;
+{
+    [_playPauseButton setTitle:@"Play"];
+}
+
+- (void)musicPlayerDidFinishTrack:(MusicPlayer *)player;
+{
+    if (_currentTrack < [_player numberOfTracks]) {
+        _currentTrack++;
+        [_trackTable selectRowIndexes:[NSIndexSet indexSetWithIndex:_currentTrack] byExtendingSelection:NO];
+        [self playCurrentTrack];
+    } else {
+        [_player stop];
+    }
+}
+
+- (void)musicPlayer:(MusicPlayer *)player didFailWithError:(NSError *)error;
+{
+    [NSApp presentError:error];
 }
 
 @end
