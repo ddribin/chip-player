@@ -118,20 +118,20 @@
     return YES;
 }
 
-- (IBAction)play:(id)sender;
-{
-    if ([_player isPlaying]) {
-        [_player togglePause];
-    } else {
-        [self playSelectedTrack:nil];
-    }
-}
-
 - (void)playTrack:(NSInteger)track
 {
     NSError * error = nil;
     if (![_player playTrack:track error:&error]) {
         NSLog(@"Could not play: %@ %@", error, [error userInfo]);
+    }
+}
+
+- (IBAction)play:(id)sender;
+{
+    if ([_player isPlaying]) {
+        [_player togglePause];
+    } else {
+        [self playTrack:[_trackTableDataSource currentTrack]];
     }
 }
 
@@ -160,7 +160,7 @@
 - (void)musicPlayerDidFinishTrack:(MusicPlayer *)player;
 {
     NSInteger currentTrack = [_trackTableDataSource currentTrack];
-    if (currentTrack < [_player numberOfTracks]) {
+    if ((currentTrack+1) < [_player numberOfTracks]) {
         currentTrack++;
         [_trackTableDataSource setCurrentTrack:currentTrack];
         [self playTrack:currentTrack];

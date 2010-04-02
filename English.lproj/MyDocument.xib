@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="100047"/>
+			<integer value="100027"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -105,7 +105,7 @@
 											</object>
 											<object class="NSMutableArray" key="NSTableColumns">
 												<bool key="EncodedWithXMLCoder">YES</bool>
-												<object class="NSTableColumn" id="747251688">
+												<object class="NSTableColumn" id="141755252">
 													<string key="NSIdentifier">currentTrack</string>
 													<double key="NSWidth">19</double>
 													<double key="NSMinWidth">10</double>
@@ -138,7 +138,7 @@
 															</object>
 														</object>
 													</object>
-													<object class="NSTextFieldCell" key="NSDataCell" id="863887364">
+													<object class="NSTextFieldCell" key="NSDataCell" id="996085073">
 														<int key="NSCellFlags">337772096</int>
 														<int key="NSCellFlags2">2048</int>
 														<string key="NSContents">Text Cell</string>
@@ -275,8 +275,8 @@
 												<object class="NSTableColumn" id="229815105">
 													<string key="NSIdentifier">system</string>
 													<double key="NSWidth">185</double>
-													<double key="NSMinWidth">10</double>
-													<double key="NSMaxWidth">3.4028234663852886e+38</double>
+													<double key="NSMinWidth">100</double>
+													<double key="NSMaxWidth">3.402823466385289e+38</double>
 													<object class="NSTableHeaderCell" key="NSHeaderCell">
 														<int key="NSCellFlags">75628096</int>
 														<int key="NSCellFlags2">2048</int>
@@ -316,7 +316,7 @@
 											<reference key="NSDelegate"/>
 											<reference key="NSDataSource"/>
 											<int key="NSGridStyleMask">1</int>
-											<int key="NSColumnAutoresizingStyle">0</int>
+											<int key="NSColumnAutoresizingStyle">4</int>
 											<int key="NSDraggingSourceMaskForLocal">15</int>
 											<int key="NSDraggingSourceMaskForNonLocal">0</int>
 											<bool key="NSAllowsTypeSelect">YES</bool>
@@ -552,7 +552,7 @@
 							<reference ref="167196517"/>
 							<reference ref="229815105"/>
 							<reference ref="1066194900"/>
-							<reference ref="747251688"/>
+							<reference ref="141755252"/>
 						</object>
 						<reference key="parent" ref="519981449"/>
 					</object>
@@ -638,17 +638,17 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100047</int>
-						<reference key="object" ref="747251688"/>
+						<reference key="object" ref="141755252"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="863887364"/>
+							<reference ref="996085073"/>
 						</object>
 						<reference key="parent" ref="844639863"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100048</int>
-						<reference key="object" ref="863887364"/>
-						<reference key="parent" ref="747251688"/>
+						<reference key="object" ref="996085073"/>
+						<reference key="parent" ref="141755252"/>
 					</object>
 				</object>
 			</object>
