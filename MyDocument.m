@@ -127,6 +127,16 @@ failed:
     [_stateMachine play];
 }
 
+- (IBAction)next:(id)sender;
+{
+    [_stateMachine next];
+}
+
+- (IBAction)previous:(id)sender;
+{
+    [_stateMachine previous];
+}
+
 - (void)musicPlayerOutputDidFinishTrack:(MusicPlayerAudioQueueOutput *)output;
 {
     [_stateMachine trackDidFinish];
@@ -189,6 +199,14 @@ failed:
     currentTrack++;
     [_trackTableDataSource setCurrentTrack:currentTrack];
 }
+
+- (void)previousTrack;
+{
+    NSInteger currentTrack = [_trackTableDataSource currentTrack];
+    currentTrack--;
+    [_trackTableDataSource setCurrentTrack:currentTrack];
+}
+
 - (void)stopAudio;
 {
     [_playerOutput stopAudio];
@@ -209,6 +227,14 @@ failed:
     NSInteger currentTrack = [_trackTableDataSource currentTrack];
     BOOL isLast = ((currentTrack+1) == [_musicFile numberOfTracks]);
     return isLast;
+}
+
+
+- (BOOL)isCurrentTrackTheFirstTrack;
+{
+    NSInteger currentTrack = [_trackTableDataSource currentTrack];
+    BOOL isFirst = (currentTrack == 0);
+    return isFirst;
 }
 
 @end

@@ -24,6 +24,8 @@
 - (void)play;
 - (void)stop;
 - (void)togglePause;
+- (void)next;
+- (void)previous;
 - (void)trackDidFinish;
 
 @end

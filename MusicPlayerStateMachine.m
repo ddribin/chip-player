@@ -49,9 +49,9 @@ enum State {
 
     if ((_state == RRStatePlaying) || (_state == RRStatePaused)) {
         [_actions stopAudio];
+        [_actions setCurrentTrackToSelectedTrack];
     }
 
-    [_actions setCurrentTrackToSelectedTrack];
     NSError * error = nil;;
     if (![_actions startAudio:&error]) {
         [_actions handleError:error];
@@ -114,6 +114,52 @@ enum State {
         [self pause];
     } else if (_state == RRStatePaused) {
         [self unpause];
+    }
+}
+
+- (void)next;
+{
+    NSAssert(_state != RRStateUninitialized, @"Invalid state");
+    
+    if ([_actions isCurrentTrackTheLastTrack]) {
+        return;
+    }
+    
+    if (_state == RRStateStopped) {
+        [_actions nextTrack];
+    }
+    else if (_state == RRStatePlaying) {
+        [_actions stopAudio];
+        [_actions nextTrack];
+        [_actions startAudio:NULL];
+    }
+    else if (_state == RRStatePaused) {
+        [_actions stopAudio];
+        [_actions nextTrack];
+        _state = RRStateStopped;
+    }
+}
+
+- (void)previous;
+{
+    NSAssert(_state != RRStateUninitialized, @"Invalid state");
+
+    if ([_actions isCurrentTrackTheFirstTrack]) {
+        return;
+    }
+    
+    if (_state == RRStateStopped) {
+        [_actions previousTrack];
+    }
+    else if (_state == RRStatePlaying) {
+        [_actions stopAudio];
+        [_actions previousTrack];
+        [_actions startAudio:NULL];
+    }
+    else if (_state == RRStatePaused) {
+        [_actions stopAudio];
+        [_actions previousTrack];
+        _state = RRStateStopped;
     }
 }
 

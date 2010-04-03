@@ -26,9 +26,11 @@
 
 - (void)setCurrentTrackToSelectedTrack;
 - (void)nextTrack;
+- (void)previousTrack;
 
 #pragma mark -
 
 - (BOOL)isCurrentTrackTheLastTrack;
+- (BOOL)isCurrentTrackTheFirstTrack;
 
 @end

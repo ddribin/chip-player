@@ -32,5 +32,7 @@
 
 - (IBAction)play:(id)sender;
 - (IBAction)playSelectedTrack:(id)sender;
+- (IBAction)next:(id)sender;
+- (IBAction)previous:(id)sender;
 
 @end
