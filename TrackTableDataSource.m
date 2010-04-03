@@ -11,6 +11,11 @@
 #import "TrackInfo.h"
 
 
+@interface TrackTableDataSource ()
+- (NSString *)objectValueForCurrentTrackColumnAtRow:(NSInteger)row;
+- (NSString *)trackInfo:(TrackInfo *)info valueForKey:(NSString *)trackInfoKey row:(NSInteger)row;
+@end
+
 @implementation TrackTableDataSource
 
 @synthesize musicFile = _musicFile;
@@ -59,24 +64,39 @@
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 {
-    TrackInfo * info = [_musicFile infoForTrack:row];
-    if (info == nil) {
-        return nil;
-    }
     
     NSString * identifier = [tableColumn identifier];
-    id value;
-    if ([@"currentTrack" isEqualToString:identifier]) {
-        value = (row == _currentTrack)? @"P" : @"";
+    TrackInfo * info = [_musicFile infoForTrack:row];
+    NSString * value;
+
+    if (info == nil) {
+        value = nil;
+    }
+    else if ([@"currentTrack" isEqualToString:identifier]) {
+        value = [self objectValueForCurrentTrackColumnAtRow:row];
     }
     else {
-        NSString * trackInfoKey = identifier;
-        value = [info valueForKey:trackInfoKey];
-        if ([trackInfoKey isEqualToString:@"song"] && [@"" isEqualToString:value]) {
-            value = [NSString stringWithFormat:@"Track %d", row+1];
-        }
+        value = [self trackInfo:info valueForKey:identifier row:row];
     }
 
+    return value;
+}
+
+- (NSString *)objectValueForCurrentTrackColumnAtRow:(NSInteger)row;
+{
+    NSString * value = @"";
+    if (row == _currentTrack) {
+        value = @">";
+    }
+    return value;
+}
+
+- (NSString *)trackInfo:(TrackInfo *)info valueForKey:(NSString *)trackInfoKey row:(NSInteger)row;
+{
+    NSString * value = [info valueForKey:trackInfoKey];
+    if ([trackInfoKey isEqualToString:@"song"] && [@"" isEqualToString:value]) {
+        value = [NSString stringWithFormat:@"Track %d", row+1];
+    }
     return value;
 }
 
