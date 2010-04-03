@@ -69,6 +69,10 @@ gme_err_t GmeMusicEmuPlay(MusicEmu * emu, long count, short * samples)
     return _emu->set_sample_rate(sample_rate);
 }
 
+- (long)sample_rate;
+{
+    return _emu->sample_rate();
+}
 
 - (int)track_count;
 {

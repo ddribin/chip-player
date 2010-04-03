@@ -21,6 +21,7 @@
 + (gme_err_t)gme_open_file:(const char *)path emu:(MusicEmu **)emu sampleRate:(long)sampleRate;
 
 - (gme_err_t)set_sample_rate:(long)sample_rate;
+- (long)sample_rate;
 
 - (int)track_count;
 

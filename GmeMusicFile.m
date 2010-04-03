@@ -64,8 +64,7 @@ BOOL GmeMusicFilePlay(GmeMusicFile * file, long count, short * samples, NSError 
 
 - (long)sampleRate;
 {
-    // TODO: Delegate to _emu, or do we need an ivar?
-    return 44100;
+    return [_emu sample_rate];
 }
 
 - (int)numberOfTracks;

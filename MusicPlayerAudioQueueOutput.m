@@ -31,29 +31,6 @@ static void HandleOutputBuffer(void * inUserData,
         return;
     }
     
-#if 0
-    MusicEmu * emu = player->_emu;
-    if (emu == nil) {
-        NSLog(@"No emu");
-        return;
-    }
-    
-    gme_err_t error = GmeMusicEmuPlay(emu, inBuffer->mAudioDataBytesCapacity/2, inBuffer->mAudioData);
-    if (error == 0) {
-        inBuffer->mAudioDataByteSize = inBuffer->mAudioDataBytesCapacity;
-        OSStatus result = AudioQueueEnqueueBuffer(player->_queue, inBuffer, 0, NULL);
-        if (result != noErr) {
-            NSLog(@"AudioQueueEnqueueBuffer error: %d %s %s", result, GetMacOSStatusErrorString(result), GetMacOSStatusCommentString(result));
-        }
-        player->_currentPacket += player->_numPacketsToRead;
-        if ([emu track_ended]) {
-            [player trackDidEnd];
-        }
-        
-    } else {
-        NSLog(@"GmeMusicEmuPlay error: %s", error);
-    }
-#else
     GmeMusicFile * musicFile = player->_musicFile;
     if (musicFile == nil) {
         NSLog(@"No music file");
@@ -61,20 +38,19 @@ static void HandleOutputBuffer(void * inUserData,
     }
     
     NSError * error = nil;
-    if (GmeMusicFilePlay(musicFile, inBuffer->mAudioDataBytesCapacity/2, inBuffer->mAudioData, &error)) {
-        inBuffer->mAudioDataByteSize = inBuffer->mAudioDataBytesCapacity;
-        OSStatus result = AudioQueueEnqueueBuffer(player->_queue, inBuffer, 0, NULL);
-        if (result != noErr) {
-            NSLog(@"AudioQueueEnqueueBuffer error: %d %s %s", result, GetMacOSStatusErrorString(result), GetMacOSStatusCommentString(result));
-        }
-        player->_currentPacket += player->_numPacketsToRead;
-        if ([musicFile trackEnded]) {
-            [player trackDidEnd];
-        }
-    } else {
+    if (!GmeMusicFilePlay(musicFile, inBuffer->mAudioDataBytesCapacity/2, inBuffer->mAudioData, &error)) {
         NSLog(@"GmeMusicFilePlay error: %@ %@", error, [error userInfo]);
+        return;
     }
-#endif
+    
+    inBuffer->mAudioDataByteSize = inBuffer->mAudioDataBytesCapacity;
+    OSStatus result = AudioQueueEnqueueBuffer(player->_queue, inBuffer, 0, NULL);
+    if (result != noErr) {
+        NSLog(@"AudioQueueEnqueueBuffer error: %d %s %s", result, GetMacOSStatusErrorString(result), GetMacOSStatusCommentString(result));
+    }
+    if ([musicFile trackEnded]) {
+        [player trackDidEnd];
+    }
 }
 
 // we only use time here as a guideline
