@@ -14,9 +14,8 @@
 
 - (void)handleError:(NSError *)error;
 
-- (void)didStop;
-- (void)didPlay;
-- (void)didPause;
+- (void)setButtonToPlay;
+- (void)setButtonToPause;
 
 - (BOOL)setupAudio:(NSError **)error;
 - (void)teardownAudio;

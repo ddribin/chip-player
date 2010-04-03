@@ -154,19 +154,14 @@ failed:
 {
 }
 
-- (void)didStop;
+- (void)setButtonToPlay;
 {
     [_playPauseButton setTitle:@"Play"];
-}
-    
-- (void)didPlay;
-{
-    [_playPauseButton setTitle:@"Pause"];
 }
 
-- (void)didPause;
+- (void)setButtonToPause;
 {
-    [_playPauseButton setTitle:@"Play"];
+    [_playPauseButton setTitle:@"Pause"];
 }
 
 - (BOOL)setupAudio:(NSError **)error;

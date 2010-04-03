@@ -71,7 +71,7 @@ enum State {
         return;
     }
     
-    [_actions didPlay];
+    [_actions setButtonToPause];
     _state = RRStatePlaying;
 }
 
@@ -83,7 +83,7 @@ enum State {
     }
     
     [_actions stopAudio];
-    [_actions didStop];
+    [_actions setButtonToPlay];
     _state = RRStateStopped;
 }
 
@@ -98,7 +98,7 @@ enum State {
         return;
     }
     
-    [_actions didPause];
+    [_actions setButtonToPlay];
     _state = RRStatePaused;
 }
 
@@ -113,7 +113,7 @@ enum State {
         return;
     }
     
-    [_actions didPlay];
+    [_actions setButtonToPause];
     _state = RRStatePlaying;
 }
 
@@ -135,7 +135,7 @@ enum State {
     
     if ([_actions isCurrentTrackTheLastTrack]) {
         [_actions stopAudio];
-        [_actions didStop];
+        [_actions setButtonToPlay];
     } else {
         [_actions stopAudio];
         [_actions nextTrack];
