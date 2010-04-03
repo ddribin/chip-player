@@ -24,7 +24,7 @@ enum State {
         return nil;
     
     _actions = actions;
-    _state = RRStateUninitialized;
+    _state = RRStateStopped;
     
     return self;
 }
@@ -32,19 +32,6 @@ enum State {
 - (BOOL)isPlaying;
 {
     return ((_state == RRStatePlaying) || (_state == RRStatePaused));
-}
-
-- (void)setup;
-{
-    NSAssert(_state == RRStateUninitialized, @"Invalid state");
-    
-    NSError * error = nil;
-    if (![_actions setupAudio:&error]) {
-        [_actions handleError:error];
-        return;
-    }
-    
-    _state = RRStateStopped;
 }
 
 - (void)teardown;

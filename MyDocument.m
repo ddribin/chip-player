@@ -103,8 +103,6 @@
     _musicFile = [musicFile retain];
     [_playerOutput setMusicFile:_musicFile];
     
-    [_stateMachine setup];
-    
     return YES;
     
 failed:
