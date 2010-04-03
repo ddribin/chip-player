@@ -22,21 +22,6 @@ gme_err_t GmeMusicEmuPlay(MusicEmu * emu, long count, short * samples)
     return emu->_emu->play(count, samples);
 }
 
-+ (id)musicEmuWithFile:(NSString *)path sampleRate:(long)sampleRate error:(NSError **)error;
-{
-    Music_Emu * emu;
-    gme_err_t gme_error = gme_open_file([path fileSystemRepresentation], &emu, sampleRate);
-    if (gme_error != 0) {
-        if (error != NULL) {
-            *error = [NSError gme_error:gme_error];
-        }
-        return nil;
-    }
-    
-    id o = [[self alloc] initWithMusicEmu:emu];
-    return [o autorelease];
-}
-
 + (gme_err_t)gme_open_file:(const char *)path emu:(MusicEmu **)emu sampleRate:(long)sampleRate;
 {
     Music_Emu * gmeEmu = NULL;

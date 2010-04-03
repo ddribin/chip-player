@@ -16,8 +16,6 @@
     Music_Emu * _emu;
 }
 
-+ (id)musicEmuWithFile:(NSString *)path sampleRate:(long)sampleRate error:(NSError **)error;
-
 + (gme_err_t)gme_open_file:(const char *)path emu:(MusicEmu **)emu sampleRate:(long)sampleRate;
 
 - (gme_err_t)set_sample_rate:(long)sample_rate;
