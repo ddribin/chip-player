@@ -150,10 +150,6 @@ failed:
     [NSApp presentError:error];
 }
 
-- (void)clearError;
-{
-}
-
 - (void)setButtonToPlay;
 {
     [_playPauseButton setTitle:@"Play"];

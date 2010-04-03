@@ -120,11 +120,12 @@ enum State {
 - (void)togglePause;
 {
     NSAssert(_state != RRStateUninitialized, @"Invalid state");
-    NSAssert(_state != RRStateStopped, @"Invalid state");
     
-    if (_state == RRStatePlaying) {
+    if (_state == RRStateStopped) {
+        [self play];
+    } else if (_state == RRStatePlaying) {
         [self pause];
-    } else {
+    } else if (_state == RRStatePaused) {
         [self unpause];
     }
 }
