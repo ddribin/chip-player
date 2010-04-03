@@ -38,7 +38,6 @@ enum State {
 {
     NSAssert(_state == RRStateUninitialized, @"Invalid state");
     
-    [_actions clearError];
     NSError * error = nil;
     if (![_actions setupAudio:&error]) {
         [_actions handleError:error];
@@ -52,7 +51,6 @@ enum State {
 {
     NSAssert(_state != RRStateUninitialized, @"Invalid state");
     
-    [_actions clearError];
     [_actions stopAudio];
     [_actions teardownAudio];
     _state = RRStateUninitialized;
@@ -67,7 +65,6 @@ enum State {
     }
 
     [_actions setCurrentTrackToSelectedTrack];
-    [_actions clearError];
     NSError * error = nil;;
     if (![_actions startAudio:&error]) {
         [_actions handleError:error];
@@ -85,7 +82,6 @@ enum State {
         return;
     }
     
-    [_actions clearError];
     [_actions stopAudio];
     [_actions didStop];
     _state = RRStateStopped;
@@ -96,7 +92,6 @@ enum State {
     NSAssert(_state != RRStateUninitialized, @"Invalid state");
     NSAssert(_state == RRStatePlaying, @"Invalid state");
 
-    [_actions clearError];
     NSError * error = nil;
     if (![_actions pauseAudio:&error]) {
         [_actions handleError:error];
@@ -112,7 +107,6 @@ enum State {
     NSAssert(_state != RRStateUninitialized, @"Invalid state");
     NSAssert(_state == RRStatePaused, @"Invalid state");
     
-    [_actions clearError];
     NSError * error = nil;
     if (![_actions unpauseAudio:&error]) {
         [_actions handleError:error];

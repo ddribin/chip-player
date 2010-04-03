@@ -13,7 +13,6 @@
 @protocol MusicPlayerActions <NSObject>
 
 - (void)handleError:(NSError *)error;
-- (void)clearError;
 
 - (void)didStop;
 - (void)didPlay;
