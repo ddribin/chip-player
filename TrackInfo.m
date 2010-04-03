@@ -48,10 +48,8 @@
     return self;
 }
 
-//=========================================================== 
-// dealloc
-//=========================================================== 
-- (void)dealloc {
+- (void)dealloc
+{
     [_system release];
     [_game release];
     [_song release];

@@ -23,17 +23,20 @@
 @synthesize currentTrack = _currentTrack;
 
 
-- (void)dealloc {
+- (void)dealloc
+{
     [_musicFile release];
     
     [super dealloc];
 }
 
-- (GmeMusicFile *)musicFile {
+- (GmeMusicFile *)musicFile
+{
     return [[_musicFile retain] autorelease]; 
 }
 
-- (void)setMusicFile:(GmeMusicFile *)musicFile {
+- (void)setMusicFile:(GmeMusicFile *)musicFile
+{
     if (_musicFile != musicFile) {
         [_musicFile release];
         _musicFile = [musicFile retain];
