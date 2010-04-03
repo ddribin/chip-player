@@ -62,6 +62,13 @@ BOOL GmeMusicFilePlay(GmeMusicFile * file, long count, short * samples, NSError 
     return self;
 }
 
+- (void)dealloc
+{
+    [_emu release];
+    [super dealloc];
+}
+
+
 - (long)sampleRate;
 {
     return [_emu sample_rate];

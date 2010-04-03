@@ -102,6 +102,7 @@ static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, U
 - (void)dealloc
 {
     [_emu release];
+    [_musicFile release];
     
     [super dealloc];
 }

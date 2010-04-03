@@ -33,8 +33,11 @@
 - (void)dealloc
 {
     [_stateMachine teardown];
+    
     [_stateMachine release];
+    [_musicFile release];
     [_playerOutput release];
+    
     [super dealloc];
 }
 
