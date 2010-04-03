@@ -61,8 +61,12 @@ enum State {
 - (void)play;
 {
     NSAssert(_state != RRStateUninitialized, @"Invalid state");
-    NSAssert(_state == RRStateStopped, @"Invalid state");
 
+    if ((_state == RRStatePlaying) || (_state == RRStatePaused)) {
+        [_actions stopAudio];
+    }
+
+    [_actions setCurrentTrackToSelectedTrack];
     [_actions clearError];
     NSError * error = nil;;
     if (![_actions startAudio:&error]) {
@@ -128,6 +132,20 @@ enum State {
         [self pause];
     } else {
         [self unpause];
+    }
+}
+
+- (void)trackDidFinish;
+{
+    NSAssert(_state == RRStatePlaying, @"Invalid state");
+    
+    if ([_actions isCurrentTrackTheLastTrack]) {
+        [_actions stopAudio];
+        [_actions didStop];
+    } else {
+        [_actions stopAudio];
+        [_actions nextTrack];
+        [_actions startAudio:NULL];
     }
 }
 

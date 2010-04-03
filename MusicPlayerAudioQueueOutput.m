@@ -7,6 +7,7 @@
 //
 
 #import "MusicPlayerAudioQueueOutput.h"
+#import "GmeMusicFile.h"
 #import "MusicEmu.h"
 
 
@@ -17,6 +18,7 @@
 @implementation MusicPlayerAudioQueueOutput
 
 @synthesize emu = _emu;
+@synthesize musicFile = _musicFile;
 
 #define kNumberBuffers (sizeof(_buffers)/sizeof(_buffers[0]))
 
@@ -29,6 +31,7 @@ static void HandleOutputBuffer(void * inUserData,
         return;
     }
     
+#if 0
     MusicEmu * emu = player->_emu;
     if (emu == nil) {
         NSLog(@"No emu");
@@ -50,6 +53,28 @@ static void HandleOutputBuffer(void * inUserData,
     } else {
         NSLog(@"GmeMusicEmuPlay error: %s", error);
     }
+#else
+    GmeMusicFile * musicFile = player->_musicFile;
+    if (musicFile == nil) {
+        NSLog(@"No music file");
+        return;
+    }
+    
+    NSError * error = nil;
+    if (GmeMusicFilePlay(musicFile, inBuffer->mAudioDataBytesCapacity/2, inBuffer->mAudioData, &error)) {
+        inBuffer->mAudioDataByteSize = inBuffer->mAudioDataBytesCapacity;
+        OSStatus result = AudioQueueEnqueueBuffer(player->_queue, inBuffer, 0, NULL);
+        if (result != noErr) {
+            NSLog(@"AudioQueueEnqueueBuffer error: %d %s %s", result, GetMacOSStatusErrorString(result), GetMacOSStatusCommentString(result));
+        }
+        player->_currentPacket += player->_numPacketsToRead;
+        if ([musicFile trackEnded]) {
+            [player trackDidEnd];
+        }
+    } else {
+        NSLog(@"GmeMusicFilePlay error: %@ %@", error, [error userInfo]);
+    }
+#endif
 }
 
 // we only use time here as a guideline
@@ -93,6 +118,11 @@ static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, U
     return self;
 }
 
+- (id)initWithDelegate:(id<MusicPlayerOutputDelegate>)delegate;
+{
+    return [self initWithDelegate:delegate sampleRate:44100];
+}
+
 - (void)dealloc
 {
     [_emu release];
@@ -101,6 +131,11 @@ static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, U
 }
 
 - (BOOL)setupAudio:(NSError **)error;
+{
+    return [self setupWithSampleRate:_sampleRate error:error];
+}
+
+- (BOOL)setupWithSampleRate:(long)sampleRate error:(NSError **)error;
 {
     UInt32 formatFlags = (0
                           | kLinearPCMFormatFlagIsPacked 
@@ -111,7 +146,7 @@ static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, U
                           );
     
     _dataFormat.mFormatID = kAudioFormatLinearPCM;
-    _dataFormat.mSampleRate = _sampleRate;
+    _dataFormat.mSampleRate = sampleRate;
     _dataFormat.mChannelsPerFrame = 2;
     _dataFormat.mFormatFlags = formatFlags;
     _dataFormat.mBitsPerChannel = 16;
@@ -163,6 +198,7 @@ failed:
 {
     // Prime buffers
     _shouldBufferDataInCallback = YES;
+    _shouldNotifyOnTrackFinished = YES;
     for (int i = 0; i < kNumberBuffers; ++i) {
         HandleOutputBuffer(self, _queue, _buffers[i]);
     }
@@ -225,10 +261,11 @@ failed:
 
 - (void)trackDidEnd;
 {
-    if (_delegate != nil) {
+    if (_shouldNotifyOnTrackFinished && (_delegate != nil)) {
         // We're called in the callback. Things don't work quite right (like stopping and starting), so this causes it to be called the next time;
         [_delegate performSelector:@selector(musicPlayerOutputDidFinishTrack:) withObject:self afterDelay:0];
     }
+    _shouldNotifyOnTrackFinished = NO;
 }
 
 @end

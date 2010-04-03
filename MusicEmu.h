@@ -9,13 +9,16 @@
 #import <Cocoa/Cocoa.h>
 #import "gme/gme.h"
 
+/**
+ * A very thin wrapper around the C++ Music_Emu class to localize all C++ to a single file.
+ */
 @interface MusicEmu : NSObject {
     Music_Emu * _emu;
 }
 
 + (id)musicEmuWithFile:(NSString *)path sampleRate:(long)sampleRate error:(NSError **)error;
 
-- (Music_Emu *)emu;
++ (gme_err_t)gme_open_file:(const char *)path emu:(MusicEmu **)emu sampleRate:(long)sampleRate;
 
 - (gme_err_t)set_sample_rate:(long)sample_rate;
 

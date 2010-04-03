@@ -62,6 +62,7 @@
 		5582E97E11637A3600520F69 /* TrackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5582E97D11637A3600520F69 /* TrackInfo.m */; };
 		559A2FC011657DE800E7F3F0 /* MusicPlayerStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 559A2FBF11657DE800E7F3F0 /* MusicPlayerStateMachine.m */; };
 		559A30121165850500E7F3F0 /* MusicPlayerAudioQueueOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 559A30111165850500E7F3F0 /* MusicPlayerAudioQueueOutput.m */; };
+		559A328A1166382300E7F3F0 /* GmeMusicFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 559A32891166382300E7F3F0 /* GmeMusicFile.m */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */; settings = {ATTRIBUTES = (); }; };
@@ -212,6 +213,8 @@
 		559A2FF51165836C00E7F3F0 /* MusicPlayerActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerActions.h; sourceTree = "<group>"; };
 		559A30101165850500E7F3F0 /* MusicPlayerAudioQueueOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerAudioQueueOutput.h; sourceTree = "<group>"; };
 		559A30111165850500E7F3F0 /* MusicPlayerAudioQueueOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerAudioQueueOutput.m; sourceTree = "<group>"; };
+		559A32881166382300E7F3F0 /* GmeMusicFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GmeMusicFile.h; sourceTree = "<group>"; };
+		559A32891166382300E7F3F0 /* GmeMusicFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GmeMusicFile.m; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Retro_Player-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Retro_Player-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Retro Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Retro Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -283,12 +286,14 @@
 				559A2FBE11657DE800E7F3F0 /* MusicPlayerStateMachine.h */,
 				559A2FBF11657DE800E7F3F0 /* MusicPlayerStateMachine.m */,
 				559A2FF51165836C00E7F3F0 /* MusicPlayerActions.h */,
+				559A32881166382300E7F3F0 /* GmeMusicFile.h */,
+				559A32891166382300E7F3F0 /* GmeMusicFile.m */,
 				5582E97C11637A3600520F69 /* TrackInfo.h */,
 				5582E97D11637A3600520F69 /* TrackInfo.m */,
-				5582E7061162F99C00520F69 /* MusicEmu.h */,
-				5582E7071162F99C00520F69 /* MusicEmu.mm */,
 				5582E7661163023300520F69 /* GmeErrors.h */,
 				5582E7671163023300520F69 /* GmeErrors.m */,
+				5582E7061162F99C00520F69 /* MusicEmu.h */,
+				5582E7071162F99C00520F69 /* MusicEmu.mm */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -579,6 +584,7 @@
 				5582E97E11637A3600520F69 /* TrackInfo.m in Sources */,
 				559A2FC011657DE800E7F3F0 /* MusicPlayerStateMachine.m in Sources */,
 				559A30121165850500E7F3F0 /* MusicPlayerAudioQueueOutput.m in Sources */,
+				559A328A1166382300E7F3F0 /* GmeMusicFile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

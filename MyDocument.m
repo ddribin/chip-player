@@ -7,6 +7,8 @@
 //
 
 #import "MyDocument.h"
+#import "GmeMusicFile.h"
+#import "MusicPlayerStateMachine.h"
 #import "MusicPlayer.h"
 #import "TrackTableDataSource.h"
 
@@ -19,12 +21,13 @@
 - (id)init
 {
     self = [super init];
-    if (self) {
-    
-        // Add your subclass-specific initialization here.
-        // If an error occurs here, send a [self release] message and return nil.
-    
+    if (self == nil) {
+        return nil;
     }
+    
+    _playerOutput = [(MusicPlayerAudioQueueOutput *)[MusicPlayerAudioQueueOutput alloc] initWithDelegate:self];
+    _stateMachine = [[MusicPlayerStateMachine alloc] initWithActions:self];
+    
     return self;
 }
 
@@ -32,6 +35,10 @@
 {
     [_player teardown];
     [_player release];
+    
+    [_stateMachine teardown];
+    [_stateMachine release];
+    [_playerOutput release];
     [super dealloc];
 }
 
@@ -82,14 +89,39 @@
 }
 #endif
 
+
+
 - (BOOL)readFromURL:(NSURL *)absoluteURL
              ofType:(NSString *)typeName
               error:(NSError **)outError
 {
-    MusicPlayer * player = [[[MusicPlayer alloc] initWithDelegate:self] autorelease];
+    NSError * error = nil;
+    GmeMusicFile * musicFile = [GmeMusicFile musicFileAtPath:[absoluteURL path] error:&error];
+    if (musicFile == nil) {
+        if (outError != NULL) {
+            *outError = error;
+        }
+        return NO;
+    }
+    
+    if (![_playerOutput setupWithSampleRate:[musicFile sampleRate] error:&error]) {
+        if (outError != NULL) {
+            *outError = error;
+        }
+        return NO;
+    }
+    
+    [_musicFile release];
+    _musicFile = [musicFile retain];
+    
+    [_playerOutput setMusicFile:_musicFile];
+    
+    [_stateMachine setup];
+    
+    MusicPlayer * player = [[(MusicPlayer *)[MusicPlayer alloc] initWithDelegate:self] autorelease];
     [player setup];
 
-    NSError * error = nil;
+    error = nil;
     if (![player loadFileAtPath:[absoluteURL path] error:&error]) {
         [player teardown];
         if (outError != NULL) {
@@ -105,27 +137,43 @@
 
 - (void)playCurrentTrack;
 {
+#if 0
     NSInteger currentTrack = [_trackTableDataSource currentTrack];
     NSError * error = nil;
     if (![_player playTrack:currentTrack error:&error]) {
         NSLog(@"Could not play: %@ %@", error, [error userInfo]);
     }
+#else
+    NSInteger currentTrack = [_trackTableDataSource currentTrack];
+    NSError * error = nil;
+    if (![_musicFile playTrack:currentTrack error:&error]) {
+        NSLog(@"Could not play: %@ %@", error, [error userInfo]);
+    }
+#endif
 }
 
 - (IBAction)play:(id)sender;
 {
+#if 0
     if ([_player isPlaying]) {
         [_player togglePause];
     } else {
         [self playCurrentTrack];
     }
+#else
+    [_stateMachine togglePause];
+#endif
 }
 
 - (IBAction)playSelectedTrack:(id)sender;
 {
+#if 0
     NSInteger track = [_trackTable selectedRow];
     [_trackTableDataSource setCurrentTrack:track];
     [self playCurrentTrack];
+#else
+    [_stateMachine play];
+#endif
 }
 
 - (void)musicPlayerDidStop:(MusicPlayer *)player;
@@ -155,9 +203,90 @@
     }
 }
 
+- (void)musicPlayerOutputDidFinishTrack:(MusicPlayerAudioQueueOutput *)output;
+{
+    [_stateMachine trackDidFinish];
+}
+
 - (void)musicPlayer:(MusicPlayer *)player didFailWithError:(NSError *)error;
 {
     [NSApp presentError:error];
+}
+
+#pragma mark -
+#pragma mark MusicPlayerActions API
+
+- (void)handleError:(NSError *)error;
+{
+}
+
+- (void)clearError;
+{
+}
+
+- (void)didStop;
+{
+    [_playPauseButton setTitle:@"Play"];
+}
+    
+- (void)didPlay;
+{
+    [_playPauseButton setTitle:@"Pause"];
+}
+
+- (void)didPause;
+{
+    [_playPauseButton setTitle:@"Play"];
+}
+
+- (BOOL)setupAudio:(NSError **)error;
+{
+    return YES;
+}
+
+- (void)teardownAudio;
+{
+    [_playerOutput teardownAudio];
+}
+
+- (BOOL)startAudio:(NSError **)error;
+{
+    [self playCurrentTrack];
+    return [_playerOutput startAudio:error];
+}
+
+- (void)setCurrentTrackToSelectedTrack;
+{
+    NSInteger track = [_trackTable selectedRow];
+    [_trackTableDataSource setCurrentTrack:track];
+}
+
+- (void)nextTrack;
+{
+    NSInteger currentTrack = [_trackTableDataSource currentTrack];
+    currentTrack++;
+    [_trackTableDataSource setCurrentTrack:currentTrack];
+}
+- (void)stopAudio;
+{
+    [_playerOutput stopAudio];
+}
+
+- (BOOL)pauseAudio:(NSError **)error;
+{
+    return [_playerOutput pauseAudio:error];
+}
+
+- (BOOL)unpauseAudio:(NSError **)error;
+{
+    return [_playerOutput unpauseAudio:error];
+}
+
+- (BOOL)isCurrentTrackTheLastTrack;
+{
+    NSInteger currentTrack = [_trackTableDataSource currentTrack];
+    BOOL isLast = ((currentTrack+1) == [_player numberOfTracks]);
+    return isLast;
 }
 
 @end

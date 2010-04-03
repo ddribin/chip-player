@@ -26,4 +26,11 @@
 - (BOOL)pauseAudio:(NSError **)error;
 - (BOOL)unpauseAudio:(NSError **)error;
 
+- (void)setCurrentTrackToSelectedTrack;
+- (void)nextTrack;
+
+#pragma mark -
+
+- (BOOL)isCurrentTrackTheLastTrack;
+
 @end

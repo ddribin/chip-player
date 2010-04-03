@@ -8,14 +8,19 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import "MUsicPlayer.h"
+#import "MusicPlayer.h"
+#import "MusicPlayerActions.h"
 
 @class MusicPlayer;
 @class TrackTableDataSource;
+@class GmeMusicFile;
 
-@interface MyDocument : NSDocument <MusicPlayerDelegate>
+@interface MyDocument : NSDocument <MusicPlayerActions, MusicPlayerOutputDelegate, MusicPlayerDelegate>
 {
     MusicPlayer * _player;
+    GmeMusicFile * _musicFile;
+    MusicPlayerStateMachine * _stateMachine;
+    MusicPlayerAudioQueueOutput * _playerOutput;
 
     TrackTableDataSource * _trackTableDataSource;
     NSTableView * _trackTable;

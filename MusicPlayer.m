@@ -212,4 +212,17 @@ enum State {
     [_delegate musicPlayerDidFinishTrack:self];
 }
 
+- (void)setCurrentTrackToSelectedTrack;
+{
+}
+
+- (BOOL)isCurrentTrackTheLastTrack;
+{
+    return NO;
+}
+
+- (void)nextTrack;
+{
+}
+
 @end

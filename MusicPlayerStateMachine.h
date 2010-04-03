@@ -24,8 +24,7 @@
 - (void)teardown;
 - (void)play;
 - (void)stop;
-- (void)pause;
-- (void)unpause;
 - (void)togglePause;
+- (void)trackDidFinish;
 
 @end

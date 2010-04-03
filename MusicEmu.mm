@@ -37,6 +37,16 @@ gme_err_t GmeMusicEmuPlay(MusicEmu * emu, long count, short * samples)
     return [o autorelease];
 }
 
++ (gme_err_t)gme_open_file:(const char *)path emu:(MusicEmu **)emu sampleRate:(long)sampleRate;
+{
+    Music_Emu * gmeEmu = NULL;
+    gme_err_t gmeError = gme_open_file(path, &gmeEmu, sampleRate);
+    if (gmeEmu != NULL) {
+        *emu = [[[self alloc] initWithMusicEmu:gmeEmu] autorelease];
+    }
+    return gmeError;
+}
+
 - (id)initWithMusicEmu:(Music_Emu *)emu;
 {
     self = [super init];
@@ -52,11 +62,6 @@ gme_err_t GmeMusicEmuPlay(MusicEmu * emu, long count, short * samples)
 {
     delete _emu;
     [super dealloc];
-}
-
-- (Music_Emu *)emu;
-{
-    return _emu;
 }
 
 - (gme_err_t)set_sample_rate:(long)sample_rate;
