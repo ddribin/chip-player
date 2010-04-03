@@ -8,19 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class MusicPlayer;
+@class GmeMusicFile;
 
 @interface TrackTableDataSource : NSObject <NSTableViewDataSource>
 {
     // Non-retained
     NSTableView * _table;
     
-    MusicPlayer * _player;
+    GmeMusicFile * _musicFile;
     NSInteger _currentTrack;
 }
 
 @property (assign) IBOutlet NSTableView * table;
-@property (nonatomic, retain) MusicPlayer * player;
+@property (nonatomic, retain) GmeMusicFile * musicFile;
 @property (nonatomic) NSInteger currentTrack;
 
 @end

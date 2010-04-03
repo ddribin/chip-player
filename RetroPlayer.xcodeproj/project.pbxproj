@@ -54,7 +54,6 @@
 		5582E6DF1162F62A00520F69 /* Vgm_Emu_Impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5582E61B1162F62A00520F69 /* Vgm_Emu_Impl.cpp */; };
 		5582E6E01162F62A00520F69 /* Ym2413_Emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5582E61D1162F62A00520F69 /* Ym2413_Emu.cpp */; };
 		5582E6E11162F62A00520F69 /* Ym2612_Emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5582E61F1162F62A00520F69 /* Ym2612_Emu.cpp */; };
-		5582E6FD1162F87E00520F69 /* MusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5582E6FC1162F87E00520F69 /* MusicPlayer.m */; };
 		5582E7081162F99C00520F69 /* MusicEmu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5582E7071162F99C00520F69 /* MusicEmu.mm */; };
 		5582E7681163023300520F69 /* GmeErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 5582E7671163023300520F69 /* GmeErrors.m */; };
 		5582E7BC1163066400520F69 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5582E7BB1163066400520F69 /* AudioToolbox.framework */; };
@@ -197,8 +196,6 @@
 		5582E6271162F62A00520F69 /* Music_Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Music_Player.h; sourceTree = "<group>"; };
 		5582E6281162F62A00520F69 /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
 		5582E6291162F62A00520F69 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
-		5582E6FB1162F87E00520F69 /* MusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayer.h; sourceTree = "<group>"; };
-		5582E6FC1162F87E00520F69 /* MusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayer.m; sourceTree = "<group>"; };
 		5582E7061162F99C00520F69 /* MusicEmu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicEmu.h; sourceTree = "<group>"; };
 		5582E7071162F99C00520F69 /* MusicEmu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MusicEmu.mm; sourceTree = "<group>"; };
 		5582E7661163023300520F69 /* GmeErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GmeErrors.h; sourceTree = "<group>"; };
@@ -279,8 +276,6 @@
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
 				5582E8FF1163753000520F69 /* TrackTableDataSource.h */,
 				5582E9001163753000520F69 /* TrackTableDataSource.m */,
-				5582E6FB1162F87E00520F69 /* MusicPlayer.h */,
-				5582E6FC1162F87E00520F69 /* MusicPlayer.m */,
 				559A30101165850500E7F3F0 /* MusicPlayerAudioQueueOutput.h */,
 				559A30111165850500E7F3F0 /* MusicPlayerAudioQueueOutput.m */,
 				559A2FBE11657DE800E7F3F0 /* MusicPlayerStateMachine.h */,
@@ -577,7 +572,6 @@
 				5582E6DF1162F62A00520F69 /* Vgm_Emu_Impl.cpp in Sources */,
 				5582E6E01162F62A00520F69 /* Ym2413_Emu.cpp in Sources */,
 				5582E6E11162F62A00520F69 /* Ym2612_Emu.cpp in Sources */,
-				5582E6FD1162F87E00520F69 /* MusicPlayer.m in Sources */,
 				5582E7081162F99C00520F69 /* MusicEmu.mm in Sources */,
 				5582E7681163023300520F69 /* GmeErrors.m in Sources */,
 				5582E9011163753000520F69 /* TrackTableDataSource.m in Sources */,

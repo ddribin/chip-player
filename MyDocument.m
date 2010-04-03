@@ -9,7 +9,6 @@
 #import "MyDocument.h"
 #import "GmeMusicFile.h"
 #import "MusicPlayerStateMachine.h"
-#import "MusicPlayer.h"
 #import "TrackTableDataSource.h"
 
 @implementation MyDocument
@@ -33,9 +32,6 @@
 
 - (void)dealloc
 {
-    [_player teardown];
-    [_player release];
-    
     [_stateMachine teardown];
     [_stateMachine release];
     [_playerOutput release];
@@ -55,7 +51,7 @@
     [super windowControllerDidLoadNib:aController];
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
     
-    _trackTableDataSource.player = _player;
+    _trackTableDataSource.musicFile = _musicFile;
     [_trackTable setDoubleAction:@selector(playSelectedTrack:)];
 }
 
@@ -89,8 +85,6 @@
 }
 #endif
 
-
-
 - (BOOL)readFromURL:(NSURL *)absoluteURL
              ofType:(NSString *)typeName
               error:(NSError **)outError
@@ -98,109 +92,38 @@
     NSError * error = nil;
     GmeMusicFile * musicFile = [GmeMusicFile musicFileAtPath:[absoluteURL path] error:&error];
     if (musicFile == nil) {
-        if (outError != NULL) {
-            *outError = error;
-        }
-        return NO;
+        goto failed;
     }
     
     if (![_playerOutput setupWithSampleRate:[musicFile sampleRate] error:&error]) {
-        if (outError != NULL) {
-            *outError = error;
-        }
-        return NO;
+        goto failed;
     }
     
     [_musicFile release];
     _musicFile = [musicFile retain];
-    
     [_playerOutput setMusicFile:_musicFile];
     
     [_stateMachine setup];
     
-    MusicPlayer * player = [[(MusicPlayer *)[MusicPlayer alloc] initWithDelegate:self] autorelease];
-    [player setup];
-
-    error = nil;
-    if (![player loadFileAtPath:[absoluteURL path] error:&error]) {
-        [player teardown];
-        if (outError != NULL) {
-            *outError = error;
-        }
-        return NO;
-    }
-    
-    _player = [player retain];
-    
     return YES;
+    
+failed:
+    if (outError != NULL) {
+        *outError = error;
+    }
+    return NO;
 }
 
-- (void)playCurrentTrack;
-{
-#if 0
-    NSInteger currentTrack = [_trackTableDataSource currentTrack];
-    NSError * error = nil;
-    if (![_player playTrack:currentTrack error:&error]) {
-        NSLog(@"Could not play: %@ %@", error, [error userInfo]);
-    }
-#else
-    NSInteger currentTrack = [_trackTableDataSource currentTrack];
-    NSError * error = nil;
-    if (![_musicFile playTrack:currentTrack error:&error]) {
-        NSLog(@"Could not play: %@ %@", error, [error userInfo]);
-    }
-#endif
-}
+#pragma mark External Actions
 
 - (IBAction)play:(id)sender;
 {
-#if 0
-    if ([_player isPlaying]) {
-        [_player togglePause];
-    } else {
-        [self playCurrentTrack];
-    }
-#else
     [_stateMachine togglePause];
-#endif
 }
 
 - (IBAction)playSelectedTrack:(id)sender;
 {
-#if 0
-    NSInteger track = [_trackTable selectedRow];
-    [_trackTableDataSource setCurrentTrack:track];
-    [self playCurrentTrack];
-#else
     [_stateMachine play];
-#endif
-}
-
-- (void)musicPlayerDidStop:(MusicPlayer *)player;
-{
-    [_playPauseButton setTitle:@"Play"];
-}
-
-- (void)musicPlayerDidStart:(MusicPlayer *)player;
-{
-    [_playPauseButton setTitle:@"Pause"];
-}
-
-- (void)musicPlayerDidPause:(MusicPlayer *)player;
-{
-    [_playPauseButton setTitle:@"Play"];
-}
-
-- (void)musicPlayerDidFinishTrack:(MusicPlayer *)player;
-{
-    NSInteger currentTrack = [_trackTableDataSource currentTrack];
-    if ((currentTrack+1) < [_player numberOfTracks]) {
-        currentTrack++;
-        [_trackTableDataSource setCurrentTrack:currentTrack];
-        [self playCurrentTrack];
-    } else {
-        [_player stop];
-    }
 }
 
 - (void)musicPlayerOutputDidFinishTrack:(MusicPlayerAudioQueueOutput *)output;
@@ -208,9 +131,15 @@
     [_stateMachine trackDidFinish];
 }
 
-- (void)musicPlayer:(MusicPlayer *)player didFailWithError:(NSError *)error;
+#pragma mark -
+
+- (void)playCurrentTrack;
 {
-    [NSApp presentError:error];
+    NSInteger currentTrack = [_trackTableDataSource currentTrack];
+    NSError * error = nil;
+    if (![_musicFile playTrack:currentTrack error:&error]) {
+        NSLog(@"Could not play: %@ %@", error, [error userInfo]);
+    }
 }
 
 #pragma mark -
@@ -218,6 +147,7 @@
 
 - (void)handleError:(NSError *)error;
 {
+    [NSApp presentError:error];
 }
 
 - (void)clearError;
@@ -285,7 +215,7 @@
 - (BOOL)isCurrentTrackTheLastTrack;
 {
     NSInteger currentTrack = [_trackTableDataSource currentTrack];
-    BOOL isLast = ((currentTrack+1) == [_player numberOfTracks]);
+    BOOL isLast = ((currentTrack+1) == [_musicFile numberOfTracks]);
     return isLast;
 }
 

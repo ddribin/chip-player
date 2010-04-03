@@ -7,31 +7,31 @@
 //
 
 #import "TrackTableDataSource.h"
-#import "MusicPlayer.h"
+#import "GmeMusicFile.h"
 #import "TrackInfo.h"
 
 
 @implementation TrackTableDataSource
 
-@synthesize player = _player;
+@synthesize musicFile = _musicFile;
 @synthesize table = _table;
 @synthesize currentTrack = _currentTrack;
 
 
 - (void)dealloc {
-    [_player release];
+    [_musicFile release];
     
     [super dealloc];
 }
 
-- (MusicPlayer *)player {
-    return [[_player retain] autorelease]; 
+- (GmeMusicFile *)musicFile {
+    return [[_musicFile retain] autorelease]; 
 }
 
-- (void)setPlayer:(MusicPlayer *)player {
-    if (_player != player) {
-        [_player release];
-        _player = [player retain];
+- (void)setMusicFile:(GmeMusicFile *)musicFile {
+    if (_musicFile != musicFile) {
+        [_musicFile release];
+        _musicFile = [musicFile retain];
         [_table reloadData];
     }
 }
@@ -48,7 +48,7 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 {
-    NSInteger tracks = [_player numberOfTracks];
+    NSInteger tracks = [_musicFile numberOfTracks];
     return tracks;
 }
 
@@ -59,7 +59,7 @@
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 {
-    TrackInfo * info = [_player trackInfoForTrack:row];
+    TrackInfo * info = [_musicFile infoForTrack:row];
     if (info == nil) {
         return nil;
     }
