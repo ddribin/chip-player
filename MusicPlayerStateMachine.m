@@ -24,7 +24,7 @@ enum State {
         return nil;
     
     _actions = actions;
-    _state = RRStateStopped;
+    _state = RRStateUninitialized;
     
     return self;
 }
@@ -32,6 +32,14 @@ enum State {
 - (BOOL)isPlaying;
 {
     return ((_state == RRStatePlaying) || (_state == RRStatePaused));
+}
+
+- (void)setup;
+{
+    NSAssert(_state == RRStateUninitialized, @"Invalid state");
+
+    [_actions enableOrDisablePreviousAndNext];
+    _state = RRStateStopped;
 }
 
 - (void)teardown;
@@ -127,15 +135,19 @@ enum State {
     
     if (_state == RRStateStopped) {
         [_actions nextTrack];
+        [_actions enableOrDisablePreviousAndNext];
     }
     else if (_state == RRStatePlaying) {
         [_actions stopAudio];
         [_actions nextTrack];
         [_actions startAudio:NULL];
+        [_actions enableOrDisablePreviousAndNext];
     }
     else if (_state == RRStatePaused) {
         [_actions stopAudio];
         [_actions nextTrack];
+        [_actions enableOrDisablePreviousAndNext];
+
         _state = RRStateStopped;
     }
 }
@@ -150,15 +162,19 @@ enum State {
     
     if (_state == RRStateStopped) {
         [_actions previousTrack];
+        [_actions enableOrDisablePreviousAndNext];
     }
     else if (_state == RRStatePlaying) {
         [_actions stopAudio];
         [_actions previousTrack];
         [_actions startAudio:NULL];
+        [_actions enableOrDisablePreviousAndNext];
     }
     else if (_state == RRStatePaused) {
         [_actions stopAudio];
         [_actions previousTrack];
+        [_actions enableOrDisablePreviousAndNext];
+        
         _state = RRStateStopped;
     }
 }
@@ -174,6 +190,7 @@ enum State {
         [_actions stopAudio];
         [_actions nextTrack];
         [_actions startAudio:NULL];
+        [_actions enableOrDisablePreviousAndNext];
     }
 }
 

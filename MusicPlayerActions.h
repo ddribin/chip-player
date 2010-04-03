@@ -16,6 +16,7 @@
 
 - (void)setButtonToPlay;
 - (void)setButtonToPause;
+- (void)enableOrDisablePreviousAndNext;
 
 - (BOOL)setupAudio:(NSError **)error;
 - (void)teardownAudio;

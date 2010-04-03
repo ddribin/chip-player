@@ -23,12 +23,16 @@
 
     TrackTableDataSource * _trackTableDataSource;
     NSTableView * _trackTable;
+    NSButton * _previousButton;
     NSButton * _playPauseButton;
+    NSButton * _nextButton;
 }
 
 @property (assign) IBOutlet TrackTableDataSource * trackTableDataSource;
 @property (assign) IBOutlet NSTableView * trackTable;
+@property (assign) IBOutlet NSButton * previousButton;
 @property (assign) IBOutlet NSButton * playPauseButton;
+@property (assign) IBOutlet NSButton * nextButton;
 
 - (IBAction)play:(id)sender;
 - (IBAction)playSelectedTrack:(id)sender;

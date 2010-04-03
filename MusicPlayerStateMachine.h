@@ -18,8 +18,7 @@
 
 - (id)initWithActions:(id<MusicPlayerActions>)actions;
 
-- (BOOL)isPlaying;
-
+- (void)setup;
 - (void)teardown;
 - (void)play;
 - (void)stop;

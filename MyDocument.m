@@ -15,7 +15,9 @@
 
 @synthesize trackTableDataSource = _trackTableDataSource;
 @synthesize trackTable = _trackTable;
+@synthesize previousButton = _previousButton;
 @synthesize playPauseButton = _playPauseButton;
+@synthesize nextButton = _nextButton;
 
 - (id)init
 {
@@ -56,6 +58,7 @@
     
     _trackTableDataSource.musicFile = _musicFile;
     [_trackTable setDoubleAction:@selector(playSelectedTrack:)];
+    [_stateMachine setup];
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -169,6 +172,15 @@ failed:
 - (void)setButtonToPause;
 {
     [_playPauseButton setTitle:@"Pause"];
+}
+
+- (void)enableOrDisablePreviousAndNext;
+{
+    BOOL previousEnabled = ![self isCurrentTrackTheFirstTrack];
+    [_previousButton setEnabled:previousEnabled];
+    
+    BOOL nextEnabled = ![self isCurrentTrackTheLastTrack];
+    [_nextButton setEnabled:nextEnabled];
 }
 
 - (BOOL)setupAudio:(NSError **)error;

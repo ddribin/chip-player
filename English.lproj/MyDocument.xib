@@ -105,7 +105,7 @@
 											</object>
 											<object class="NSMutableArray" key="NSTableColumns">
 												<bool key="EncodedWithXMLCoder">YES</bool>
-												<object class="NSTableColumn" id="1022521026">
+												<object class="NSTableColumn" id="911446814">
 													<string key="NSIdentifier">currentTrack</string>
 													<double key="NSWidth">19</double>
 													<double key="NSMinWidth">10</double>
@@ -138,7 +138,7 @@
 															</object>
 														</object>
 													</object>
-													<object class="NSTextFieldCell" key="NSDataCell" id="78283256">
+													<object class="NSTextFieldCell" key="NSDataCell" id="509211244">
 														<int key="NSCellFlags">337772096</int>
 														<int key="NSCellFlags2">2048</int>
 														<string key="NSContents">Text Cell</string>
@@ -376,18 +376,18 @@
 							<reference key="NSCornerView" ref="249457402"/>
 							<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 						</object>
-						<object class="NSButton" id="62986594">
+						<object class="NSButton" id="428155436">
 							<reference key="NSNextResponder" ref="568628114"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{14, 477}, {96, 32}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="1013197981">
+							<object class="NSButtonCell" key="NSCell" id="202623842">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">Previous</string>
 								<reference key="NSSupport" ref="337865286"/>
-								<reference key="NSControlView" ref="62986594"/>
+								<reference key="NSControlView" ref="428155436"/>
 								<int key="NSButtonFlags">-2038284033</int>
 								<int key="NSButtonFlags2">129</int>
 								<string key="NSAlternateContents"/>
@@ -396,18 +396,18 @@
 								<int key="NSPeriodicInterval">25</int>
 							</object>
 						</object>
-						<object class="NSButton" id="511091920">
+						<object class="NSButton" id="367456992">
 							<reference key="NSNextResponder" ref="568628114"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{206, 477}, {96, 32}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="357189688">
+							<object class="NSButtonCell" key="NSCell" id="131385467">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">Next</string>
 								<reference key="NSSupport" ref="337865286"/>
-								<reference key="NSControlView" ref="511091920"/>
+								<reference key="NSControlView" ref="367456992"/>
 								<int key="NSButtonFlags">-2038284033</int>
 								<int key="NSButtonFlags2">129</int>
 								<string key="NSAlternateContents"/>
@@ -502,7 +502,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">next:</string>
 						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="511091920"/>
+						<reference key="destination" ref="367456992"/>
 					</object>
 					<int key="connectionID">100053</int>
 				</object>
@@ -510,9 +510,25 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">previous:</string>
 						<reference key="source" ref="512844837"/>
-						<reference key="destination" ref="62986594"/>
+						<reference key="destination" ref="428155436"/>
 					</object>
 					<int key="connectionID">100054</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextButton</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="367456992"/>
+					</object>
+					<int key="connectionID">100056</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">previousButton</string>
+						<reference key="source" ref="512844837"/>
+						<reference key="destination" ref="428155436"/>
+					</object>
+					<int key="connectionID">100057</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -553,8 +569,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="519981449"/>
 							<reference ref="804567338"/>
-							<reference ref="62986594"/>
-							<reference ref="511091920"/>
+							<reference ref="428155436"/>
+							<reference ref="367456992"/>
 						</object>
 						<reference key="parent" ref="275939982"/>
 					</object>
@@ -610,7 +626,7 @@
 							<reference ref="167196517"/>
 							<reference ref="229815105"/>
 							<reference ref="1066194900"/>
-							<reference ref="1022521026"/>
+							<reference ref="911446814"/>
 						</object>
 						<reference key="parent" ref="519981449"/>
 					</object>
@@ -696,45 +712,45 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100047</int>
-						<reference key="object" ref="1022521026"/>
+						<reference key="object" ref="911446814"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="78283256"/>
+							<reference ref="509211244"/>
 						</object>
 						<reference key="parent" ref="844639863"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100048</int>
-						<reference key="object" ref="78283256"/>
-						<reference key="parent" ref="1022521026"/>
+						<reference key="object" ref="509211244"/>
+						<reference key="parent" ref="911446814"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100049</int>
-						<reference key="object" ref="62986594"/>
+						<reference key="object" ref="428155436"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="1013197981"/>
+							<reference ref="202623842"/>
 						</object>
 						<reference key="parent" ref="568628114"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100050</int>
-						<reference key="object" ref="1013197981"/>
-						<reference key="parent" ref="62986594"/>
+						<reference key="object" ref="202623842"/>
+						<reference key="parent" ref="428155436"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100051</int>
-						<reference key="object" ref="511091920"/>
+						<reference key="object" ref="367456992"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="357189688"/>
+							<reference ref="131385467"/>
 						</object>
 						<reference key="parent" ref="568628114"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">100052</int>
-						<reference key="object" ref="357189688"/>
-						<reference key="parent" ref="511091920"/>
+						<reference key="object" ref="131385467"/>
+						<reference key="parent" ref="367456992"/>
 					</object>
 				</object>
 			</object>
@@ -825,7 +841,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">100054</int>
+			<int key="maxID">100057</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -854,12 +870,16 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>nextButton</string>
 							<string>playPauseButton</string>
+							<string>previousButton</string>
 							<string>trackTable</string>
 							<string>trackTableDataSource</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSButton</string>
+							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSTableView</string>
 							<string>TrackTableDataSource</string>
