@@ -16,6 +16,8 @@
     int _state;
 }
 
+@property (nonatomic, readonly) int state;
+
 - (id)initWithActions:(id<MusicPlayerActions>)actions;
 
 - (void)setup;

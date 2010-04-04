@@ -12,7 +12,7 @@
 
 
 @interface MusicPlayerAudioQueueOutput ()
-- (void)trackDidEnd;
+- (void)checkTrackDidEnd;
 @end
 
 @implementation MusicPlayerAudioQueueOutput
@@ -48,9 +48,10 @@ static void HandleOutputBuffer(void * inUserData,
     if (result != noErr) {
         NSLog(@"AudioQueueEnqueueBuffer error: %d %s %s", result, GetMacOSStatusErrorString(result), GetMacOSStatusCommentString(result));
     }
-    if ([musicFile trackEnded]) {
-        [player trackDidEnd];
-    }
+    
+    // Peform after delay to get us out of the callback as some resulting actions
+    // that act on the queue may not work when called from the callback
+    [player performSelector:@selector(checkTrackDidEnd) withObject:nil afterDelay:0.0];
 }
 
 // we only use time here as a guideline
@@ -175,7 +176,6 @@ failed:
 {
     // Prime buffers
     _shouldBufferDataInCallback = YES;
-    _shouldNotifyOnTrackFinished = YES;
     for (int i = 0; i < kNumberBuffers; ++i) {
         HandleOutputBuffer(self, _queue, _buffers[i]);
     }
@@ -236,13 +236,11 @@ failed:
     return NO;
 }
 
-- (void)trackDidEnd;
+- (void)checkTrackDidEnd;
 {
-    if (_shouldNotifyOnTrackFinished && (_delegate != nil)) {
-        // We're called in the callback. Things don't work quite right (like stopping and starting), so this causes it to be called the next time;
-        [_delegate performSelector:@selector(musicPlayerOutputDidFinishTrack:) withObject:self afterDelay:0];
+    if ([_musicFile trackEnded]) {
+        [_delegate musicPlayerOutputDidFinishTrack:self];
     }
-    _shouldNotifyOnTrackFinished = NO;
 }
 
 @end

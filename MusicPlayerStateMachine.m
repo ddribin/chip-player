@@ -8,6 +8,10 @@
 
 #import "MusicPlayerStateMachine.h"
 
+@interface MusicPlayerStateMachine ()
+@property (nonatomic) int state;
+@end
+
 enum State {
     RRStateUninitialized,
     RRStateStopped,
@@ -16,6 +20,8 @@ enum State {
 };
 
 @implementation MusicPlayerStateMachine
+
+@synthesize state = _state;
 
 - (id)initWithActions:(id<MusicPlayerActions>)actions;
 {
@@ -29,17 +35,19 @@ enum State {
     return self;
 }
 
-- (BOOL)isPlaying;
+- (void)setState:(int)state
 {
-    return ((_state == RRStatePlaying) || (_state == RRStatePaused));
+    // NSLog(@"state %d -> %d", _state, state);
+    _state = state;
 }
 
 - (void)setup;
 {
     NSAssert(_state == RRStateUninitialized, @"Invalid state");
 
+    [_actions setButtonToPlay];
     [_actions enableOrDisablePreviousAndNext];
-    _state = RRStateStopped;
+    self.state = RRStateStopped;
 }
 
 - (void)teardown;
@@ -48,7 +56,7 @@ enum State {
     
     [_actions stopAudio];
     [_actions teardownAudio];
-    _state = RRStateUninitialized;
+    self.state = RRStateUninitialized;
 }
 
 - (void)play;
@@ -57,9 +65,10 @@ enum State {
 
     if ((_state == RRStatePlaying) || (_state == RRStatePaused)) {
         [_actions stopAudio];
-        [_actions setCurrentTrackToSelectedTrack];
     }
 
+    [_actions setCurrentTrackToSelectedTrack];
+    [_actions enableOrDisablePreviousAndNext];
     NSError * error = nil;;
     if (![_actions startAudio:&error]) {
         [_actions handleError:error];
@@ -67,7 +76,7 @@ enum State {
     }
     
     [_actions setButtonToPause];
-    _state = RRStatePlaying;
+    self.state = RRStatePlaying;
 }
 
 - (void)stop;
@@ -79,7 +88,7 @@ enum State {
     
     [_actions stopAudio];
     [_actions setButtonToPlay];
-    _state = RRStateStopped;
+    self.state = RRStateStopped;
 }
 
 - (void)pause;
@@ -94,7 +103,7 @@ enum State {
     }
     
     [_actions setButtonToPlay];
-    _state = RRStatePaused;
+    self.state = RRStatePaused;
 }
 
 - (void)unpause;
@@ -109,7 +118,7 @@ enum State {
     }
     
     [_actions setButtonToPause];
-    _state = RRStatePlaying;
+    self.state = RRStatePlaying;
 }
 
 - (void)togglePause;
@@ -117,10 +126,18 @@ enum State {
     NSAssert(_state != RRStateUninitialized, @"Invalid state");
     
     if (_state == RRStateStopped) {
-        [self play];
-    } else if (_state == RRStatePlaying) {
+        NSError * error = nil;
+        if (![_actions startAudio:&error]) {
+            [_actions handleError:error];
+        }
+        [_actions setButtonToPause];
+        
+        self.state = RRStatePlaying;
+    }
+    else if (_state == RRStatePlaying) {
         [self pause];
-    } else if (_state == RRStatePaused) {
+    }
+    else if (_state == RRStatePaused) {
         [self unpause];
     }
 }
@@ -148,7 +165,7 @@ enum State {
         [_actions nextTrack];
         [_actions enableOrDisablePreviousAndNext];
 
-        _state = RRStateStopped;
+        self.state = RRStateStopped;
     }
 }
 
@@ -167,30 +184,36 @@ enum State {
     else if (_state == RRStatePlaying) {
         [_actions stopAudio];
         [_actions previousTrack];
-        [_actions startAudio:NULL];
         [_actions enableOrDisablePreviousAndNext];
+        [_actions startAudio:NULL];
     }
     else if (_state == RRStatePaused) {
         [_actions stopAudio];
         [_actions previousTrack];
         [_actions enableOrDisablePreviousAndNext];
         
-        _state = RRStateStopped;
+        self.state = RRStateStopped;
     }
 }
 
 - (void)trackDidFinish;
 {
-    NSAssert(_state == RRStatePlaying, @"Invalid state");
+    NSAssert(_state != RRStateUninitialized, @"Invalid state");
+    
+    if (_state == RRStatePlaying) {
+        [_actions stopAudio];
+    }
     
     if ([_actions isCurrentTrackTheLastTrack]) {
-        [_actions stopAudio];
         [_actions setButtonToPlay];
+        
+        self.state = RRStateStopped;
     } else {
-        [_actions stopAudio];
         [_actions nextTrack];
-        [_actions startAudio:NULL];
         [_actions enableOrDisablePreviousAndNext];
+        [_actions startAudio:NULL];
+        
+        self.state = RRStatePlaying;
     }
 }
 

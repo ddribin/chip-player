@@ -59,6 +59,9 @@
 		5582E7BC1163066400520F69 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5582E7BB1163066400520F69 /* AudioToolbox.framework */; };
 		5582E9011163753000520F69 /* TrackTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5582E9001163753000520F69 /* TrackTableDataSource.m */; };
 		5582E97E11637A3600520F69 /* TrackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5582E97D11637A3600520F69 /* TrackInfo.m */; };
+		558E23A31167AF3600771304 /* MusicPlayerStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 559A2FBF11657DE800E7F3F0 /* MusicPlayerStateMachine.m */; };
+		558E23A41167AF3F00771304 /* MusicPlayerStateMachineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 558E238B1167AEBF00771304 /* MusicPlayerStateMachineTest.m */; };
+		558E242211683F6200771304 /* MockMusicPlayerActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 558E242111683F6200771304 /* MockMusicPlayerActions.m */; };
 		559A2FC011657DE800E7F3F0 /* MusicPlayerStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 559A2FBF11657DE800E7F3F0 /* MusicPlayerStateMachine.m */; };
 		559A30121165850500E7F3F0 /* MusicPlayerAudioQueueOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 559A30111165850500E7F3F0 /* MusicPlayerAudioQueueOutput.m */; };
 		559A328A1166382300E7F3F0 /* GmeMusicFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 559A32891166382300E7F3F0 /* GmeMusicFile.m */; };
@@ -68,6 +71,29 @@
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		558E24B111684CF200771304 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D15AC270486D014006FF6A4 /* Retro Player */;
+			remoteInfo = "Retro Player";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		558E23DB1167B7CC00771304 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -205,6 +231,12 @@
 		5582E9001163753000520F69 /* TrackTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackTableDataSource.m; sourceTree = "<group>"; };
 		5582E97C11637A3600520F69 /* TrackInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackInfo.h; sourceTree = "<group>"; };
 		5582E97D11637A3600520F69 /* TrackInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackInfo.m; sourceTree = "<group>"; };
+		558E238A1167AEBF00771304 /* MusicPlayerStateMachineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerStateMachineTest.h; sourceTree = "<group>"; };
+		558E238B1167AEBF00771304 /* MusicPlayerStateMachineTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerStateMachineTest.m; sourceTree = "<group>"; };
+		558E239C1167AF2800771304 /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		558E239D1167AF2800771304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		558E242011683F6200771304 /* MockMusicPlayerActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockMusicPlayerActions.h; sourceTree = "<group>"; };
+		558E242111683F6200771304 /* MockMusicPlayerActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockMusicPlayerActions.m; sourceTree = "<group>"; };
 		559A2FBE11657DE800E7F3F0 /* MusicPlayerStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerStateMachine.h; sourceTree = "<group>"; };
 		559A2FBF11657DE800E7F3F0 /* MusicPlayerStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerStateMachine.m; sourceTree = "<group>"; };
 		559A2FF51165836C00E7F3F0 /* MusicPlayerActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerActions.h; sourceTree = "<group>"; };
@@ -217,6 +249,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		558E23991167AF2800771304 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D15AC330486D014006FF6A4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -251,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				8D15AC370486D014006FF6A4 /* Retro Player.app */,
+				558E239C1167AF2800771304 /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,9 +299,10 @@
 			isa = PBXGroup;
 			children = (
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
-				5582E52B1162F62900520F69 /* GameMusicEmu */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
+				5582E52B1162F62900520F69 /* GameMusicEmu */,
+				558E23891167AE9000771304 /* UnitTests */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 				5582E7BB1163066400520F69 /* AudioToolbox.framework */,
@@ -468,9 +509,41 @@
 			path = player;
 			sourceTree = "<group>";
 		};
+		558E23891167AE9000771304 /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				558E238A1167AEBF00771304 /* MusicPlayerStateMachineTest.h */,
+				558E238B1167AEBF00771304 /* MusicPlayerStateMachineTest.m */,
+				558E242011683F6200771304 /* MockMusicPlayerActions.h */,
+				558E242111683F6200771304 /* MockMusicPlayerActions.m */,
+				558E239D1167AF2800771304 /* Info.plist */,
+			);
+			path = UnitTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		558E239B1167AF2800771304 /* UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 558E23A21167AF2900771304 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildPhases = (
+				558E23971167AF2800771304 /* Resources */,
+				558E23DB1167B7CC00771304 /* Copy Frameworks */,
+				558E23981167AF2800771304 /* Sources */,
+				558E23991167AF2800771304 /* Frameworks */,
+				558E239A1167AF2800771304 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				558E24B211684CF200771304 /* PBXTargetDependency */,
+			);
+			name = UnitTests;
+			productName = UnitTests;
+			productReference = 558E239C1167AF2800771304 /* UnitTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		8D15AC270486D014006FF6A4 /* Retro Player */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Retro Player" */;
@@ -502,11 +575,19 @@
 			projectRoot = "";
 			targets = (
 				8D15AC270486D014006FF6A4 /* Retro Player */,
+				558E239B1167AF2800771304 /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		558E23971167AF2800771304 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D15AC2B0486D014006FF6A4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -520,7 +601,33 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		558E239A1167AF2800771304 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		558E23981167AF2800771304 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				558E23A31167AF3600771304 /* MusicPlayerStateMachine.m in Sources */,
+				558E23A41167AF3F00771304 /* MusicPlayerStateMachineTest.m in Sources */,
+				558E242211683F6200771304 /* MockMusicPlayerActions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D15AC300486D014006FF6A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -584,6 +691,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		558E24B211684CF200771304 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D15AC270486D014006FF6A4 /* Retro Player */;
+			targetProxy = 558E24B111684CF200771304 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -620,6 +735,68 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		558E23A01167AF2900771304 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/ThirdParty/OCMock\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = UnitTests/Info.plist;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		558E23A11167AF2900771304 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/ThirdParty/OCMock\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = UnitTests/Info.plist;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -684,6 +861,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		558E23A21167AF2900771304 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				558E23A01167AF2900771304 /* Debug */,
+				558E23A11167AF2900771304 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Retro Player" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
