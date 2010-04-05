@@ -27,7 +27,6 @@
     
     MusicEmu * _emu;
     GmeMusicFile * _musicFile;
-    long _sampleRate;
     
     AudioStreamBasicDescription _dataFormat;
     AudioQueueRef _queue;
@@ -42,10 +41,8 @@
 @property (retain) MusicEmu * emu;
 @property (retain) GmeMusicFile * musicFile;
 
-- (id)initWithDelegate:(id<MusicPlayerOutputDelegate>)delegate sampleRate:(long)sampleRate;
 - (id)initWithDelegate:(id<MusicPlayerOutputDelegate>)delegate;
 
-- (BOOL)setupAudio:(NSError **)error;
 - (BOOL)setupWithSampleRate:(long)sampleRate error:(NSError **)error;
 - (void)teardownAudio;
 - (BOOL)startAudio:(NSError **)error;

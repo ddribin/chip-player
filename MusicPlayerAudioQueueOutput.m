@@ -94,22 +94,16 @@ static void HandleIsRunningChanged(void * userData,
     }
 }
 
-- (id)initWithDelegate:(id<MusicPlayerOutputDelegate>)delegate sampleRate:(long)sampleRate;
+- (id)initWithDelegate:(id<MusicPlayerOutputDelegate>)delegate;
 {
     self = [super init];
     if (self == nil)
         return nil;
     
     _delegate = delegate;
-    _sampleRate = sampleRate;
     _shouldBufferDataInCallback = NO;
     
     return self;
-}
-
-- (id)initWithDelegate:(id<MusicPlayerOutputDelegate>)delegate;
-{
-    return [self initWithDelegate:delegate sampleRate:44100];
 }
 
 - (void)dealloc
@@ -118,11 +112,6 @@ static void HandleIsRunningChanged(void * userData,
     [_musicFile release];
     
     [super dealloc];
-}
-
-- (BOOL)setupAudio:(NSError **)error;
-{
-    return [self setupWithSampleRate:_sampleRate error:error];
 }
 
 - (BOOL)setupWithSampleRate:(long)sampleRate error:(NSError **)error;
