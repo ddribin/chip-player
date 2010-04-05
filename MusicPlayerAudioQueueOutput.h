@@ -36,6 +36,7 @@
     UInt32 _numPacketsToRead;
     AudioStreamPacketDescription * _packetDescs;
     BOOL _shouldBufferDataInCallback;
+    BOOL _stoppedDueToTrackEnding;
 }
 
 @property (retain) MusicEmu * emu;

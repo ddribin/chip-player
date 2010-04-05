@@ -10,8 +10,12 @@
 #import "GmeMusicFile.h"
 #import "MusicEmu.h"
 
+#define FAIL_ON_ERR(_X_) if ((status = (_X_)) != noErr) { goto failed; }
 
 @interface MusicPlayerAudioQueueOutput ()
+- (void)setupDataFormatWithSampleRate:(long)sampleRate;
+- (void)calculateBufferSizeForSeconds:(Float64)seconds;
+- (OSStatus)allocateBuffers;
 - (void)checkTrackDidEnd;
 @end
 
@@ -27,6 +31,7 @@ static void HandleOutputBuffer(void * inUserData,
                                AudioQueueBufferRef inBuffer)
 {
     MusicPlayerAudioQueueOutput * player = (MusicPlayerAudioQueueOutput *) inUserData;
+    
     if (!player->_shouldBufferDataInCallback) {
         return;
     }
@@ -51,35 +56,42 @@ static void HandleOutputBuffer(void * inUserData,
     
     // Peform after delay to get us out of the callback as some resulting actions
     // that act on the queue may not work when called from the callback
-    [player performSelector:@selector(checkTrackDidEnd) withObject:nil afterDelay:0.0];
+    // [player performSelector:@selector(checkTrackDidEnd) withObject:nil afterDelay:0.0];
+    if ([musicFile trackEnded]) {
+        NSLog(@"AudioQueueStop:%d", __LINE__);
+        player->_shouldBufferDataInCallback = NO;
+        player->_stoppedDueToTrackEnding = YES;
+        AudioQueueStop(player->_queue, NO);
+    }
 }
 
-// we only use time here as a guideline
-// we're really trying to get somewhere between 16K and 64K buffers, but not allocate too much if we don't need it
-static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, UInt32 inMaxPacketSize, Float64 inSeconds, UInt32 *outBufferSize, UInt32 *outNumPackets)
+static void HandleIsRunningChanged(void * userData,
+                                   AudioQueueRef queue,
+                                   AudioQueuePropertyID property)
 {
-	static const int maxBufferSize = 0x10000; // limit size to 64K
-	static const int minBufferSize = 0x4000; // limit size to 16K
-    
-	if (inDesc->mFramesPerPacket) {
-		Float64 numPacketsForTime = inDesc->mSampleRate / inDesc->mFramesPerPacket * inSeconds;
-		*outBufferSize = numPacketsForTime * inMaxPacketSize;
-	} else {
-		// if frames per packet is zero, then the codec has no predictable packet == time
-		// so we can't tailor this (we don't know how many Packets represent a time period
-		// we'll just return a default buffer size
-		*outBufferSize = maxBufferSize > inMaxPacketSize ? maxBufferSize : inMaxPacketSize;
-	}
-	
-    // we're going to limit our size to our default
-	if (*outBufferSize > maxBufferSize && *outBufferSize > inMaxPacketSize)
-		*outBufferSize = maxBufferSize;
-	else {
-		// also make sure we're not too small - we don't want to go the disk for too small chunks
-		if (*outBufferSize < minBufferSize)
-			*outBufferSize = minBufferSize;
-	}
-	*outNumPackets = *outBufferSize / inMaxPacketSize;
+    MusicPlayerAudioQueueOutput * player = (MusicPlayerAudioQueueOutput *)userData;
+
+    UInt32 isRunning = 0;
+    UInt32 isRunningSize = sizeof(isRunning);
+    OSStatus status = AudioQueueGetProperty(queue, property, &isRunning, &isRunningSize);
+    if (status != noErr) {
+        NSLog(@"AudioQueueGetProperty failed: %d", status);
+    }
+    else {
+        NSLog(@"isRunning: %d", isRunning);
+        static NSTimeInterval __start;
+        if (isRunning) {
+            __start = [NSDate timeIntervalSinceReferenceDate];
+        } else {
+            NSTimeInterval end = [NSDate timeIntervalSinceReferenceDate];
+            NSLog(@"duration: %.3f", (end - __start));
+        }
+
+        if (!isRunning && player->_stoppedDueToTrackEnding) {
+            // [player performSelector:@selector(checkTrackDidEnd) withObject:nil afterDelay:0.0];
+            [player checkTrackDidEnd];
+        }
+    }
 }
 
 - (id)initWithDelegate:(id<MusicPlayerOutputDelegate>)delegate sampleRate:(long)sampleRate;
@@ -115,6 +127,36 @@ static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, U
 
 - (BOOL)setupWithSampleRate:(long)sampleRate error:(NSError **)error;
 {
+    AudioQueueRef newQueue = NULL;
+    OSStatus status;
+    
+    [self setupDataFormatWithSampleRate:sampleRate];
+    FAIL_ON_ERR(AudioQueueNewOutput(&_dataFormat, HandleOutputBuffer, self, CFRunLoopGetCurrent(),
+                                    kCFRunLoopCommonModes, 0, &newQueue));
+    _queue = newQueue;
+    
+    [self calculateBufferSizeForSeconds:0.1];
+    
+    FAIL_ON_ERR(AudioQueueAddPropertyListener(_queue, kAudioQueueProperty_IsRunning, HandleIsRunningChanged, self));
+    FAIL_ON_ERR(AudioQueueSetParameter(_queue, kAudioQueueParam_Volume, 1.00))
+    FAIL_ON_ERR([self allocateBuffers]);
+    
+    return YES;
+    
+failed:
+    if (newQueue != NULL) {
+        AudioQueueDispose(newQueue, YES);
+        newQueue = NULL;
+    }
+    
+    if (error != NULL) {
+        *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
+    }
+    return NO;
+}
+
+- (void)setupDataFormatWithSampleRate:(long)sampleRate;
+{
     UInt32 formatFlags = (0
                           | kLinearPCMFormatFlagIsPacked 
                           | kLinearPCMFormatFlagIsSignedInteger 
@@ -131,40 +173,28 @@ static void CalculateBytesForTime (const AudioStreamBasicDescription * inDesc, U
     _dataFormat.mFramesPerPacket = 1;
     _dataFormat.mBytesPerFrame = _dataFormat.mBitsPerChannel * _dataFormat.mChannelsPerFrame / 8;
     _dataFormat.mBytesPerPacket = _dataFormat.mBytesPerFrame * _dataFormat.mFramesPerPacket;
-    
-    OSStatus result;
-    result = AudioQueueNewOutput(&_dataFormat, HandleOutputBuffer, self, CFRunLoopGetCurrent(),
-                                 kCFRunLoopCommonModes, 0, &_queue);
-    
-    if (result != noErr) {
-        _queue = NULL;
-        goto failed;
+}
+
+- (void)calculateBufferSizeForSeconds:(Float64)seconds;
+{
+    _bufferByteSize = _dataFormat.mSampleRate * _dataFormat.mBytesPerPacket * seconds;
+    if ((_bufferByteSize % 4) != 0) {
+        _bufferByteSize += 4 - (_bufferByteSize % 4);
     }
-    
-    CalculateBytesForTime(&_dataFormat, 1, 2.0, &_bufferByteSize, &_numPacketsToRead);
-    
-    Float32 gain = 1.00;
-    result = AudioQueueSetParameter(_queue, kAudioQueueParam_Volume, gain);
-    if (result != noErr) {
-        goto failed;
-    }
-    
+    NSLog(@"Buffer size: %u (%.3f)", _bufferByteSize,
+          ((float)_bufferByteSize) / ((float)_dataFormat.mSampleRate) / ((float)_dataFormat.mBytesPerFrame));
+}
+
+- (OSStatus)allocateBuffers;
+{
+    OSStatus status;
     for (int i = 0; i < kNumberBuffers; ++i) {
-        AudioQueueAllocateBuffer(_queue, _bufferByteSize, &_buffers[i]);
+        FAIL_ON_ERR(AudioQueueAllocateBuffer(_queue, _bufferByteSize, &_buffers[i]));
     }
-    
-    return YES;
+    return noErr;
     
 failed:
-    if (_queue != NULL) {
-        AudioQueueDispose(_queue, YES);
-        _queue = NULL;
-    }
-    
-    if (error != NULL) {
-        *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:result userInfo:nil];
-    }
-    return NO;
+    return status;
 }
 
 - (void)teardownAudio;
@@ -176,15 +206,14 @@ failed:
 {
     // Prime buffers
     _shouldBufferDataInCallback = YES;
+    _stoppedDueToTrackEnding = NO;
     for (int i = 0; i < kNumberBuffers; ++i) {
         HandleOutputBuffer(self, _queue, _buffers[i]);
     }
     
-    OSStatus status = AudioQueueStart(_queue, NULL);
-    if (status != noErr) {
-        goto failed;
-    }
-    
+    NSLog(@"AudioQueueStart:%d", __LINE__);
+    OSStatus status;
+    FAIL_ON_ERR(AudioQueueStart(_queue, NULL));
     return YES;
     
 failed:
@@ -197,18 +226,16 @@ failed:
 - (void)stopAudio;
 {
     _shouldBufferDataInCallback = NO;
+    NSLog(@"AudioQueueStop:%d", __LINE__);
     AudioQueueStop(_queue, YES);
 }
 
 - (BOOL)pauseAudio:(NSError **)error;
 {
     _shouldBufferDataInCallback = NO;
-    OSStatus status = AudioQueuePause(_queue);
-    
-    if (status != noErr) {
-        goto failed;
-    }
-    
+    NSLog(@"AudioQueuePause:%d", __LINE__);
+    OSStatus status;
+    FAIL_ON_ERR(AudioQueuePause(_queue));
     return YES;
     
 failed:
@@ -221,12 +248,9 @@ failed:
 - (BOOL)unpauseAudio:(NSError **)error;
 {
     _shouldBufferDataInCallback = YES;
-    OSStatus status = AudioQueueStart(_queue, NULL);
-    
-    if (status != noErr) {
-        goto failed;
-    }
-    
+    NSLog(@"AudioQueueStart:%d", __LINE__);
+    OSStatus status;
+    FAIL_ON_ERR(AudioQueueStart(_queue, NULL));
     return YES;
     
 failed:
