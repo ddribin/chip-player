@@ -1,1 +1,2 @@
 GameMusicEmu = bb://ddribin/game-music-emu
+ThirdParty/DDCoreAudio = bb://ddribin/ddcoreaudio
