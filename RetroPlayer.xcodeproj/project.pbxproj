@@ -244,6 +244,45 @@
 		559A30111165850500E7F3F0 /* MusicPlayerAudioQueueOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerAudioQueueOutput.m; sourceTree = "<group>"; };
 		559A32881166382300E7F3F0 /* GmeMusicFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GmeMusicFile.h; sourceTree = "<group>"; };
 		559A32891166382300E7F3F0 /* GmeMusicFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GmeMusicFile.m; sourceTree = "<group>"; };
+		55EFE6F91175732500E2F8B6 /* 00changelog.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = 00changelog.i; sourceTree = "<group>"; };
+		55EFE6FA1175732500E2F8B6 /* branch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = branch; sourceTree = "<group>"; };
+		55EFE6FB1175732500E2F8B6 /* branchheads.cache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = branchheads.cache; sourceTree = "<group>"; };
+		55EFE6FC1175732500E2F8B6 /* dirstate */ = {isa = PBXFileReference; lastKnownFileType = file; path = dirstate; sourceTree = "<group>"; };
+		55EFE6FD1175732500E2F8B6 /* hgrc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hgrc; sourceTree = "<group>"; };
+		55EFE6FE1175732500E2F8B6 /* requires */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = requires; sourceTree = "<group>"; };
+		55EFE7001175732500E2F8B6 /* 00changelog.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = 00changelog.i; sourceTree = "<group>"; };
+		55EFE7011175732500E2F8B6 /* 00manifest.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = 00manifest.i; sourceTree = "<group>"; };
+		55EFE7041175732500E2F8B6 /* _d_d_audio_component.h.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_audio_component.h.i; sourceTree = "<group>"; };
+		55EFE7051175732500E2F8B6 /* _d_d_audio_component.m.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_audio_component.m.i; sourceTree = "<group>"; };
+		55EFE7061175732500E2F8B6 /* _d_d_audio_exception.h.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_audio_exception.h.i; sourceTree = "<group>"; };
+		55EFE7071175732500E2F8B6 /* _d_d_audio_exception.m.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_audio_exception.m.i; sourceTree = "<group>"; };
+		55EFE7081175732500E2F8B6 /* _d_d_audio_unit.h.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_audio_unit.h.i; sourceTree = "<group>"; };
+		55EFE7091175732500E2F8B6 /* _d_d_audio_unit.m.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_audio_unit.m.i; sourceTree = "<group>"; };
+		55EFE70A1175732500E2F8B6 /* _d_d_audio_unit_graph.h.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_audio_unit_graph.h.i; sourceTree = "<group>"; };
+		55EFE70B1175732500E2F8B6 /* _d_d_audio_unit_graph.m.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_audio_unit_graph.m.i; sourceTree = "<group>"; };
+		55EFE70C1175732500E2F8B6 /* _d_d_audio_unit_node.h.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_audio_unit_node.h.i; sourceTree = "<group>"; };
+		55EFE70D1175732500E2F8B6 /* _d_d_audio_unit_node.m.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_audio_unit_node.m.i; sourceTree = "<group>"; };
+		55EFE70E1175732500E2F8B6 /* _d_d_audio_unit_preset.h.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_audio_unit_preset.h.i; sourceTree = "<group>"; };
+		55EFE70F1175732500E2F8B6 /* _d_d_audio_unit_preset.m.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_audio_unit_preset.m.i; sourceTree = "<group>"; };
+		55EFE7101175732500E2F8B6 /* _d_d_core_audio.h.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; path = _d_d_core_audio.h.i; sourceTree = "<group>"; };
+		55EFE7111175732500E2F8B6 /* fncache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fncache; sourceTree = "<group>"; };
+		55EFE7121175732500E2F8B6 /* undo */ = {isa = PBXFileReference; lastKnownFileType = file; path = undo; sourceTree = "<group>"; };
+		55EFE7131175732500E2F8B6 /* tags.cache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tags.cache; sourceTree = "<group>"; };
+		55EFE7141175732500E2F8B6 /* undo.branch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = undo.branch; sourceTree = "<group>"; };
+		55EFE7151175732500E2F8B6 /* undo.dirstate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = undo.dirstate; sourceTree = "<group>"; };
+		55EFE7171175732500E2F8B6 /* DDAudioComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAudioComponent.h; sourceTree = "<group>"; };
+		55EFE7181175732500E2F8B6 /* DDAudioComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAudioComponent.m; sourceTree = "<group>"; };
+		55EFE7191175732500E2F8B6 /* DDAudioException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAudioException.h; sourceTree = "<group>"; };
+		55EFE71A1175732500E2F8B6 /* DDAudioException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAudioException.m; sourceTree = "<group>"; };
+		55EFE71B1175732500E2F8B6 /* DDAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAudioUnit.h; sourceTree = "<group>"; };
+		55EFE71C1175732500E2F8B6 /* DDAudioUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAudioUnit.m; sourceTree = "<group>"; };
+		55EFE71D1175732500E2F8B6 /* DDAudioUnitGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAudioUnitGraph.h; sourceTree = "<group>"; };
+		55EFE71E1175732500E2F8B6 /* DDAudioUnitGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAudioUnitGraph.m; sourceTree = "<group>"; };
+		55EFE71F1175732500E2F8B6 /* DDAudioUnitNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAudioUnitNode.h; sourceTree = "<group>"; };
+		55EFE7201175732500E2F8B6 /* DDAudioUnitNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAudioUnitNode.m; sourceTree = "<group>"; };
+		55EFE7211175732500E2F8B6 /* DDAudioUnitPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAudioUnitPreset.h; sourceTree = "<group>"; };
+		55EFE7221175732500E2F8B6 /* DDAudioUnitPreset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAudioUnitPreset.m; sourceTree = "<group>"; };
+		55EFE7231175732500E2F8B6 /* DDCoreAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCoreAudio.h; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Retro_Player-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Retro_Player-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Retro Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Retro Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -300,8 +339,8 @@
 			children = (
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
+				55EFE6F61175732500E2F8B6 /* ThirdParty */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
-				5582E52B1162F62900520F69 /* GameMusicEmu */,
 				558E23891167AE9000771304 /* UnitTests */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
@@ -527,6 +566,101 @@
 				558E239D1167AF2800771304 /* Info.plist */,
 			);
 			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		55EFE6F61175732500E2F8B6 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				5582E52B1162F62900520F69 /* GameMusicEmu */,
+				55EFE6F71175732500E2F8B6 /* DDCoreAudio */,
+			);
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		55EFE6F71175732500E2F8B6 /* DDCoreAudio */ = {
+			isa = PBXGroup;
+			children = (
+				55EFE6F81175732500E2F8B6 /* .hg */,
+				55EFE7161175732500E2F8B6 /* lib */,
+			);
+			path = DDCoreAudio;
+			sourceTree = "<group>";
+		};
+		55EFE6F81175732500E2F8B6 /* .hg */ = {
+			isa = PBXGroup;
+			children = (
+				55EFE6F91175732500E2F8B6 /* 00changelog.i */,
+				55EFE6FA1175732500E2F8B6 /* branch */,
+				55EFE6FB1175732500E2F8B6 /* branchheads.cache */,
+				55EFE6FC1175732500E2F8B6 /* dirstate */,
+				55EFE6FD1175732500E2F8B6 /* hgrc */,
+				55EFE6FE1175732500E2F8B6 /* requires */,
+				55EFE6FF1175732500E2F8B6 /* store */,
+				55EFE7131175732500E2F8B6 /* tags.cache */,
+				55EFE7141175732500E2F8B6 /* undo.branch */,
+				55EFE7151175732500E2F8B6 /* undo.dirstate */,
+			);
+			path = .hg;
+			sourceTree = "<group>";
+		};
+		55EFE6FF1175732500E2F8B6 /* store */ = {
+			isa = PBXGroup;
+			children = (
+				55EFE7001175732500E2F8B6 /* 00changelog.i */,
+				55EFE7011175732500E2F8B6 /* 00manifest.i */,
+				55EFE7021175732500E2F8B6 /* data */,
+				55EFE7111175732500E2F8B6 /* fncache */,
+				55EFE7121175732500E2F8B6 /* undo */,
+			);
+			path = store;
+			sourceTree = "<group>";
+		};
+		55EFE7021175732500E2F8B6 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				55EFE7031175732500E2F8B6 /* lib */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		55EFE7031175732500E2F8B6 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				55EFE7041175732500E2F8B6 /* _d_d_audio_component.h.i */,
+				55EFE7051175732500E2F8B6 /* _d_d_audio_component.m.i */,
+				55EFE7061175732500E2F8B6 /* _d_d_audio_exception.h.i */,
+				55EFE7071175732500E2F8B6 /* _d_d_audio_exception.m.i */,
+				55EFE7081175732500E2F8B6 /* _d_d_audio_unit.h.i */,
+				55EFE7091175732500E2F8B6 /* _d_d_audio_unit.m.i */,
+				55EFE70A1175732500E2F8B6 /* _d_d_audio_unit_graph.h.i */,
+				55EFE70B1175732500E2F8B6 /* _d_d_audio_unit_graph.m.i */,
+				55EFE70C1175732500E2F8B6 /* _d_d_audio_unit_node.h.i */,
+				55EFE70D1175732500E2F8B6 /* _d_d_audio_unit_node.m.i */,
+				55EFE70E1175732500E2F8B6 /* _d_d_audio_unit_preset.h.i */,
+				55EFE70F1175732500E2F8B6 /* _d_d_audio_unit_preset.m.i */,
+				55EFE7101175732500E2F8B6 /* _d_d_core_audio.h.i */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		55EFE7161175732500E2F8B6 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				55EFE7171175732500E2F8B6 /* DDAudioComponent.h */,
+				55EFE7181175732500E2F8B6 /* DDAudioComponent.m */,
+				55EFE7191175732500E2F8B6 /* DDAudioException.h */,
+				55EFE71A1175732500E2F8B6 /* DDAudioException.m */,
+				55EFE71B1175732500E2F8B6 /* DDAudioUnit.h */,
+				55EFE71C1175732500E2F8B6 /* DDAudioUnit.m */,
+				55EFE71D1175732500E2F8B6 /* DDAudioUnitGraph.h */,
+				55EFE71E1175732500E2F8B6 /* DDAudioUnitGraph.m */,
+				55EFE71F1175732500E2F8B6 /* DDAudioUnitNode.h */,
+				55EFE7201175732500E2F8B6 /* DDAudioUnitNode.m */,
+				55EFE7211175732500E2F8B6 /* DDAudioUnitPreset.h */,
+				55EFE7221175732500E2F8B6 /* DDAudioUnitPreset.m */,
+				55EFE7231175732500E2F8B6 /* DDCoreAudio.h */,
+			);
+			path = lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
