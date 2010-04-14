@@ -10,6 +10,7 @@
 #import "GmeMusicFile.h"
 #import "MusicPlayerStateMachine.h"
 #import "TrackTableDataSource.h"
+#import "DDAudioComponent.h"
 
 @implementation MyDocument
 
@@ -59,6 +60,7 @@
     _trackTableDataSource.musicFile = _musicFile;
     [_trackTable setDoubleAction:@selector(playSelectedTrack:)];
     [_stateMachine setup];
+    [DDAudioComponent printComponents];
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
