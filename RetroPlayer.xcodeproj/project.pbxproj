@@ -322,14 +322,7 @@
 				559A2FBE11657DE800E7F3F0 /* MusicPlayerStateMachine.h */,
 				559A2FBF11657DE800E7F3F0 /* MusicPlayerStateMachine.m */,
 				559A2FF51165836C00E7F3F0 /* MusicPlayerActions.h */,
-				559A32881166382300E7F3F0 /* GmeMusicFile.h */,
-				559A32891166382300E7F3F0 /* GmeMusicFile.m */,
-				5582E97C11637A3600520F69 /* TrackInfo.h */,
-				5582E97D11637A3600520F69 /* TrackInfo.m */,
-				5582E7661163023300520F69 /* GmeErrors.h */,
-				5582E7671163023300520F69 /* GmeErrors.m */,
-				5582E7061162F99C00520F69 /* MusicEmu.h */,
-				5582E7071162F99C00520F69 /* MusicEmu.mm */,
+				55739AE8116C456400AF4914 /* GME Adapter */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -362,6 +355,21 @@
 				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		55739AE8116C456400AF4914 /* GME Adapter */ = {
+			isa = PBXGroup;
+			children = (
+				559A32881166382300E7F3F0 /* GmeMusicFile.h */,
+				559A32891166382300E7F3F0 /* GmeMusicFile.m */,
+				5582E97C11637A3600520F69 /* TrackInfo.h */,
+				5582E97D11637A3600520F69 /* TrackInfo.m */,
+				5582E7661163023300520F69 /* GmeErrors.h */,
+				5582E7671163023300520F69 /* GmeErrors.m */,
+				5582E7061162F99C00520F69 /* MusicEmu.h */,
+				5582E7071162F99C00520F69 /* MusicEmu.mm */,
+			);
+			name = "GME Adapter";
 			sourceTree = "<group>";
 		};
 		5582E52B1162F62900520F69 /* GameMusicEmu */ = {
