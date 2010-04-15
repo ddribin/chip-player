@@ -146,12 +146,11 @@ failed:
 
 - (void)setupDataFormatWithSampleRate:(long)sampleRate;
 {
+    // 16-bit signed integer, stereo
     UInt32 formatFlags = (0
-                          | kLinearPCMFormatFlagIsPacked 
-                          | kLinearPCMFormatFlagIsSignedInteger 
-#if __BIG_ENDIAN__
-                          | kLinearPCMFormatFlagIsBigEndian
-#endif
+                          | kAudioFormatFlagIsPacked 
+                          | kAudioFormatFlagIsSignedInteger 
+                          | kAudioFormatFlagsNativeEndian
                           );
     
     _dataFormat.mFormatID = kAudioFormatLinearPCM;
