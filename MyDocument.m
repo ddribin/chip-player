@@ -10,7 +10,11 @@
 #import "GmeMusicFile.h"
 #import "MusicPlayerStateMachine.h"
 #import "TrackTableDataSource.h"
+#import "MusicPlayerAudioQueueOutput.h"
+#import "MusicPlayerAUGraphOutput.h"
 #import "DDAudioComponent.h"
+
+#define USE_AUDIO_QUEUE 0
 
 @implementation MyDocument
 
@@ -27,7 +31,13 @@
         return nil;
     }
     
-    _playerOutput = [(MusicPlayerAudioQueueOutput *)[MusicPlayerAudioQueueOutput alloc] initWithDelegate:self];
+#if USE_AUDIO_QUEUE
+    Class MusicPlayerOutputClass = [MusicPlayerAudioQueueOutput class];
+#else
+    Class MusicPlayerOutputClass = [MusicPlayerAUGraphOutput class];
+#endif
+    NSLog(@"MusicPlayerOutputClass: %@", MusicPlayerOutputClass);
+    _playerOutput = [[MusicPlayerOutputClass alloc] initWithDelegate:self];
     _stateMachine = [[MusicPlayerStateMachine alloc] initWithActions:self];
     
     return self;
@@ -60,7 +70,7 @@
     _trackTableDataSource.musicFile = _musicFile;
     [_trackTable setDoubleAction:@selector(playSelectedTrack:)];
     [_stateMachine setup];
-    [DDAudioComponent printComponents];
+    // [DDAudioComponent printComponents];
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -142,7 +152,7 @@ failed:
     [_stateMachine previous];
 }
 
-- (void)musicPlayerOutputDidFinishTrack:(MusicPlayerAudioQueueOutput *)output;
+- (void)musicPlayerOutputDidFinishTrack:(id<MusicPlayerOutput>)output;
 {
     [_stateMachine trackDidFinish];
 }

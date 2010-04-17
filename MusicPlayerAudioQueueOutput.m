@@ -58,7 +58,7 @@ static void HandleOutputBuffer(void * inUserData,
     // that act on the queue may not work when called from the callback
     // [player performSelector:@selector(checkTrackDidEnd) withObject:nil afterDelay:0.0];
     if ([musicFile trackEnded]) {
-        NSLog(@"AudioQueueStop:%d", __LINE__);
+        NSLog(@"%s:%d trackEnded", __PRETTY_FUNCTION__, __LINE__);
         player->_shouldBufferDataInCallback = NO;
         player->_stoppedDueToTrackEnding = YES;
         AudioQueueStop(player->_queue, NO);

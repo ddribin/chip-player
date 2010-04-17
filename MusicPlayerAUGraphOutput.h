@@ -1,31 +1,28 @@
 //
-//  MusicPlayerAudioQueueOutput.h
+//  MusicPlayerAUGraphOutput.h
 //  RetroPlayer
 //
-//  Created by Dave Dribin on 4/1/10.
-//  Copyright 2010 Bit Maki, Inc.. All rights reserved.
+//  Created by Dave Dribin on 4/17/10.
+//  Copyright 2010 Bit Maki, Inc. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
-#import <AudioToolbox/AudioQueue.h>
 #import "MusicPlayerOutput.h"
 
+@class DDAudioUnitGraph;
+@class DDAudioUnitNode;
 
-@interface MusicPlayerAudioQueueOutput : NSObject <MusicPlayerOutput>
+@interface MusicPlayerAUGraphOutput : NSObject <MusicPlayerOutput>
 {
     NSObject<MusicPlayerOutputDelegate> * _delegate;
     
     MusicEmu * _emu;
     GmeMusicFile * _musicFile;
     
-    AudioStreamBasicDescription _dataFormat;
-    AudioQueueRef _queue;
-    AudioQueueBufferRef _buffers[3];
-    UInt32 _bufferByteSize;
-    UInt32 _numPacketsToRead;
-    AudioStreamPacketDescription * _packetDescs;
+    DDAudioUnitGraph * _graph;
+    DDAudioUnitNode * _outputNode;
+    DDAudioUnitNode * _converterNode;
     BOOL _shouldBufferDataInCallback;
-    BOOL _stoppedDueToTrackEnding;
 }
 
 @property (retain) MusicEmu * emu;

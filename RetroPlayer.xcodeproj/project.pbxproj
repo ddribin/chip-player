@@ -73,6 +73,7 @@
 		55EFE73A117573B700E2F8B6 /* DDAudioUnitGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EFE71E1175732500E2F8B6 /* DDAudioUnitGraph.m */; };
 		55EFE74A117576C700E2F8B6 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EFE749117576C700E2F8B6 /* AudioUnit.framework */; };
 		55EFE7501175771800E2F8B6 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EFE74F1175771800E2F8B6 /* CoreAudioKit.framework */; };
+		55EFEE5011797B5900E2F8B6 /* MusicPlayerAUGraphOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EFEE4F11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.m */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */; settings = {ATTRIBUTES = (); }; };
@@ -267,6 +268,9 @@
 		55EFE7231175732500E2F8B6 /* DDCoreAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCoreAudio.h; sourceTree = "<group>"; };
 		55EFE749117576C700E2F8B6 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		55EFE74F1175771800E2F8B6 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
+		55EFEE4E11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerAUGraphOutput.h; sourceTree = "<group>"; };
+		55EFEE4F11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerAUGraphOutput.m; sourceTree = "<group>"; };
+		55EFEECD117980A700E2F8B6 /* MusicPlayerOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerOutput.h; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Retro_Player-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Retro_Player-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Retro Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Retro Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -344,8 +348,11 @@
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
 				5582E8FF1163753000520F69 /* TrackTableDataSource.h */,
 				5582E9001163753000520F69 /* TrackTableDataSource.m */,
+				55EFEECD117980A700E2F8B6 /* MusicPlayerOutput.h */,
 				559A30101165850500E7F3F0 /* MusicPlayerAudioQueueOutput.h */,
 				559A30111165850500E7F3F0 /* MusicPlayerAudioQueueOutput.m */,
+				55EFEE4E11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.h */,
+				55EFEE4F11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.m */,
 				559A2FBE11657DE800E7F3F0 /* MusicPlayerStateMachine.h */,
 				559A2FBF11657DE800E7F3F0 /* MusicPlayerStateMachine.m */,
 				559A2FF51165836C00E7F3F0 /* MusicPlayerActions.h */,
@@ -764,6 +771,7 @@
 				55EFE738117573B600E2F8B6 /* DDAudioUnitPreset.m in Sources */,
 				55EFE739117573B600E2F8B6 /* DDAudioUnit.m in Sources */,
 				55EFE73A117573B700E2F8B6 /* DDAudioUnitGraph.m in Sources */,
+				55EFEE5011797B5900E2F8B6 /* MusicPlayerAUGraphOutput.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
