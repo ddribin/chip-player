@@ -14,7 +14,6 @@
 @class TrackTableDataSource;
 @class GmeMusicFile;
 @class MusicPlayerStateMachine;
-@class MusicPlayerAUGraphOutput;
 
 @interface MyDocument : NSDocument <MusicPlayerActions, MusicPlayerOutputDelegate>
 {

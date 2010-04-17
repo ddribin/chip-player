@@ -188,6 +188,7 @@ failed:
 - (void)teardownAudio;
 {
     AudioQueueDispose(_queue, YES);
+    _queue = NULL;
 }
 
 - (BOOL)startAudio:(NSError **)error;

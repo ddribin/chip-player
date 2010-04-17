@@ -21,6 +21,7 @@
     
     DDAudioUnitGraph * _graph;
     DDAudioUnitNode * _outputNode;
+    DDAudioUnitNode * _effectNode;
     DDAudioUnitNode * _converterNode;
     BOOL _shouldBufferDataInCallback;
 }

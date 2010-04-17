@@ -39,6 +39,13 @@
     [super dealloc];
 }
 
+// render some silence
+static void SilenceData(AudioBufferList *inData)
+{
+	for (UInt32 i=0; i < inData->mNumberBuffers; i++)
+		memset(inData->mBuffers[i].mData, 0, inData->mBuffers[i].mDataByteSize);
+}
+
 static OSStatus MyRenderer(void *							inRefCon,
                            AudioUnitRenderActionFlags *	ioActionFlags,
                            const AudioTimeStamp *			inTimeStamp,
@@ -46,21 +53,17 @@ static OSStatus MyRenderer(void *							inRefCon,
                            UInt32							inNumberFrames,
                            AudioBufferList *				ioData)
 {
-#if 0
-    bzero(ioData->mBuffers[0].mData,
-          ioData->mBuffers[0].mDataByteSize);
-#else
     MusicPlayerAUGraphOutput * player = (MusicPlayerAUGraphOutput *)inRefCon;
 
     if (!player->_shouldBufferDataInCallback) {
-        bzero(ioData->mBuffers[0].mData, ioData->mBuffers[0].mDataByteSize);
+        SilenceData(ioData);
         return noErr;
     }
     
     GmeMusicFile * musicFile = player->_musicFile;
     if (musicFile == nil) {
         NSLog(@"No music file");
-        bzero(ioData->mBuffers[0].mData, ioData->mBuffers[0].mDataByteSize);
+        SilenceData(ioData);
         return noErr;
     }
 
@@ -79,7 +82,6 @@ static OSStatus MyRenderer(void *							inRefCon,
         [player performSelectorOnMainThread:@selector(trackEnded) withObject:nil waitUntilDone:NO];
     }
     
-#endif
     return noErr;
 }
 
@@ -92,13 +94,24 @@ static OSStatus MyRenderer(void *							inRefCon,
                                   subType:kAudioUnitSubType_DefaultOutput];
     [_outputNode retain];
     
+#if 1
+    _effectNode = [_graph addNodeWithType:kAudioUnitType_Effect
+                                  subType:kAudioUnitSubType_MatrixReverb];
+#endif
     
     _converterNode = [_graph addNodeWithType:kAudioUnitType_FormatConverter
                                      subType:kAudioUnitSubType_AUConverter];
     [_converterNode retain];
     
-    [_graph connectNode:_converterNode output:0
-                 toNode:_outputNode input:0];
+    if (_effectNode == nil) {
+        [_graph connectNode:_converterNode output:0
+                     toNode:_outputNode input:0];
+    } else {
+        [_graph connectNode:_converterNode output:0
+                     toNode:_effectNode input:0];
+        [_graph connectNode:_effectNode output:0
+                     toNode:_outputNode input:0];
+    }
     
     [_graph open];
     
@@ -132,6 +145,14 @@ static OSStatus MyRenderer(void *							inRefCon,
 
 - (void)teardownAudio;
 {
+    [_graph stop];
+    [_graph uninitialize];
+    [_graph close];
+    
+    [_outputNode release]; _outputNode = nil;
+    [_effectNode release]; _effectNode = nil;
+    [_converterNode release]; _converterNode = nil;
+    [_graph release]; _graph = nil;
 }
 
 - (BOOL)startAudio:(NSError **)error;
