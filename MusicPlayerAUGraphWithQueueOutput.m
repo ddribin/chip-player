@@ -87,7 +87,6 @@ static void SilenceData(AudioBufferList *inData)
 
 - (void)audioQueueDidReceiveFence:(DDAudioQueue *)queue;
 {
-    [self stopAudio];
     [_delegate musicPlayerOutputDidFinishTrack:self];
 }
 
