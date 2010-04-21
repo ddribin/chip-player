@@ -31,7 +31,7 @@
     
 
     DDAudioQueue * _queue;
-    DDAudioQueueBuffer * _buffers[3];
+    DDAudioQueueBuffer * _buffers[5];
     DDAudioQueueReader * _queueReader;
     AudioStreamBasicDescription _dataFormat;
     UInt32 _bufferByteSize;
