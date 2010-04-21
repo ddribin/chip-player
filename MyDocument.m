@@ -12,6 +12,7 @@
 #import "TrackTableDataSource.h"
 #import "MusicPlayerAudioQueueOutput.h"
 #import "MusicPlayerAUGraphOutput.h"
+#import "MusicPlayerAUGraphWithQueueOutput.h"
 #import "DDAudioComponent.h"
 
 #define USE_AUDIO_QUEUE 0
@@ -33,8 +34,10 @@
     
 #if USE_AUDIO_QUEUE
     Class MusicPlayerOutputClass = [MusicPlayerAudioQueueOutput class];
-#else
+#elif 0
     Class MusicPlayerOutputClass = [MusicPlayerAUGraphOutput class];
+#else
+    Class MusicPlayerOutputClass = [MusicPlayerAUGraphWithQueueOutput class];
 #endif
     NSLog(@"MusicPlayerOutputClass: %@", MusicPlayerOutputClass);
     _playerOutput = [[MusicPlayerOutputClass alloc] initWithDelegate:self];

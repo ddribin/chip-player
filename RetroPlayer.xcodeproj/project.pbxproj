@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1DDD582C0DA1D0D100B32029 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* MyDocument.xib */; };
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
+		5563B4A5117D61C9001C1C0B /* DDAudioQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 5563B460117D61C9001C1C0B /* DDAudioQueue.m */; };
+		5563B4BD117D6215001C1C0B /* MusicPlayerAUGraphWithQueueOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 5563B4BC117D6215001C1C0B /* MusicPlayerAUGraphWithQueueOutput.m */; };
+		5563B4CE117D62AB001C1C0B /* DDAudioQueueReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5563B4CD117D62AB001C1C0B /* DDAudioQueueReader.m */; };
+		5563B8A9117EA97B001C1C0B /* DDAtomicList.c in Sources */ = {isa = PBXBuildFile; fileRef = 5563B8A7117EA97B001C1C0B /* DDAtomicList.c */; };
 		5582E6B51162F62A00520F69 /* Ay_Apu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5582E5BE1162F62900520F69 /* Ay_Apu.cpp */; };
 		5582E6B61162F62A00520F69 /* Ay_Cpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5582E5C01162F62900520F69 /* Ay_Cpu.cpp */; };
 		5582E6B71162F62A00520F69 /* Ay_Emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5582E5C21162F62900520F69 /* Ay_Emu.cpp */; };
@@ -117,6 +121,16 @@
 		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		5563B45F117D61C9001C1C0B /* DDAudioQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAudioQueue.h; sourceTree = "<group>"; };
+		5563B460117D61C9001C1C0B /* DDAudioQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAudioQueue.m; sourceTree = "<group>"; };
+		5563B461117D61C9001C1C0B /* DDAudioQueueBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAudioQueueBuffer.h; sourceTree = "<group>"; };
+		5563B463117D61C9001C1C0B /* DDAudioQueueDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAudioQueueDelegate.h; sourceTree = "<group>"; };
+		5563B4BB117D6215001C1C0B /* MusicPlayerAUGraphWithQueueOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerAUGraphWithQueueOutput.h; sourceTree = "<group>"; };
+		5563B4BC117D6215001C1C0B /* MusicPlayerAUGraphWithQueueOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerAUGraphWithQueueOutput.m; sourceTree = "<group>"; };
+		5563B4CC117D62AB001C1C0B /* DDAudioQueueReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAudioQueueReader.h; sourceTree = "<group>"; };
+		5563B4CD117D62AB001C1C0B /* DDAudioQueueReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAudioQueueReader.m; sourceTree = "<group>"; };
+		5563B8A7117EA97B001C1C0B /* DDAtomicList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DDAtomicList.c; sourceTree = "<group>"; };
+		5563B8A8117EA97B001C1C0B /* DDAtomicList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAtomicList.h; sourceTree = "<group>"; };
 		5582E5B51162F62900520F69 /* changes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changes.txt; sourceTree = "<group>"; };
 		5582E5B71162F62900520F69 /* basics.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = basics.c; sourceTree = "<group>"; };
 		5582E5B81162F62900520F69 /* cpp_basics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpp_basics.cpp; sourceTree = "<group>"; };
@@ -353,6 +367,8 @@
 				559A30111165850500E7F3F0 /* MusicPlayerAudioQueueOutput.m */,
 				55EFEE4E11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.h */,
 				55EFEE4F11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.m */,
+				5563B4BB117D6215001C1C0B /* MusicPlayerAUGraphWithQueueOutput.h */,
+				5563B4BC117D6215001C1C0B /* MusicPlayerAUGraphWithQueueOutput.m */,
 				559A2FBE11657DE800E7F3F0 /* MusicPlayerStateMachine.h */,
 				559A2FBF11657DE800E7F3F0 /* MusicPlayerStateMachine.m */,
 				559A2FF51165836C00E7F3F0 /* MusicPlayerActions.h */,
@@ -389,6 +405,29 @@
 				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5563B403117D61C9001C1C0B /* DDAudioQueue */ = {
+			isa = PBXGroup;
+			children = (
+				5563B45E117D61C9001C1C0B /* Source */,
+			);
+			path = DDAudioQueue;
+			sourceTree = "<group>";
+		};
+		5563B45E117D61C9001C1C0B /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				5563B45F117D61C9001C1C0B /* DDAudioQueue.h */,
+				5563B460117D61C9001C1C0B /* DDAudioQueue.m */,
+				5563B461117D61C9001C1C0B /* DDAudioQueueBuffer.h */,
+				5563B463117D61C9001C1C0B /* DDAudioQueueDelegate.h */,
+				5563B4CC117D62AB001C1C0B /* DDAudioQueueReader.h */,
+				5563B4CD117D62AB001C1C0B /* DDAudioQueueReader.m */,
+				5563B8A7117EA97B001C1C0B /* DDAtomicList.c */,
+				5563B8A8117EA97B001C1C0B /* DDAtomicList.h */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 		55739AE8116C456400AF4914 /* GME Adapter */ = {
@@ -568,6 +607,7 @@
 			children = (
 				5582E52B1162F62900520F69 /* GameMusicEmu */,
 				55EFE6F71175732500E2F8B6 /* DDCoreAudio */,
+				5563B403117D61C9001C1C0B /* DDAudioQueue */,
 			);
 			path = ThirdParty;
 			sourceTree = "<group>";
@@ -649,6 +689,13 @@
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "RetroPlayer" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				_english,
+			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* Retro Player */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -772,6 +819,10 @@
 				55EFE739117573B600E2F8B6 /* DDAudioUnit.m in Sources */,
 				55EFE73A117573B700E2F8B6 /* DDAudioUnitGraph.m in Sources */,
 				55EFEE5011797B5900E2F8B6 /* MusicPlayerAUGraphOutput.m in Sources */,
+				5563B4A5117D61C9001C1C0B /* DDAudioQueue.m in Sources */,
+				5563B4BD117D6215001C1C0B /* MusicPlayerAUGraphWithQueueOutput.m in Sources */,
+				5563B4CE117D62AB001C1C0B /* DDAudioQueueReader.m in Sources */,
+				5563B8A9117EA97B001C1C0B /* DDAtomicList.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,2 +1,3 @@
 ThirdParty/GameMusicEmu = bb://ddribin/game-music-emu
 ThirdParty/DDCoreAudio = bb://ddribin/ddcoreaudio
+ThirdParty/DDAudioQueue = drdp://DDAudioQueue
