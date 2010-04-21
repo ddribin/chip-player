@@ -67,7 +67,12 @@ static void SilenceData(AudioBufferList *inData)
     }
     
     NSError * error = nil;
-    if (!GmeMusicFilePlay(musicFile, buffer->capacity/2, buffer->bytes, &error)) {
+    NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
+    BOOL success = GmeMusicFilePlay(musicFile, buffer->capacity/2, buffer->bytes, &error);
+    NSTimeInterval end = [NSDate timeIntervalSinceReferenceDate];
+    _timeInMusicFilePlay += (end-start);
+    
+    if (!success) {
         NSLog(@"GmeMusicFilePlay error: %@ %@", error, [error userInfo]);
         return;
     }
@@ -126,6 +131,7 @@ static OSStatus MyRenderer(void *							inRefCon,
 #if 0
     _effectNode = [_graph addNodeWithType:kAudioUnitType_Effect
                                   subType:kAudioUnitSubType_MatrixReverb];
+    [_effectNode retain];
 #endif
     
     _converterNode = [_graph addNodeWithType:kAudioUnitType_FormatConverter
@@ -199,9 +205,29 @@ static OSStatus MyRenderer(void *							inRefCon,
     [_queue release]; _queue = nil;
 }
 
+- (void)oneSecondTimerFired:(NSTimer *)timer
+{
+    NSTimeInterval timeSinceLastTimer = [NSDate timeIntervalSinceReferenceDate] - _timeOfLastOneSecondTimer;
+    NSTimeInterval cpuPercent = _timeInMusicFilePlay/timeSinceLastTimer * 100.;
+    NSLog(@"CPU usage of GmeMusicFilePlay: %.3f%%", cpuPercent);
+    _timeInMusicFilePlay = 0.;
+    _timeOfLastOneSecondTimer = [NSDate timeIntervalSinceReferenceDate];
+}
+
 - (BOOL)startAudio:(NSError **)error;
 {
     NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
+    
+    
+    _timeInMusicFilePlay = 0.;
+    _timeOfLastOneSecondTimer = [NSDate timeIntervalSinceReferenceDate];
+    _oneSecondTimer = [NSTimer timerWithTimeInterval:1.0
+                                              target:self
+                                            selector:@selector(oneSecondTimerFired:)
+                                            userInfo:nil
+                                             repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:_oneSecondTimer forMode:NSRunLoopCommonModes];
+    
     _shouldBufferDataInCallback = YES;
 
     for (int i = 0; i < NUM_BUFFERS; i++) {
@@ -216,6 +242,9 @@ static OSStatus MyRenderer(void *							inRefCon,
 - (void)stopAudio;
 {
     NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
+    [_oneSecondTimer invalidate];
+    _oneSecondTimer = nil;
+    
     _shouldBufferDataInCallback = NO;
     [_graph stop];
     [_queue reset];

@@ -35,6 +35,10 @@
     DDAudioQueueReader * _queueReader;
     AudioStreamBasicDescription _dataFormat;
     UInt32 _bufferByteSize;
+    
+    NSTimer * _oneSecondTimer;
+    NSTimeInterval _timeOfLastOneSecondTimer;
+    NSTimeInterval _timeInMusicFilePlay;
 }
 
 @property (retain) MusicEmu * emu;
