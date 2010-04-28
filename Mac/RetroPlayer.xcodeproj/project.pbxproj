@@ -345,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
+				558D6B751187EB560076F130 /* SharedModel */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
 				55EFE6F61175732500E2F8B6 /* ThirdParty */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
@@ -362,17 +363,6 @@
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
 				5582E8FF1163753000520F69 /* TrackTableDataSource.h */,
 				5582E9001163753000520F69 /* TrackTableDataSource.m */,
-				55EFEECD117980A700E2F8B6 /* MusicPlayerOutput.h */,
-				559A30101165850500E7F3F0 /* MusicPlayerAudioQueueOutput.h */,
-				559A30111165850500E7F3F0 /* MusicPlayerAudioQueueOutput.m */,
-				55EFEE4E11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.h */,
-				55EFEE4F11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.m */,
-				5563B4BB117D6215001C1C0B /* MusicPlayerAUGraphWithQueueOutput.h */,
-				5563B4BC117D6215001C1C0B /* MusicPlayerAUGraphWithQueueOutput.m */,
-				559A2FBE11657DE800E7F3F0 /* MusicPlayerStateMachine.h */,
-				559A2FBF11657DE800E7F3F0 /* MusicPlayerStateMachine.m */,
-				559A2FF51165836C00E7F3F0 /* MusicPlayerActions.h */,
-				55739AE8116C456400AF4914 /* GME Adapter */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -590,6 +580,33 @@
 			path = player;
 			sourceTree = "<group>";
 		};
+		558D6B741187EB440076F130 /* Music Player */ = {
+			isa = PBXGroup;
+			children = (
+				55EFEECD117980A700E2F8B6 /* MusicPlayerOutput.h */,
+				559A30101165850500E7F3F0 /* MusicPlayerAudioQueueOutput.h */,
+				559A30111165850500E7F3F0 /* MusicPlayerAudioQueueOutput.m */,
+				55EFEE4E11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.h */,
+				55EFEE4F11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.m */,
+				5563B4BB117D6215001C1C0B /* MusicPlayerAUGraphWithQueueOutput.h */,
+				5563B4BC117D6215001C1C0B /* MusicPlayerAUGraphWithQueueOutput.m */,
+				559A2FBE11657DE800E7F3F0 /* MusicPlayerStateMachine.h */,
+				559A2FBF11657DE800E7F3F0 /* MusicPlayerStateMachine.m */,
+				559A2FF51165836C00E7F3F0 /* MusicPlayerActions.h */,
+			);
+			name = "Music Player";
+			sourceTree = "<group>";
+		};
+		558D6B751187EB560076F130 /* SharedModel */ = {
+			isa = PBXGroup;
+			children = (
+				558D6B741187EB440076F130 /* Music Player */,
+				55739AE8116C456400AF4914 /* GME Adapter */,
+			);
+			name = SharedModel;
+			path = ../SharedModel;
+			sourceTree = "<group>";
+		};
 		558E23891167AE9000771304 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -599,7 +616,8 @@
 				558E242111683F6200771304 /* MockMusicPlayerActions.m */,
 				558E239D1167AF2800771304 /* Info.plist */,
 			);
-			path = UnitTests;
+			name = UnitTests;
+			path = ../UnitTests;
 			sourceTree = "<group>";
 		};
 		55EFE6F61175732500E2F8B6 /* ThirdParty */ = {
@@ -609,7 +627,8 @@
 				55EFE6F71175732500E2F8B6 /* DDCoreAudio */,
 				5563B403117D61C9001C1C0B /* DDAudioQueue */,
 			);
-			path = ThirdParty;
+			name = ThirdParty;
+			path = ../ThirdParty;
 			sourceTree = "<group>";
 		};
 		55EFE6F71175732500E2F8B6 /* DDCoreAudio */ = {
@@ -974,7 +993,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ThirdParty/GameMusicEmu;
+				HEADER_SEARCH_PATHS = ../ThirdParty/GameMusicEmu;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
@@ -989,7 +1008,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ThirdParty/GameMusicEmu;
+				HEADER_SEARCH_PATHS = ../ThirdParty/GameMusicEmu;
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
 			};
