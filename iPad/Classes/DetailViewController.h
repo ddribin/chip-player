@@ -10,18 +10,22 @@
 
 @class GmeMusicFile;
 
-@interface DetailViewController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate> {
+@interface DetailViewController : UIViewController
+    <UIPopoverControllerDelegate, UISplitViewControllerDelegate,
+    UITableViewDataSource, UITableViewDelegate>
+{
     
     UIPopoverController *popoverController;
     UIToolbar *toolbar;
     
-    id detailItem;
-    UILabel *detailDescriptionLabel;
+    GmeMusicFile * _detailItem;
+    UITableView * _songTable;
 }
 
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 
-@property (nonatomic, retain) id detailItem;
-@property (nonatomic, retain) IBOutlet UILabel *detailDescriptionLabel;
+@property (nonatomic, retain) GmeMusicFile * detailItem;
+
+@property (nonatomic, retain) IBOutlet UITableView * songTable;
 
 @end
