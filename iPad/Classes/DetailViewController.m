@@ -9,6 +9,11 @@
 #import "DetailViewController.h"
 #import "RootViewController.h"
 
+#import "MusicPlayerStateMachine.h"
+#import "MusicPlayerAudioQueueOutput.h"
+#import "MusicPlayerAUGraphOutput.h"
+#import "MusicPlayerAUGraphWithQueueOutput.h"
+
 #import "GmeMusicFile.h"
 #import "TrackInfo.h"
 
@@ -16,6 +21,7 @@
 @interface DetailViewController ()
 @property (nonatomic, retain) UIPopoverController *popoverController;
 - (void)configureView;
+- (void)playCurrentTrack;
 @end
 
 
@@ -25,6 +31,9 @@
 @synthesize toolbar, popoverController;
 @synthesize detailItem = _detailItem;
 @synthesize songTable = _songTable;
+@synthesize previousButton = _previousButton;
+@synthesize playPauseButton = _playPauseButton;
+@synthesize nextButton = _nextButton;
 
 #pragma mark -
 #pragma mark Managing the detail item
@@ -36,6 +45,27 @@
     if (_detailItem != detailItem) {
         [_detailItem release];
         _detailItem = [detailItem retain];
+        
+        [_stateMachine teardown];
+        [_playerOutput release];
+        [_stateMachine release];
+        
+#if 0
+        Class MusicPlayerOutputClass = [MusicPlayerAudioQueueOutput class];
+#elif 0
+        Class MusicPlayerOutputClass = [MusicPlayerAUGraphOutput class];
+#else
+        Class MusicPlayerOutputClass = [MusicPlayerAUGraphWithQueueOutput class];
+#endif
+        _playerOutput = [[MusicPlayerOutputClass alloc] initWithDelegate:self];
+        NSError * error = nil;
+        if (![_playerOutput setupWithSampleRate:[detailItem sampleRate] error:&error]) {
+            NSLog(@"error %@ %@", error, [error userInfo]);
+        }
+        [_playerOutput setMusicFile:_detailItem];
+        
+        _stateMachine = [[MusicPlayerStateMachine alloc] initWithActions:self];
+        [_stateMachine setup];
         
         // Update the view.
         [self configureView];
@@ -202,7 +232,161 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    NSLog(@"Play song %d", indexPath.row);
+    [self playCurrentTrack];
+    [_stateMachine play];
+}
+
+#pragma mark -
+
+- (IBAction)playPause:(id)sender;
+{
+    [_stateMachine togglePause];
+}
+
+- (IBAction)next:(id)sender;
+{
+    [_stateMachine next];
+}
+
+- (IBAction)previous:(id)sender;
+{
+    [_stateMachine previous];
+}
+
+#pragma mark -
+
+- (void)musicPlayerOutputDidFinishTrack:(id<MusicPlayerOutput>)output;
+{
+    [_stateMachine trackDidFinish];
+}
+
+- (NSInteger)currentTrack
+{
+    NSIndexPath * indexPath = [_songTable indexPathForSelectedRow];
+    if (indexPath == nil) {
+        return NSNotFound;
+    }
+    return indexPath.row;
+}
+
+- (void)playCurrentTrack;
+{
+    NSInteger currentTrack = [self currentTrack];
+    if (currentTrack == NSNotFound) {
+        return;
+    }
+    
+    NSError * error = nil;
+    if (![_detailItem playTrack:currentTrack error:&error]) {
+        NSLog(@"Could not play: %@ %@", error, [error userInfo]);
+    }
+}
+
+#pragma mark -
+#pragma mark MusicPlayerActions API
+
+- (void)handleError:(NSError *)error;
+{
+    NSLog(@"handleError: %@ %@", error, [error userInfo]);
+}
+
+- (void)setButtonToPlay;
+{
+    [_playPauseButton setTitle:@"Play"];
+}
+
+- (void)setButtonToPause;
+{
+    [_playPauseButton setTitle:@"Pause"];
+}
+
+- (void)enableOrDisablePreviousAndNext;
+{
+    BOOL previousEnabled = ![self isCurrentTrackTheFirstTrack];
+    [_previousButton setEnabled:previousEnabled];
+    
+    BOOL nextEnabled = ![self isCurrentTrackTheLastTrack];
+    [_nextButton setEnabled:nextEnabled];
+}
+
+- (BOOL)setupAudio:(NSError **)error;
+{
+    return YES;
+}
+
+- (void)teardownAudio;
+{
+    [_playerOutput teardownAudio];
+}
+
+- (BOOL)startAudio:(NSError **)error;
+{
+    [self playCurrentTrack];
+    return [_playerOutput startAudio:error];
+}
+
+- (void)setCurrentTrackToSelectedTrack;
+{
+#if 0
+    NSIndexPath * indexPath = [_songTable indexPathForSelectedRow];
+    if (indexPath == nil) {
+        return;
+    }
+    indexPath = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:0]
+    [_songTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+#endif
+}
+
+- (void)nextTrack;
+{
+    NSInteger currentTrack = [self currentTrack];
+    if (currentTrack == NSNotFound) {
+        return;
+    }
+    currentTrack++;
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:currentTrack inSection:0];
+    [_songTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+}
+
+- (void)previousTrack;
+{
+    NSInteger currentTrack = [self currentTrack];
+    if (currentTrack == NSNotFound) {
+        return;
+    }
+    currentTrack--;
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:currentTrack inSection:0];
+    [_songTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+}
+
+- (void)stopAudio;
+{
+    [_playerOutput stopAudio];
+}
+
+- (BOOL)pauseAudio:(NSError **)error;
+{
+    return [_playerOutput pauseAudio:error];
+}
+
+- (BOOL)unpauseAudio:(NSError **)error;
+{
+    return [_playerOutput unpauseAudio:error];
+}
+
+- (BOOL)isCurrentTrackTheLastTrack;
+{
+    NSInteger currentTrack = [self currentTrack];
+    BOOL isLast = ((currentTrack+1) == [_detailItem numberOfTracks]);
+    return isLast;
+}
+
+
+- (BOOL)isCurrentTrackTheFirstTrack;
+{
+    NSInteger currentTrack = [self currentTrack];
+    BOOL isFirst = (currentTrack == 0);
+    return isFirst;
 }
 
 #pragma mark -
@@ -220,9 +404,15 @@
 - (void)dealloc {
     [popoverController release];
     [toolbar release];
-    
-    [_detailItem release];
     [_songTable release];
+    [_previousButton release];
+    [_playPauseButton release];
+    [_nextButton release];
+    
+    [_stateMachine teardown];
+    [_stateMachine release];
+    [_detailItem release];
+    [_playerOutput release];
     [super dealloc];
 }
 
