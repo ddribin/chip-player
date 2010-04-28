@@ -91,10 +91,10 @@ static OSStatus MyRenderer(void *							inRefCon,
     _graph = [[DDAudioUnitGraph alloc] init];
     
     _outputNode = [_graph addNodeWithType:kAudioUnitType_Output
-                                  subType:kAudioUnitSubType_DefaultOutput];
+                                  subType:kAudioUnitSubType_DDDefaultOutput];
     [_outputNode retain];
     
-#if 1
+#if 0
     _effectNode = [_graph addNodeWithType:kAudioUnitType_Effect
                                   subType:kAudioUnitSubType_MatrixReverb];
 #endif

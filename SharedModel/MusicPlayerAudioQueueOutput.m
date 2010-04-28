@@ -51,7 +51,7 @@ static void HandleOutputBuffer(void * inUserData,
     inBuffer->mAudioDataByteSize = inBuffer->mAudioDataBytesCapacity;
     OSStatus result = AudioQueueEnqueueBuffer(player->_queue, inBuffer, 0, NULL);
     if (result != noErr) {
-        NSLog(@"AudioQueueEnqueueBuffer error: %d %s %s", result, GetMacOSStatusErrorString(result), GetMacOSStatusCommentString(result));
+        NSLog(@"AudioQueueEnqueueBuffer error: %d", result);
     }
     
     // Peform after delay to get us out of the callback as some resulting actions
