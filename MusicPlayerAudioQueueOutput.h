@@ -23,7 +23,6 @@
     AudioQueueBufferRef _buffers[3];
     UInt32 _bufferByteSize;
     UInt32 _numPacketsToRead;
-    AudioStreamPacketDescription * _packetDescs;
     BOOL _shouldBufferDataInCallback;
     BOOL _stoppedDueToTrackEnding;
 }
