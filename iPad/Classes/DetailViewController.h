@@ -22,6 +22,7 @@
     UIPopoverController *popoverController;
     UIToolbar *toolbar;
     UITableView * _songTable;
+    NSInteger _currentTrack;
     
     GmeMusicFile * _detailItem;
     MusicPlayerStateMachine * _stateMachine;
@@ -39,6 +40,7 @@
 @property (nonatomic, retain) IBOutlet UIBarButtonItem * nextButton;
 
 @property (nonatomic, retain) GmeMusicFile * detailItem;
+@property (nonatomic, readonly) NSInteger currentTrack;
 
 - (IBAction)playPause:(id)sender;
 - (IBAction)next:(id)sender;

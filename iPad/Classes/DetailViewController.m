@@ -20,6 +20,9 @@
 
 @interface DetailViewController ()
 @property (nonatomic, retain) UIPopoverController *popoverController;
+@property (nonatomic) NSInteger currentTrack;
+@property (nonatomic) NSInteger selectedTrack;
+
 - (void)configureView;
 - (void)playCurrentTrack;
 @end
@@ -31,6 +34,7 @@
 @synthesize toolbar, popoverController;
 @synthesize detailItem = _detailItem;
 @synthesize songTable = _songTable;
+@synthesize currentTrack = _currentTrack;
 @synthesize previousButton = _previousButton;
 @synthesize playPauseButton = _playPauseButton;
 @synthesize nextButton = _nextButton;
@@ -52,7 +56,7 @@
         
 #if 0
         Class MusicPlayerOutputClass = [MusicPlayerAudioQueueOutput class];
-#elif 0
+#elif 1
         Class MusicPlayerOutputClass = [MusicPlayerAUGraphOutput class];
 #else
         Class MusicPlayerOutputClass = [MusicPlayerAUGraphWithQueueOutput class];
@@ -232,7 +236,6 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    [self playCurrentTrack];
     [_stateMachine play];
 }
 
@@ -260,7 +263,13 @@
     [_stateMachine trackDidFinish];
 }
 
-- (NSInteger)currentTrack
+- (void)setSelectedTrack:(NSInteger)selectedTrack
+{
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:selectedTrack inSection:0];
+    [_songTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+}
+
+- (NSInteger)selectedTrack
 {
     NSIndexPath * indexPath = [_songTable indexPathForSelectedRow];
     if (indexPath == nil) {
@@ -327,36 +336,29 @@
 
 - (void)setCurrentTrackToSelectedTrack;
 {
-#if 0
-    NSIndexPath * indexPath = [_songTable indexPathForSelectedRow];
-    if (indexPath == nil) {
-        return;
-    }
-    indexPath = [NSIndexPath indexPathForRow:indexPath.row+1 inSection:0]
-    [_songTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
-#endif
+    self.currentTrack = [self selectedTrack];
 }
 
 - (void)nextTrack;
 {
-    NSInteger currentTrack = [self currentTrack];
+    NSInteger currentTrack = self.currentTrack;
     if (currentTrack == NSNotFound) {
         return;
     }
     currentTrack++;
-    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:currentTrack inSection:0];
-    [_songTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+    self.currentTrack = currentTrack;
+    self.selectedTrack = currentTrack;
 }
 
 - (void)previousTrack;
 {
-    NSInteger currentTrack = [self currentTrack];
+    NSInteger currentTrack = self.currentTrack;
     if (currentTrack == NSNotFound) {
         return;
     }
     currentTrack--;
-    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:currentTrack inSection:0];
-    [_songTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
+    self.currentTrack = currentTrack;
+    self.selectedTrack = currentTrack;
 }
 
 - (void)stopAudio;
