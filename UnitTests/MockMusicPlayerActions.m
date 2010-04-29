@@ -38,6 +38,7 @@
     enableOrDisablePreviousAndNextWasCalled = NO;
     startAudioWasCalled = NO;
     stopAudioWasCalled = NO;
+    activateAudioSessionWasCalled = NO;
     setButtonToPlayWasCalled = NO;
     setButtonToPausedWasCalled = NO;
 }
@@ -106,6 +107,11 @@
 - (BOOL)unpauseAudio:(NSError **)error;
 {
     return YES;
+}
+
+- (void)activateAudioSession;
+{
+    activateAudioSessionWasCalled = YES;
 }
 
 - (void)setCurrentTrackToSelectedTrack;

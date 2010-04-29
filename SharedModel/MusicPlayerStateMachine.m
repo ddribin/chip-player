@@ -17,6 +17,7 @@ enum State {
     RRStateStopped,
     RRStatePlaying,
     RRStatePaused,
+    RRStateInterrupted,
 };
 
 @implementation MusicPlayerStateMachine
@@ -109,7 +110,7 @@ enum State {
 - (void)unpause;
 {
     NSAssert(_state != RRStateUninitialized, @"Invalid state");
-    NSAssert(_state == RRStatePaused, @"Invalid state");
+    NSAssert((_state == RRStatePaused) || (_state == RRStateInterrupted), @"Invalid state");
     
     NSError * error = nil;
     if (![_actions unpauseAudio:&error]) {
@@ -214,6 +215,26 @@ enum State {
         [_actions startAudio:NULL];
         
         self.state = RRStatePlaying;
+    }
+}
+
+- (void)beginInterruption;
+{
+    NSAssert(_state != RRStateUninitialized, @"Invalid state");
+
+    if (_state == RRStatePlaying) {
+        [self pause];
+        self.state = RRStateInterrupted;
+    }
+}
+
+- (void)endInterruption;
+{
+    NSAssert(_state != RRStateUninitialized, @"Invalid state");
+
+    [_actions activateAudioSession];
+    if (_state == RRStateInterrupted) {
+        [self unpause];
     }
 }
 

@@ -15,8 +15,10 @@ enum State {
     RRStateStopped,
     RRStatePlaying,
     RRStatePaused,
+    RRStateInterrupted,
 };
 
+#define TOKEN_STRING(_X_) [NSString stringWithUTF8String:#_X_]
 
 @implementation MusicPlayerStateMachineTest
 
@@ -62,18 +64,29 @@ enum State {
 
 - (void)assertStateIsUninitialized
 {
-    STAssertTrue([stateMachine state] == RRStateUninitialized, nil);
+    STAssertEquals([stateMachine state], RRStateUninitialized, nil);
 }
 
 - (void)assertStateIsStopped
 {
-    STAssertTrue([stateMachine state] == RRStateStopped, nil);
+    STAssertEquals([stateMachine state], RRStateStopped, nil);
 }
 
 - (void)assertStateIsPlaying
 {
-    STAssertTrue([stateMachine state] == RRStatePlaying, nil);
+    STAssertEquals([stateMachine state], RRStatePlaying, nil);
 }
+
+- (void)assertStateIsPaused
+{
+    STAssertEquals([stateMachine state], RRStatePaused, nil);
+}
+
+- (void)assertStateIsInterrupted
+{
+    STAssertEquals([stateMachine state], RRStateInterrupted, nil);
+}
+
 
 #pragma mark -
 #pragma mark Tests
@@ -176,6 +189,52 @@ enum State {
     STAssertTrue(mockActions->stopAudioWasCalled, nil);
     STAssertFalse(mockActions->startAudioWasCalled, nil);
     STAssertTrue(mockActions->setButtonToPlayWasCalled, nil);
+}
+
+- (void)testBeginInterruptionWhilePlayingTransitionsToInterrupted
+{
+    [self makeSetupStateMachine];
+    [stateMachine play];
+    
+    [stateMachine beginInterruption];
+    
+    [self assertStateIsInterrupted];
+}
+
+- (void)testStartsForEndInterruptionWhilePlaying
+{
+    [self makeSetupStateMachine];
+    [stateMachine play];
+    [stateMachine beginInterruption];
+    
+    [stateMachine endInterruption];
+    
+    [self assertStateIsPlaying];
+    STAssertTrue(mockActions->activateAudioSessionWasCalled, nil);
+}
+
+- (void)testStillPausedAfterBeginInterruptionWhilePaused
+{
+    [self makeSetupStateMachine];
+    [stateMachine play];
+    [stateMachine togglePause];
+
+    [stateMachine beginInterruption];
+    
+    [self assertStateIsPaused];
+}
+
+- (void)testStillPausedAfterEndInterruptionWhilePaused
+{
+    [self makeSetupStateMachine];
+    [stateMachine play];
+    [stateMachine togglePause];
+    [stateMachine beginInterruption];
+    
+    [stateMachine endInterruption];
+    
+    [self assertStateIsPaused];
+    STAssertTrue(mockActions->activateAudioSessionWasCalled, nil);
 }
 
 @end

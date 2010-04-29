@@ -28,5 +28,7 @@
 - (void)next;
 - (void)previous;
 - (void)trackDidFinish;
+- (void)beginInterruption;
+- (void)endInterruption;
 
 @end

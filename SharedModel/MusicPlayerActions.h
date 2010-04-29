@@ -24,6 +24,7 @@
 - (void)stopAudio;
 - (BOOL)pauseAudio:(NSError **)error;
 - (BOOL)unpauseAudio:(NSError **)error;
+- (void)activateAudioSession;
 
 - (void)setCurrentTrackToSelectedTrack;
 - (void)nextTrack;

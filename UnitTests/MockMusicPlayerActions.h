@@ -21,6 +21,7 @@
     BOOL enableOrDisablePreviousAndNextWasCalled;
     BOOL startAudioWasCalled;
     BOOL stopAudioWasCalled;
+    BOOL activateAudioSessionWasCalled;
     BOOL setButtonToPlayWasCalled;
     BOOL setButtonToPausedWasCalled;
 }

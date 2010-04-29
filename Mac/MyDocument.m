@@ -249,6 +249,10 @@ failed:
     return [_playerOutput unpauseAudio:error];
 }
 
+- (void)activateAudioSession;
+{
+}
+
 - (BOOL)isCurrentTrackTheLastTrack;
 {
     NSInteger currentTrack = [_trackTableDataSource currentTrack];

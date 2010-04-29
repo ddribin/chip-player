@@ -263,23 +263,12 @@
 
 - (void)beginInterruption;
 {
-#if 0
-    _playOnEndInterruption = self.isPlaying;
-    [self stop];
-#endif
-    NSLog(@"beginInterruption ");
+    [_stateMachine beginInterruption];
 }
 
 - (void)endInterruption;
 {
-#if 0
-    [self activateAudioSession];
-    
-    if (_playOnEndInterruption) {
-        [self play];
-    }
-#endif
-    NSLog(@"endInterruption ");
+    [_stateMachine endInterruption];
 }
 
 - (void)activateAudioSession;
