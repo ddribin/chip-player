@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MusicPlayerActions.h"
 #import "MusicPlayerOutput.h"
+#import <AVFoundation/AVFoundation.h>
 
 @class GmeMusicFile;
 @class MusicPlayerStateMachine;
@@ -16,7 +17,7 @@
 @interface DetailViewController : UIViewController
     <UIPopoverControllerDelegate, UISplitViewControllerDelegate,
     UITableViewDataSource, UITableViewDelegate,
-    MusicPlayerActions, MusicPlayerOutputDelegate>
+    MusicPlayerActions, MusicPlayerOutputDelegate, AVAudioSessionDelegate>
 {
     
     UIPopoverController *popoverController;

@@ -80,6 +80,7 @@
 		558D6EFF1187F36C0076F130 /* Ym2612_Emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558D6DD11187F36C0076F130 /* Ym2612_Emu.cpp */; };
 		558D6F321187F6310076F130 /* DDAudioCompatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 558D6F311187F6310076F130 /* DDAudioCompatibility.m */; };
 		558D6F671187F7C00076F130 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558D6F661187F7C00076F130 /* AudioToolbox.framework */; };
+		558D721F11892FD30076F130 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558D721E11892FD30076F130 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -253,6 +254,7 @@
 		558D6F301187F6310076F130 /* DDAudioCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAudioCompatibility.h; sourceTree = "<group>"; };
 		558D6F311187F6310076F130 /* DDAudioCompatibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAudioCompatibility.m; sourceTree = "<group>"; };
 		558D6F661187F7C00076F130 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		558D721E11892FD30076F130 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* ChipPlayer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ChipPlayer-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -265,6 +267,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				558D6F671187F7C00076F130 /* AudioToolbox.framework in Frameworks */,
+				558D721F11892FD30076F130 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +305,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				558D721E11892FD30076F130 /* AVFoundation.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";

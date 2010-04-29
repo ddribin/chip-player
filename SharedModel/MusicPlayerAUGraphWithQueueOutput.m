@@ -169,6 +169,19 @@ static OSStatus MyRenderer(void *							inRefCon,
     DDAudioUnit * converterUnit = [_converterNode audioUnit];
     [converterUnit setStreamFormatWithDescription:&_dataFormat];
     
+#if TARGET_OS_IPHONE
+    /*
+     * See Technical Q&A QA1606 Audio Unit Processing Graph -
+     *   Ensuring audio playback continues when screen is locked
+     *
+     * http://developer.apple.com/iphone/library/qa/qa2009/qa1606.html
+     *
+     * Need to set kAudioUnitProperty_MaximumFramesPerSlice to 4096 on all
+     * non-output audio units.  In this case, that's only the converter unit.
+     */
+    [converterUnit setUnsignedInt32Value:4096 forProperty:kAudioUnitProperty_MaximumFramesPerSlice];
+#endif
+    
     [_converterNode setInputCallback:MyRenderer context:self forInput:0];
     
     NSLog(@"graph: %@", _graph);
@@ -187,6 +200,43 @@ static OSStatus MyRenderer(void *							inRefCon,
     
     return YES;
 }
+
+#if 0
+- (OSStatus)setMaximumFramesPerSlice;
+{
+#if TARGET_OS_IPHONE
+    /*
+     * See Technical Q&A QA1606 Audio Unit Processing Graph -
+     *   Ensuring audio playback continues when screen is locked
+     *
+     * http://developer.apple.com/iphone/library/qa/qa2009/qa1606.html
+     *
+     * Need to set kAudioUnitProperty_MaximumFramesPerSlice to 4096 on all
+     * non-output audio units.  In this case, that's only the converter unit.
+     */
+    
+    AudioUnit converterAudioUnit;
+    OSStatus status;
+    status = AUGraphNodeInfo(_graph, _converterNode, NULL, &converterAudioUnit);
+    if (status != noErr) {
+        return status;
+    }
+    
+    UInt32 maxFramesPerSlice = 4096;
+    status = AudioUnitSetProperty(converterAudioUnit,
+                                  kAudioUnitProperty_MaximumFramesPerSlice,
+                                  kAudioUnitScope_Global,
+                                  0,
+                                  &maxFramesPerSlice,
+                                  sizeof(maxFramesPerSlice));
+    return status;
+    
+#else
+    // Don't bother on the desktop.
+    return noErr;
+#endif
+}
+#endif
 
 - (void)teardownAudio;
 {

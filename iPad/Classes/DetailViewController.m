@@ -23,6 +23,10 @@
 @property (nonatomic) NSInteger currentTrack;
 @property (nonatomic) NSInteger selectedTrack;
 
+- (void)setupAudioSession;
+- (void)setupAudioSessionCategory;
+- (void)activateAudioSession;
+
 - (void)configureView;
 - (void)playCurrentTrack;
 @end
@@ -56,7 +60,7 @@
         
 #if 0
         Class MusicPlayerOutputClass = [MusicPlayerAudioQueueOutput class];
-#elif 1
+#elif 0
         Class MusicPlayerOutputClass = [MusicPlayerAUGraphOutput class];
 #else
         Class MusicPlayerOutputClass = [MusicPlayerAUGraphWithQueueOutput class];
@@ -124,12 +128,11 @@
 #pragma mark -
 #pragma mark View lifecycle
 
-/*
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupAudioSession];
 }
- */
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -237,6 +240,56 @@
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     [_stateMachine play];
+}
+
+#pragma mark -
+#pragma mark Audio session handling
+
+- (void)setupAudioSession;
+{
+    [self activateAudioSession];
+    [[AVAudioSession sharedInstance] setDelegate:self];
+    [self setupAudioSessionCategory];
+}
+
+- (void)setupAudioSessionCategory;
+{
+    NSError * error;
+    AVAudioSession * session = [AVAudioSession sharedInstance];
+    if (![session setCategory:AVAudioSessionCategoryPlayback error:&error]) {
+        NSLog(@"Could not set audio session category: %@ %@", error, [error userInfo]);
+    }
+}
+
+- (void)beginInterruption;
+{
+#if 0
+    _playOnEndInterruption = self.isPlaying;
+    [self stop];
+#endif
+    NSLog(@"beginInterruption ");
+}
+
+- (void)endInterruption;
+{
+#if 0
+    [self activateAudioSession];
+    
+    if (_playOnEndInterruption) {
+        [self play];
+    }
+#endif
+    NSLog(@"endInterruption ");
+}
+
+- (void)activateAudioSession;
+{
+    NSError * error = nil;
+    AVAudioSession * session = [AVAudioSession sharedInstance];
+    if (![session setActive:YES error:&error]) {
+        NSLog(@"Could not activate audio session: %@ %@", error, [error userInfo]);
+        return;
+    }
 }
 
 #pragma mark -
