@@ -110,7 +110,7 @@ BOOL GmeMusicFilePlay(GmeMusicFile * file, long count, short * samples, NSError 
         }
     }
     if ( track_info_.length <= 0 )
-        track_info_.length = (long) (2.5 * 60 * 1000);
+        track_info_.length = (long) (4.0 * 60 * 1000);
     [_emu set_fade:track_info_.length];
     
     return YES;
