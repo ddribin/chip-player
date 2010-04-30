@@ -148,7 +148,7 @@
         NSLog(@"Error opening music file: %@ %@", error, [error userInfo]);
         return;
     }
-    detailViewController.detailItem = musicFile;
+    detailViewController.musicFile = musicFile;
 }
 
 

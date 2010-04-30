@@ -17,6 +17,8 @@
 #import "GmeMusicFile.h"
 #import "TrackInfo.h"
 
+#import <AudioToolbox/AudioToolbox.h>
+
 
 @interface DetailViewController ()
 @property (nonatomic, retain) UIPopoverController *popoverController;
@@ -36,7 +38,7 @@
 @implementation DetailViewController
 
 @synthesize toolbar, popoverController;
-@synthesize detailItem = _detailItem;
+@synthesize musicFile = _musicFile;
 @synthesize songTable = _songTable;
 @synthesize currentTrack = _currentTrack;
 @synthesize previousButton = _previousButton;
@@ -49,10 +51,10 @@
 /*
  When setting the detail item, update the view and dismiss the popover controller if it's showing.
  */
-- (void)setDetailItem:(id)detailItem {
-    if (_detailItem != detailItem) {
-        [_detailItem release];
-        _detailItem = [detailItem retain];
+- (void)setMusicFile:(id)detailItem {
+    if (_musicFile != detailItem) {
+        [_musicFile release];
+        _musicFile = [detailItem retain];
         
         [_stateMachine teardown];
         [_playerOutput release];
@@ -66,11 +68,12 @@
         Class MusicPlayerOutputClass = [MusicPlayerAUGraphWithQueueOutput class];
 #endif
         _playerOutput = [[MusicPlayerOutputClass alloc] initWithDelegate:self];
+        [self activateAudioSession];
         NSError * error = nil;
         if (![_playerOutput setupWithSampleRate:[detailItem sampleRate] error:&error]) {
             NSLog(@"error %@ %@", error, [error userInfo]);
         }
-        [_playerOutput setMusicFile:_detailItem];
+        [_playerOutput setMusicFile:_musicFile];
         
         _stateMachine = [[MusicPlayerStateMachine alloc] initWithActions:self];
         [_stateMachine setup];
@@ -172,7 +175,7 @@
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [_detailItem numberOfTracks];
+    return [_musicFile numberOfTracks];
 }
 
 
@@ -188,7 +191,7 @@
     }
     
     // Configure the cell.
-    TrackInfo * trackInfo = [_detailItem infoForTrack:indexPath.row];
+    TrackInfo * trackInfo = [_musicFile infoForTrack:indexPath.row];
     cell.textLabel.text = [trackInfo song];
     return cell;
 }
@@ -328,7 +331,7 @@
     }
     
     NSError * error = nil;
-    if (![_detailItem playTrack:currentTrack error:&error]) {
+    if (![_musicFile playTrack:currentTrack error:&error]) {
         NSLog(@"Could not play: %@ %@", error, [error userInfo]);
     }
 }
@@ -362,6 +365,7 @@
 
 - (BOOL)setupAudio:(NSError **)error;
 {
+    [self activateAudioSession];
     return YES;
 }
 
@@ -372,6 +376,7 @@
 
 - (BOOL)startAudio:(NSError **)error;
 {
+    [self activateAudioSession];
     [self playCurrentTrack];
     return [_playerOutput startAudio:error];
 }
@@ -421,7 +426,7 @@
 - (BOOL)isCurrentTrackTheLastTrack;
 {
     NSInteger currentTrack = [self currentTrack];
-    BOOL isLast = ((currentTrack+1) == [_detailItem numberOfTracks]);
+    BOOL isLast = ((currentTrack+1) == [_musicFile numberOfTracks]);
     return isLast;
 }
 
@@ -455,7 +460,7 @@
     
     [_stateMachine teardown];
     [_stateMachine release];
-    [_detailItem release];
+    [_musicFile release];
     [_playerOutput release];
     [super dealloc];
 }

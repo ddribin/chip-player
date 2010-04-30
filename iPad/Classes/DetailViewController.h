@@ -25,7 +25,7 @@
     UITableView * _songTable;
     NSInteger _currentTrack;
     
-    GmeMusicFile * _detailItem;
+    GmeMusicFile * _musicFile;
     MusicPlayerStateMachine * _stateMachine;
     id<MusicPlayerOutput> _playerOutput;
     
@@ -40,7 +40,7 @@
 @property (nonatomic, retain) IBOutlet UIBarButtonItem * playPauseButton;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem * nextButton;
 
-@property (nonatomic, retain) GmeMusicFile * detailItem;
+@property (nonatomic, retain) GmeMusicFile * musicFile;
 @property (nonatomic, readonly) NSInteger currentTrack;
 
 - (IBAction)playPause:(id)sender;
