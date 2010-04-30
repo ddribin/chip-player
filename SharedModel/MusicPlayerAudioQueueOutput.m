@@ -58,7 +58,6 @@ static void HandleOutputBuffer(void * inUserData,
     // that act on the queue may not work when called from the callback
     // [player performSelector:@selector(checkTrackDidEnd) withObject:nil afterDelay:0.0];
     if ([musicFile trackEnded]) {
-        NSLog(@"%s:%d trackEnded", __PRETTY_FUNCTION__, __LINE__);
         player->_shouldBufferDataInCallback = NO;
         player->_stoppedDueToTrackEnding = YES;
         AudioQueueStop(player->_queue, NO);
@@ -78,17 +77,7 @@ static void HandleIsRunningChanged(void * userData,
         NSLog(@"AudioQueueGetProperty failed: %d", status);
     }
     else {
-        NSLog(@"isRunning: %d", isRunning);
-        static NSTimeInterval __start;
-        if (isRunning) {
-            __start = [NSDate timeIntervalSinceReferenceDate];
-        } else {
-            NSTimeInterval end = [NSDate timeIntervalSinceReferenceDate];
-            NSLog(@"duration: %.3f", (end - __start));
-        }
-
         if (!isRunning && player->_stoppedDueToTrackEnding) {
-            // [player performSelector:@selector(checkTrackDidEnd) withObject:nil afterDelay:0.0];
             [player checkTrackDidEnd];
         }
     }
@@ -169,8 +158,6 @@ failed:
     if ((_bufferByteSize % 4) != 0) {
         _bufferByteSize += 4 - (_bufferByteSize % 4);
     }
-    NSLog(@"Buffer size: %u (%.3f)", _bufferByteSize,
-          ((float)_bufferByteSize) / ((float)_dataFormat.mSampleRate) / ((float)_dataFormat.mBytesPerFrame));
 }
 
 - (OSStatus)allocateBuffers;
@@ -200,7 +187,6 @@ failed:
         HandleOutputBuffer(self, _queue, _buffers[i]);
     }
     
-    NSLog(@"AudioQueueStart:%d", __LINE__);
     OSStatus status;
     FAIL_ON_ERR(AudioQueueStart(_queue, NULL));
     return YES;
@@ -215,14 +201,12 @@ failed:
 - (void)stopAudio;
 {
     _shouldBufferDataInCallback = NO;
-    NSLog(@"AudioQueueStop:%d", __LINE__);
     AudioQueueStop(_queue, YES);
 }
 
 - (BOOL)pauseAudio:(NSError **)error;
 {
     _shouldBufferDataInCallback = NO;
-    NSLog(@"AudioQueuePause:%d", __LINE__);
     OSStatus status;
     FAIL_ON_ERR(AudioQueuePause(_queue));
     return YES;
@@ -237,7 +221,6 @@ failed:
 - (BOOL)unpauseAudio:(NSError **)error;
 {
     _shouldBufferDataInCallback = YES;
-    NSLog(@"AudioQueueStart:%d", __LINE__);
     OSStatus status;
     FAIL_ON_ERR(AudioQueueStart(_queue, NULL));
     return YES;
