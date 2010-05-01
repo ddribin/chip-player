@@ -53,14 +53,14 @@ static OSStatus MyRenderer(void *							inRefCon,
                            UInt32							inNumberFrames,
                            AudioBufferList *				ioData)
 {
-    MusicPlayerAUGraphOutput * player = (MusicPlayerAUGraphOutput *)inRefCon;
+    MusicPlayerAUGraphOutput * self = inRefCon;
 
-    if (!player->_shouldBufferDataInCallback) {
+    if (!self->_shouldBufferDataInCallback) {
         SilenceData(ioData);
         return noErr;
     }
     
-    GmeMusicFile * musicFile = player->_musicFile;
+    GmeMusicFile * musicFile = self->_musicFile;
     if (musicFile == nil) {
         NSLog(@"No music file");
         SilenceData(ioData);
@@ -78,8 +78,8 @@ static OSStatus MyRenderer(void *							inRefCon,
     // [player performSelector:@selector(checkTrackDidEnd) withObject:nil afterDelay:0.0];
     if ([musicFile trackEnded]) {
         NSLog(@"%s:%d trackEnded", __PRETTY_FUNCTION__, __LINE__);
-        player->_shouldBufferDataInCallback = NO;
-        [player performSelectorOnMainThread:@selector(trackEnded) withObject:nil waitUntilDone:NO];
+        self->_shouldBufferDataInCallback = NO;
+        [self performSelectorOnMainThread:@selector(trackEnded) withObject:nil waitUntilDone:NO];
     }
     
     return noErr;

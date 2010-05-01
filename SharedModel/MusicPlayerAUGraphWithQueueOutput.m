@@ -14,6 +14,7 @@
 #import "DDAudioQueue.h"
 #import "DDAudioQueueBuffer.h"
 #import "DDAudioQueueReader.h"
+#import <libkern/OSAtomic.h>
 
 #define NUM_BUFFERS (sizeof(_buffers)/sizeof(*_buffers))
 
@@ -103,10 +104,15 @@ static OSStatus MyRenderer(void *							inRefCon,
                            UInt32							inNumberFrames,
                            AudioBufferList *				ioData)
 {
-    MusicPlayerAUGraphWithQueueOutput * player = (MusicPlayerAUGraphWithQueueOutput *)inRefCon;
+    MusicPlayerAUGraphWithQueueOutput * self = (MusicPlayerAUGraphWithQueueOutput *)inRefCon;
     
-    UInt32 bytesRead = DDAudioQueueReaderRead(player->_queueReader, ioData->mBuffers[0].mData, inNumberFrames*player->_dataFormat.mBytesPerFrame);
+    
+    UInt32 bytesToRead = inNumberFrames*self->_dataFormat.mBytesPerFrame;
+    UInt32 bytesRead = DDAudioQueueReaderRead(self->_queueReader,
+                                              ioData->mBuffers[0].mData,
+                                              bytesToRead);
     ioData->mBuffers[0].mDataByteSize = bytesRead;
+    OSAtomicIncrement32(&self->_renderCount);
     return noErr;
 }
 
@@ -201,43 +207,6 @@ static OSStatus MyRenderer(void *							inRefCon,
     return YES;
 }
 
-#if 0
-- (OSStatus)setMaximumFramesPerSlice;
-{
-#if TARGET_OS_IPHONE
-    /*
-     * See Technical Q&A QA1606 Audio Unit Processing Graph -
-     *   Ensuring audio playback continues when screen is locked
-     *
-     * http://developer.apple.com/iphone/library/qa/qa2009/qa1606.html
-     *
-     * Need to set kAudioUnitProperty_MaximumFramesPerSlice to 4096 on all
-     * non-output audio units.  In this case, that's only the converter unit.
-     */
-    
-    AudioUnit converterAudioUnit;
-    OSStatus status;
-    status = AUGraphNodeInfo(_graph, _converterNode, NULL, &converterAudioUnit);
-    if (status != noErr) {
-        return status;
-    }
-    
-    UInt32 maxFramesPerSlice = 4096;
-    status = AudioUnitSetProperty(converterAudioUnit,
-                                  kAudioUnitProperty_MaximumFramesPerSlice,
-                                  kAudioUnitScope_Global,
-                                  0,
-                                  &maxFramesPerSlice,
-                                  sizeof(maxFramesPerSlice));
-    return status;
-    
-#else
-    // Don't bother on the desktop.
-    return noErr;
-#endif
-}
-#endif
-
 - (void)teardownAudio;
 {
     NSLog(@"%s:%d", __PRETTY_FUNCTION__, __LINE__);
@@ -259,8 +228,9 @@ static OSStatus MyRenderer(void *							inRefCon,
 {
     NSTimeInterval timeSinceLastTimer = [NSDate timeIntervalSinceReferenceDate] - _timeOfLastOneSecondTimer;
     NSTimeInterval cpuPercent = _timeInMusicFilePlay/timeSinceLastTimer * 100.;
-    NSLog(@"CPU usage of GmeMusicFilePlay: %.3f%%", cpuPercent);
+    NSLog(@"CPU usage of GmeMusicFilePlay: %.3f%%, renders per second: %d", cpuPercent, _renderCount);
     _timeInMusicFilePlay = 0.;
+    _renderCount = 0;
     _timeOfLastOneSecondTimer = [NSDate timeIntervalSinceReferenceDate];
 }
 

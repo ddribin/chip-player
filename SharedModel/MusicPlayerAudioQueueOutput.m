@@ -16,6 +16,7 @@
 - (void)setupDataFormatWithSampleRate:(long)sampleRate;
 - (void)calculateBufferSizeForSeconds:(Float64)seconds;
 - (OSStatus)allocateBuffers;
+- (void)primeBuffers;
 - (void)checkTrackDidEnd;
 @end
 
@@ -30,37 +31,38 @@ static void HandleOutputBuffer(void * inUserData,
                                AudioQueueRef inAQ,
                                AudioQueueBufferRef inBuffer)
 {
-    MusicPlayerAudioQueueOutput * player = (MusicPlayerAudioQueueOutput *) inUserData;
+    MusicPlayerAudioQueueOutput * self =
+        (MusicPlayerAudioQueueOutput *) inUserData;
     
-    if (!player->_shouldBufferDataInCallback) {
+    if (!self->_shouldBufferDataInCallback) {
         return;
     }
     
-    GmeMusicFile * musicFile = player->_musicFile;
+    GmeMusicFile * musicFile = self->_musicFile;
     if (musicFile == nil) {
         NSLog(@"No music file");
         return;
     }
     
     NSError * error = nil;
-    if (!GmeMusicFilePlay(musicFile, inBuffer->mAudioDataBytesCapacity/2, inBuffer->mAudioData, &error)) {
+    if (!GmeMusicFilePlay(musicFile, inBuffer->mAudioDataBytesCapacity/2,
+                          inBuffer->mAudioData, &error))
+    {
         NSLog(@"GmeMusicFilePlay error: %@ %@", error, [error userInfo]);
         return;
     }
     
     inBuffer->mAudioDataByteSize = inBuffer->mAudioDataBytesCapacity;
-    OSStatus result = AudioQueueEnqueueBuffer(player->_queue, inBuffer, 0, NULL);
+    OSStatus result = AudioQueueEnqueueBuffer(self->_queue, inBuffer, 0, NULL);
     if (result != noErr) {
         NSLog(@"AudioQueueEnqueueBuffer error: %d", result);
     }
     
-    // Peform after delay to get us out of the callback as some resulting actions
-    // that act on the queue may not work when called from the callback
-    // [player performSelector:@selector(checkTrackDidEnd) withObject:nil afterDelay:0.0];
+    // Asynchronous stop means all queued buffers still get played.
     if ([musicFile trackEnded]) {
-        player->_shouldBufferDataInCallback = NO;
-        player->_stoppedDueToTrackEnding = YES;
-        AudioQueueStop(player->_queue, NO);
+        self->_shouldBufferDataInCallback = NO;
+        self->_stoppedDueToTrackEnding = YES;
+        AudioQueueStop(self->_queue, NO);
     }
 }
 
@@ -180,12 +182,7 @@ failed:
 
 - (BOOL)startAudio:(NSError **)error;
 {
-    // Prime buffers
-    _shouldBufferDataInCallback = YES;
-    _stoppedDueToTrackEnding = NO;
-    for (int i = 0; i < kNumberBuffers; ++i) {
-        HandleOutputBuffer(self, _queue, _buffers[i]);
-    }
+    [self primeBuffers];
     
     OSStatus status;
     FAIL_ON_ERR(AudioQueueStart(_queue, NULL));
@@ -193,9 +190,19 @@ failed:
     
 failed:
     if (error != NULL) {
-        *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
+        *error = [NSError errorWithDomain:NSOSStatusErrorDomain
+                                     code:status userInfo:nil];
     }
     return NO;
+}
+
+- (void)primeBuffers;
+{
+    _shouldBufferDataInCallback = YES;
+    _stoppedDueToTrackEnding = NO;
+    for (int i = 0; i < kNumberBuffers; ++i) {
+        HandleOutputBuffer(self, _queue, _buffers[i]);
+    }
 }
 
 - (void)stopAudio;

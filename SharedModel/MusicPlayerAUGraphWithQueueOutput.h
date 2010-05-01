@@ -39,6 +39,7 @@
     NSTimer * _oneSecondTimer;
     NSTimeInterval _timeOfLastOneSecondTimer;
     NSTimeInterval _timeInMusicFilePlay;
+    volatile int32_t _renderCount;
 }
 
 @property (retain) MusicEmu * emu;
