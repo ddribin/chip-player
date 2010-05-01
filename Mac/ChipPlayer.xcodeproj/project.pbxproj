@@ -114,7 +114,7 @@
 		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MyDocument.xib; sourceTree = "<group>"; };
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		2564AD2C0F5327BB00F57823 /* Retro_Player_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Retro_Player_Prefix.pch; sourceTree = "<group>"; };
+		2564AD2C0F5327BB00F57823 /* ChipPlayer_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChipPlayer_Prefix.pch; sourceTree = "<group>"; };
 		2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
 		2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDocument.h; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -285,8 +285,8 @@
 		55EFEE4E11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerAUGraphOutput.h; sourceTree = "<group>"; };
 		55EFEE4F11797B5900E2F8B6 /* MusicPlayerAUGraphOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerAUGraphOutput.m; sourceTree = "<group>"; };
 		55EFEECD117980A700E2F8B6 /* MusicPlayerOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerOutput.h; sourceTree = "<group>"; };
-		8D15AC360486D014006FF6A4 /* Retro_Player-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Retro_Player-Info.plist"; sourceTree = "<group>"; };
-		8D15AC370486D014006FF6A4 /* Retro Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Retro Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D15AC360486D014006FF6A4 /* ChipPlayer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ChipPlayer-Info.plist"; sourceTree = "<group>"; };
+		8D15AC370486D014006FF6A4 /* Chip Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chip Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,7 +335,7 @@
 		19C28FB0FE9D524F11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D15AC370486D014006FF6A4 /* Retro Player.app */,
+				8D15AC370486D014006FF6A4 /* Chip Player.app */,
 				558E239C1167AF2800771304 /* UnitTests.octest */,
 			);
 			name = Products;
@@ -370,7 +370,7 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				2564AD2C0F5327BB00F57823 /* Retro_Player_Prefix.pch */,
+				2564AD2C0F5327BB00F57823 /* ChipPlayer_Prefix.pch */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -380,7 +380,7 @@
 			isa = PBXGroup;
 			children = (
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
-				8D15AC360486D014006FF6A4 /* Retro_Player-Info.plist */,
+				8D15AC360486D014006FF6A4 /* ChipPlayer-Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 				1DDD58280DA1D0D100B32029 /* MyDocument.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
@@ -682,9 +682,9 @@
 			productReference = 558E239C1167AF2800771304 /* UnitTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		8D15AC270486D014006FF6A4 /* Retro Player */ = {
+		8D15AC270486D014006FF6A4 /* Chip Player */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Retro Player" */;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Chip Player" */;
 			buildPhases = (
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
@@ -694,10 +694,10 @@
 			);
 			dependencies = (
 			);
-			name = "Retro Player";
+			name = "Chip Player";
 			productInstallPath = "$(HOME)/Applications";
 			productName = "Retro Player";
-			productReference = 8D15AC370486D014006FF6A4 /* Retro Player.app */;
+			productReference = 8D15AC370486D014006FF6A4 /* Chip Player.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -705,7 +705,7 @@
 /* Begin PBXProject section */
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "RetroPlayer" */;
+			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "ChipPlayer" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -719,7 +719,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D15AC270486D014006FF6A4 /* Retro Player */,
+				8D15AC270486D014006FF6A4 /* Chip Player */,
 				558E239B1167AF2800771304 /* UnitTests */,
 			);
 		};
@@ -850,7 +850,7 @@
 /* Begin PBXTargetDependency section */
 		558E24B211684CF200771304 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8D15AC270486D014006FF6A4 /* Retro Player */;
+			target = 8D15AC270486D014006FF6A4 /* Chip Player */;
 			targetProxy = 558E24B111684CF200771304 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -957,10 +957,10 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Retro_Player_Prefix.pch;
-				INFOPLIST_FILE = "Retro_Player-Info.plist";
+				GCC_PREFIX_HEADER = ChipPlayer_Prefix.pch;
+				INFOPLIST_FILE = "ChipPlayer-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = "Retro Player";
+				PRODUCT_NAME = "Chip Player";
 			};
 			name = Debug;
 		};
@@ -971,10 +971,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Retro_Player_Prefix.pch;
-				INFOPLIST_FILE = "Retro_Player-Info.plist";
+				GCC_PREFIX_HEADER = ChipPlayer_Prefix.pch;
+				INFOPLIST_FILE = "ChipPlayer-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = "Retro Player";
+				PRODUCT_NAME = "Chip Player";
 			};
 			name = Release;
 		};
@@ -1020,7 +1020,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Retro Player" */ = {
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Chip Player" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C05733C808A9546B00998B17 /* Debug */,
@@ -1029,7 +1029,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "RetroPlayer" */ = {
+		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "ChipPlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C05733CC08A9546B00998B17 /* Debug */,
