@@ -24,6 +24,7 @@
 
 #import "DetailViewController.h"
 #import "RootViewController.h"
+#import "SongsTableViewController.h"
 
 #import "MusicPlayerStateMachine.h"
 #import "MusicPlayerAudioQueueOutput.h"
@@ -39,13 +40,11 @@
 @interface DetailViewController ()
 @property (nonatomic, retain) UIPopoverController *popoverController;
 @property (nonatomic) NSInteger currentTrack;
-@property (nonatomic) NSInteger selectedTrack;
 
 - (void)setupAudioSession;
 - (void)setupAudioSessionCategory;
 - (void)activateAudioSession;
 
-- (void)configureView;
 - (void)playCurrentTrack;
 @end
 
@@ -54,6 +53,7 @@
 @implementation DetailViewController
 
 @synthesize toolbar, popoverController;
+@synthesize songsTableViewController = _songsTableViewController;
 @synthesize musicFile = _musicFile;
 @synthesize songTable = _songTable;
 @synthesize currentTrack = _currentTrack;
@@ -95,7 +95,7 @@
         [_stateMachine setup];
         
         // Update the view.
-        [self configureView];
+        _songsTableViewController.musicFile = _musicFile;
     }
 
     if (popoverController != nil) {
@@ -103,11 +103,6 @@
     }        
 }
 
-
-- (void)configureView {
-    // Update the user interface for the detail item.
-    [_songTable reloadData];
-}
 
 
 #pragma mark -
@@ -150,6 +145,7 @@
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _songsTableViewController.delegate = self;
     [self setupAudioSession];
 }
 
@@ -181,82 +177,9 @@
 }
 
 #pragma mark -
-#pragma mark Table view data source
+#pragma mark Songs table view controller delegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView {
-    // Return the number of sections.
-    return 1;
-}
-
-
-- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return [_musicFile numberOfTracks];
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"CellIdentifier";
-    
-    // Dequeue or create a cell of the appropriate type.
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
-    
-    // Configure the cell.
-    TrackInfo * trackInfo = [_musicFile infoForTrack:indexPath.row];
-    cell.textLabel.text = [trackInfo song];
-    return cell;
-}
-
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- 
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
- }   
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }   
- }
- */
-
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-
-#pragma mark -
-#pragma mark Table view delegate
-
-- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
+- (void)didSelectTrack:(NSInteger)track;
 {
     [_stateMachine play];
 }
@@ -324,21 +247,6 @@
     [_stateMachine trackDidFinish];
 }
 
-- (void)setSelectedTrack:(NSInteger)selectedTrack
-{
-    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:selectedTrack inSection:0];
-    [_songTable selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
-}
-
-- (NSInteger)selectedTrack
-{
-    NSIndexPath * indexPath = [_songTable indexPathForSelectedRow];
-    if (indexPath == nil) {
-        return NSNotFound;
-    }
-    return indexPath.row;
-}
-
 - (void)playCurrentTrack;
 {
     NSInteger currentTrack = [self currentTrack];
@@ -399,7 +307,7 @@
 
 - (void)setCurrentTrackToSelectedTrack;
 {
-    self.currentTrack = [self selectedTrack];
+    self.currentTrack = [_songsTableViewController selectedTrack];
 }
 
 - (void)nextTrack;
@@ -410,7 +318,7 @@
     }
     currentTrack++;
     self.currentTrack = currentTrack;
-    self.selectedTrack = currentTrack;
+    _songsTableViewController.selectedTrack = currentTrack;
 }
 
 - (void)previousTrack;
@@ -421,7 +329,7 @@
     }
     currentTrack--;
     self.currentTrack = currentTrack;
-    self.selectedTrack = currentTrack;
+    _songsTableViewController.selectedTrack = currentTrack;
 }
 
 - (void)stopAudio;

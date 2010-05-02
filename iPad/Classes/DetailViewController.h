@@ -23,16 +23,18 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 #import "MusicPlayerActions.h"
 #import "MusicPlayerOutput.h"
-#import <AVFoundation/AVFoundation.h>
+#import "SongsTableViewController.h"
 
 @class GmeMusicFile;
 @class MusicPlayerStateMachine;
+@class SongsTableViewController;
 
 @interface DetailViewController : UIViewController
     <UIPopoverControllerDelegate, UISplitViewControllerDelegate,
-    UITableViewDataSource, UITableViewDelegate,
+    SongsTableViewControllerDelegate,
     MusicPlayerActions, MusicPlayerOutputDelegate, AVAudioSessionDelegate>
 {
     
@@ -40,6 +42,7 @@
     UIToolbar *toolbar;
     UITableView * _songTable;
     NSInteger _currentTrack;
+    SongsTableViewController * _songsTableViewController;
     
     GmeMusicFile * _musicFile;
     MusicPlayerStateMachine * _stateMachine;
@@ -50,6 +53,7 @@
     UIBarButtonItem * _nextButton;
 }
 
+@property (nonatomic, retain) IBOutlet SongsTableViewController * songsTableViewController;
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, retain) IBOutlet UITableView * songTable;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem * previousButton;
