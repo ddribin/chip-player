@@ -1,3 +1,3 @@
-ThirdParty/GameMusicEmu = bb://ddribin/game-music-emu
-ThirdParty/DDCoreAudio = bb://ddribin/ddcoreaudio
-ThirdParty/DDAudioQueue = bb://ddribin/ddaudioqueue
+ThirdParty/GameMusicEmu = https://bitbucket.org/ddribin/game-music-emu
+ThirdParty/DDCoreAudio = https://bitbucket.org/ddribin/ddcoreaudio
+ThirdParty/DDAudioQueue = https://bitbucket.org/ddribin/ddaudioqueue
