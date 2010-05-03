@@ -9,6 +9,7 @@
 #import "SongsTableViewController.h"
 #import "GmeMusicFile.h"
 #import "TrackInfo.h"
+#import "SongTableViewCell.h"
 
 
 @interface SongsTableViewController ()
@@ -19,7 +20,6 @@
 
 @synthesize delegate = _delegate;
 @synthesize musicFile = _musicFile;
-
 
 #pragma mark -
 #pragma mark Initialization
@@ -70,9 +70,8 @@
 }
 */
 
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+{
     return YES;
 }
 
@@ -123,21 +122,40 @@
     return [_musicFile numberOfTracks];
 }
 
+- (id)viewFromNibNamed:(NSString *)nibName
+{
+    UIViewController * controller = [[UIViewController alloc] initWithNibName:nibName bundle:nil];
+    id view = [[controller.view retain] autorelease];
+    [controller release];
+    return view;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"CellIdentifier";
     
     // Dequeue or create a cell of the appropriate type.
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    SongTableViewCell *cell = (SongTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
+#if 0
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         cell.accessoryType = UITableViewCellAccessoryNone;
+#else
+        cell = [self viewFromNibNamed:@"SongTableViewCell"];
+#endif
     }
     
     // Configure the cell.
     TrackInfo * trackInfo = [_musicFile infoForTrack:indexPath.row];
-    cell.textLabel.text = [trackInfo song];
+#if 0
+    cell.textLabel.text = trackInfo.song;
+#else
+    cell.songLabel.text = trackInfo.song;
+    cell.artistLabel.text = trackInfo.author;
+    cell.gameLabel.text = trackInfo.game;
+    cell.copyrightLabel.text = trackInfo.copyright;
+    cell.interfaceOrientation = self.interfaceOrientation;
+#endif
     return cell;
 }
 

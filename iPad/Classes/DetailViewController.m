@@ -134,10 +134,22 @@
 #pragma mark Rotation support
 
 // Ensure that the view controller supports rotation and that the split view can therefore show in both portrait and landscape.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+{
+    // Override to allow orientations other than the default portrait orientation.
     return YES;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+    [_songsTableViewController willRotateToInterfaceOrientation:interfaceOrientation duration:duration];
+    [super willRotateToInterfaceOrientation:interfaceOrientation duration:duration];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
+{
+    [super didRotateFromInterfaceOrientation:interfaceOrientation];
+}
 
 #pragma mark -
 #pragma mark View lifecycle

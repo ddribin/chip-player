@@ -17,6 +17,8 @@
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		551FBD89118DF0F900C53418 /* SongsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 551FBD88118DF0F900C53418 /* SongsTableViewController.m */; };
+		551FBEB3118E40A800C53418 /* SongTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 551FBEB2118E40A800C53418 /* SongTableViewCell.xib */; };
+		551FBEC4118E41B900C53418 /* SongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 551FBEC3118E41B900C53418 /* SongTableViewCell.m */; };
 		558D6C311187F35F0076F130 /* GmeErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 558D6C201187F35F0076F130 /* GmeErrors.m */; };
 		558D6C321187F35F0076F130 /* GmeMusicFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 558D6C221187F35F0076F130 /* GmeMusicFile.m */; };
 		558D6C331187F35F0076F130 /* MusicEmu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 558D6C241187F35F0076F130 /* MusicEmu.mm */; };
@@ -101,6 +103,9 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		551FBD87118DF0F900C53418 /* SongsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongsTableViewController.h; sourceTree = "<group>"; };
 		551FBD88118DF0F900C53418 /* SongsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongsTableViewController.m; sourceTree = "<group>"; };
+		551FBEB2118E40A800C53418 /* SongTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongTableViewCell.xib; sourceTree = "<group>"; };
+		551FBEC2118E41B900C53418 /* SongTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongTableViewCell.h; sourceTree = "<group>"; };
+		551FBEC3118E41B900C53418 /* SongTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongTableViewCell.m; sourceTree = "<group>"; };
 		558D6C1F1187F35F0076F130 /* GmeErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GmeErrors.h; sourceTree = "<group>"; };
 		558D6C201187F35F0076F130 /* GmeErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GmeErrors.m; sourceTree = "<group>"; };
 		558D6C211187F35F0076F130 /* GmeMusicFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GmeMusicFile.h; sourceTree = "<group>"; };
@@ -288,6 +293,8 @@
 				2804200A108E984D000629CD /* DetailViewController.m */,
 				551FBD87118DF0F900C53418 /* SongsTableViewController.h */,
 				551FBD88118DF0F900C53418 /* SongsTableViewController.m */,
+				551FBEC2118E41B900C53418 /* SongTableViewCell.h */,
+				551FBEC3118E41B900C53418 /* SongTableViewCell.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -327,6 +334,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				551FBEB2118E40A800C53418 /* SongTableViewCell.xib */,
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				2804203B108E9BAB000629CD /* DetailView.xib */,
 				8D1107310486CEB800E47090 /* ChipPlayer-Info.plist */,
@@ -640,6 +648,7 @@
 			files = (
 				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
 				2804203C108E9BAB000629CD /* DetailView.xib in Resources */,
+				551FBEB3118E40A800C53418 /* SongTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,6 +727,7 @@
 				558D6EFF1187F36C0076F130 /* Ym2612_Emu.cpp in Sources */,
 				558D6F321187F6310076F130 /* DDAudioCompatibility.m in Sources */,
 				551FBD89118DF0F900C53418 /* SongsTableViewController.m in Sources */,
+				551FBEC4118E41B900C53418 /* SongTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
